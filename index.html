@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Overlapping Images</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Playfair Display -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Noto Sans KR -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Source Serif 4 -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Montserrat & Nanum Brush Script -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nanum+Brush+Script&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+    />
+    <link rel="stylesheet" href="css/root.css" />
+  </head>
+  <body>
+    <!-- ✈️ 커스텀 포인터 커서 -->
+    <div class="curzr" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <path
+          class="inner"
+          d="M25,30a5.82,5.82,0,0,1-1.09-.17l-.2-.07-7.36-3.48a.72.72,0,0,0-.35-.08.78.78,0,0,0-.33.07L8.24,29.54a.66.66,0,0,1-.2.06,5.17,5.17,0,0,1-1,.15,3.6,3.6,0,0,1-3.29-5L12.68,4.2a3.59,3.59,0,0,1,6.58,0l9,20.74A3.6,3.6,0,0,1,25,30Z"
+          fill="#F2F5F8"
+        />
+        <path
+          class="outer"
+          d="M16,3A2.59,2.59,0,0,1,18.34,4.6l9,20.74A2.59,2.59,0,0,1,25,29a5.42,5.42,0,0,1-.86-.15l-7.37-3.48a1.84,1.84,0,0,0-.77-.17,1.69,1.69,0,0,0-.73.16l-7.4,3.31a5.89,5.89,0,0,1-.79.12,2.59,2.59,0,0,1-2.37-3.62L13.6,4.6A2.58,2.58,0,0,1,16,3m0-2h0A4.58,4.58,0,0,0,11.76,3.8L2.84,24.33A4.58,4.58,0,0,0,7,30.75a6.08,6.08,0,0,0,1.21-.17,1.87,1.87,0,0,0,.4-.13L16,27.18l7.29,3.44a1.64,1.64,0,0,0,.39.14A6.37,6.37,0,0,0,25,31a4.59,4.59,0,0,0,4.21-6.41l-9-20.75A4.62,4.62,0,0,0,16,1Z"
+          fill="#111920"
+        />
+      </svg>
+    </div>
+
+    <main id="home">
+      <div id="stage">
+        <div class="card">
+          <img src="images/snapshot3.jpg" alt="Image 1" />
+        </div>
+        <div class="card">
+          <img src="images/snapshot4.jpg" alt="Image 2" />
+        </div>
+        <div class="card">
+          <img src="images/landscape1.jpg" alt="Image 3" />
+        </div>
+        <div class="card">
+          <img src="images/snapshot17.jpg" alt="Image 4" />
+        </div>
+        <div class="card">
+          <img src="images/snapshot7.jpg" alt="Image 5" />
+        </div>
+        <div class="card">
+          <img src="images/snapshot14.jpg" alt="Image 6" />
+        </div>
+        <div class="card">
+          <img src="images/KakaoTalk_20251011_035750981_01.jpg" alt="Image 7" />
+        </div>
+      </div>
+    </main>
+
+    <!-- About Section - SONOCHROME Story -->
+    <section id="about">
+      <!-- 섹션 1: SONO + MONOCHROME 개념 - 중앙 정렬 -->
+      <div class="story-section section-concept">
+
+        <div class="story-content">
+          <div class="concept-header">
+            <div class="concept-title-wrapper">
+              <div class="concept-word">
+                <h2 class="concept-eng">SONO</h2>
+                <p class="concept-kor">소리</p>
+              </div>
+              <span class="concept-plus">+</span>
+              <div class="concept-word">
+                <h2 class="concept-eng">MONOCHROME</h2>
+                <p class="concept-kor">단색의</p>
+              </div>
+            </div>
+          </div>
+
+          <h1 class="hero-title">
+            정적인 사진에, 음악을 결합한 새로운 형태의 '시청각적 아카이브'
+          </h1>
+          <p class="hero-subtitle">
+            'SONOCHROME'은 음악과 사진을 좋아하는 제가 떠올린 단순한
+            언어유희에서 시작되었습니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 섹션 2: 순간의 빛을 기록하는 사진 - 좌측 정렬 -->
+      <div class="story-section section-light align-left">
+        <div class="story-content">
+          <h2 class="section-heading">"순간의 빛을 기록하는 사진"</h2>
+          <p class="section-subtext">
+            사진 속 순간은 소리를 잃어버린 채 침묵한 형태로 남아있습니다.<br />
+            저는 이것을 아직 완성되지 않은 이야기로 보았습니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 섹션 3: 음악을 결합한 작품 - 우측 정렬 -->
+      <div class="story-section section-music align-right">
+        <div class="story-content">
+          <h2 class="section-heading">
+            "사진에 음악을 결합한 작품을 만들어 전시하자!"
+          </h2>
+          <p class="section-subtext">
+            저는 이 침묵하는 형태에 '소리'라는 수단을 부여하기로
+            결정했습니다.<br />
+            사진의 감정과 가장 어울리는 소리를 찾아 엮어주는 '질서'를 설계하는
+            것이죠
+          </p>
+        </div>
+      </div>
+
+      <!-- 섹션 4: 새로운 의미 - 좌측 정렬 -->
+      <div class="story-section section-meaning align-left">
+        <div class="story-content">
+          <h2 class="section-heading">"새로운 의미가 태어나다!"</h2>
+          <p class="section-subtext">
+            정지된 순간이 소리의 만날 때, 비로소 하나의 새로운 의미가
+            태어납니다.<br />
+            침묵하던 '순간'이 온전한 경험으로 완성되는 순간입니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 섹션 5: 4개의 악장 - 우측 정렬 -->
+      <div class="story-section section-symphony align-right">
+        <div class="story-content">
+          <h2 class="section-heading">
+            이 경험은 하나의 교향곡처럼,<br />
+            4개의 악장으로 전개됩니다.
+          </h2>
+          <p class="section-subtext">
+            각 챕터는 고유의 시사를 가지며, 고요한 시작에서부터 감정의 절정을
+            거쳐 마지막 여운에 이르기까지,<br />
+            당신의 감각을 점진적으로 이끌어낸 것입니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 섹션 6: 클로징 - 중앙 정렬 -->
+      <div class="story-section section-closing">
+        <div class="story-content">
+          <h2 class="closing-title">
+            이제, 교향곡의 첫 번째 악장으로<br />
+            당신을 초대합니다.
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="contact"
+      class="content-section"
+      style="background-color: #b5b5b5"
+    >
+      <div class="section-content">
+        <h2>Contact</h2>
+        <p>
+          이곳에 Contact 내용을 작성합니다. <br />
+          스크롤 테스트를 위한 데모 콘텐츠입니다.
+        </p>
+      </div>
+    </section>
+
+    <nav id="nav-bar" aria-label="주요 내비게이션">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#works">Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- 🎵 WHO I AM 패널 - 볼륨 노브 컨트롤 -->
+    <div id="music-control-button" aria-label="Music Control">
+      <div class="volume-ring" id="volumeRing">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle class="border-circle" cx="50" cy="50" r="45" />
+        </svg>
+        <div id="tickContainer" class="ticks"></div>
+      </div>
+      <div class="play-pause-center" id="playPauseButton">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g id="playIcon">
+            <path d="M 35 25 L 35 75 L 75 50 Z" fill="#1b1b1b" />
+          </g>
+          <g id="pauseIcon" style="display: none">
+            <rect x="32" y="25" width="12" height="50" fill="#1b1b1b" />
+            <rect x="56" y="25" width="12" height="50" fill="#1b1b1b" />
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div id="water-container"></div>
+    <div id="loading-bar"></div>
+
+    <canvas id="trail-canvas"></canvas>
+
+    <audio id="bgMusic" loop>
+      <source src="Heart Piano.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div
+      id="whoiam-button"
+      aria-label="Who I Am"
+      aria-controls="whoiam-panel"
+      aria-expanded="false"
+    >
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle class="outer-circle" cx="100" cy="100" r="110" />
+        <g class="label-text">
+          <text class="who-text" x="100" y="88" text-anchor="middle">WHO</text>
+          <text class="iam-text" x="100" y="122" text-anchor="middle">
+            I AM
+          </text>
+        </g>
+        <line class="underline" x1="55" y1="130" x2="145" y2="130" />
+      </svg>
+    </div>
+
+    <div id="whoiam-panel" aria-hidden="true">
+      <button id="close-panel" aria-label="Close Panel">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="panel-content-center-image">
+        <div class="panel-text-left">
+          <h2>
+            <span class="panel-intro-text">안녕하세요!</span>
+            I AM<br />SUNG<br />MIN<br />PARK
+          </h2>
+        </div>
+
+        <div class="panel-image-center">
+          <div class="portrait-no-bg">
+            <canvas id="portrait-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="panel-text-right">
+          <p>안녕하세요! 저는 크리에이티브 디자이너입니다.</p>
+          <p>
+            시각적 스토리텔링과 인터랙티브 경험을 통해<br />감동을 전달하는 것을
+            좋아합니다.
+          </p>
+          <div class="panel-details">
+            <div class="detail-item">
+              <h3>Skills</h3>
+              <p>
+                UI/UX Design, Web Development,<br />Motion Graphics, Brand
+                Identity
+              </p>
+            </div>
+            <div class="detail-item">
+              <h3>Experience</h3>
+              <p>
+                5+ years in creative industry<br />Working with global brands
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎵 Home 섹션 - 드래그 가능한 플레이어 -->
+    <div id="draggable-player">
+      <div class="player-handle">
+        <div class="drag-indicator">
+          <div class="drag-line"></div>
+          <div class="drag-line"></div>
+          <div class="drag-line"></div>
+        </div>
+
+        <div class="mini-play-button">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+
+        <div class="now-playing-indicator">
+          <div class="sound-bar">
+            <div class="bar paused"></div>
+            <div class="bar paused"></div>
+            <div class="bar paused"></div>
+            <div class="bar paused"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎵 플레이리스트 패널 (전체 화면) -->
+    <div id="playlist-panel">
+      <button id="close-playlist-panel" aria-label="Close Playlist Panel">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="playlist-panel-container">
+        <div class="playlist-content">
+          <div class="playlist-panel-header">
+            <h2>PLAYLIST</h2>
+            <p>다음 곡 재생목록 - 8곡</p>
+          </div>
+          <!-- 지금 재생 중 헤더 -->
+          <div class="now-playing-header">
+            <h3>지금 재생 중</h3>
+          </div>
+
+          <div class="now-playing-card">
+            <div class="now-playing-info">
+              <div class="album-art">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"
+                  />
+                </svg>
+              </div>
+              <div class="track-info">
+                <h4>Heart Piano</h4>
+                <p>Instrumental</p>
+              </div>
+            </div>
+
+            <div class="progress-container">
+              <span class="time-label">0:00</span>
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+              <span class="time-label">3:45</span>
+            </div>
+          </div>
+
+          <!-- 다음 재생 목록 헤더 -->
+          <div class="playlist-section-header">
+            <h3>다음 재생 목록</h3>
+          </div>
+
+          <div class="playlist-tracks"></div>
+
+          <!-- 플레이어 컨트롤 바 -->
+          <div class="player-controls">
+            <button class="control-btn" id="shuffle-btn" data-tooltip="셔플">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+              </svg>
+            </button>
+
+            <button class="control-btn" id="prev-btn" data-tooltip="이전 곡">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+              </svg>
+            </button>
+
+            <button
+              class="control-btn control-btn-main"
+              id="play-pause-btn"
+              data-tooltip="재생/일시정지"
+            >
+              <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg
+                class="pause-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                style="display: none"
+              >
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+              </svg>
+            </button>
+
+            <button class="control-btn" id="next-btn" data-tooltip="다음 곡">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+              </svg>
+            </button>
+
+            <button class="control-btn" id="repeat-btn" data-tooltip="반복">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M17 1l4 4-4 4" />
+                <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                <path d="M7 23l-4-4 4-4" />
+                <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- 볼륨 & 전체화면 컨트롤 -->
+          <div class="bottom-controls">
+            <div class="volume-control-simple">
+              <button
+                class="volume-icon-btn"
+                id="volume-mute-btn"
+                data-tooltip="음소거"
+              >
+                <svg class="volume-on" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"
+                  />
+                </svg>
+                <svg
+                  class="volume-off"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="display: none"
+                >
+                  <path
+                    d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"
+                  />
+                </svg>
+              </button>
+              <div class="volume-slider-simple">
+                <div class="volume-track"></div>
+                <div class="volume-fill-simple"></div>
+                <div class="volume-handle"></div>
+              </div>
+            </div>
+
+            <button
+              class="fullscreen-btn"
+              id="fullscreen-btn"
+              data-tooltip="전체화면"
+            >
+              <svg
+                class="fullscreen-enter"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+                />
+              </svg>
+              <svg
+                class="fullscreen-exit"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                style="display: none"
+              >
+                <path
+                  d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript 파일들 -->
+    <script src="js/page-init.js"></script>
+
+    <!-- 외부 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <!-- ⭐ SimplexNoise 추가 (무지개 효과용) ⭐ -->
+
+    <!-- 커스텀 JS 파일들 -->
+    <script src="js/cursor-arrow.js"></script>
+    <script src="js/cursor-trail.js"></script>
+    <script src="js/water-effect.js"></script>
+    <script src="js/whoiam-panel.js"></script>
+    <script src="js/intro.js"></script>
+    <script src="js/lenis-scroll.js"></script>
+    <script src="js/about-section.js"></script>
+
+    <!-- 🎵 통합 음악 플레이어 JS (반드시 마지막에!) -->
+    <script src="js/music-player-integrated.js"></script>
+  </body>
+</html>

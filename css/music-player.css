@@ -1,0 +1,1090 @@
+/* music-player-integrated.css */
+/* WHO I AM 볼륨 노브 + Home 드래그 플레이어 통합 버전 */
+
+/* =========================
+   🎵 WHO I AM 패널 - 볼륨 노브 (기존 유지)
+   ========================= */
+#music-control-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 90px;
+  height: 90px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+#music-control-button.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.volume-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+
+.volume-ring:active {
+  cursor: grabbing;
+}
+
+.volume-ring:hover {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.volume-ring svg {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  pointer-events: none;
+}
+
+.volume-ring .border-circle {
+  fill: transparent;
+  stroke: #ff3333;
+  stroke-width: 2;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  transform-origin: center;
+  transform: rotate(140deg);
+  animation: loop-border-svg 3s ease-in-out infinite;
+}
+
+@keyframes loop-border-svg {
+  0% {
+    stroke-dashoffset: 283;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -283;
+  }
+}
+
+.play-pause-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.play-pause-center:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.play-pause-center svg {
+  width: 30px;
+  height: 30px;
+}
+
+.play-pause-center:hover svg path,
+.play-pause-center:hover svg rect {
+  fill: #ff3333;
+}
+
+.ticks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+}
+
+.tick {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.tick:after {
+  content: "";
+  width: 3px;
+  height: 8px;
+  background-color: rgba(27, 27, 27, 0.15);
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  transition: all 180ms ease-out;
+}
+
+.activetick:after {
+  background-color: #ff3333;
+  box-shadow: 0 0 4px rgba(255, 51, 51, 0.5);
+  height: 10px;
+  transition: all 50ms ease-in;
+}
+
+/* =========================
+   🎵 Home 섹션 - 드래그 가능한 플레이어
+   ========================= */
+#draggable-player {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  width: 70px;
+  height: 140px;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  will-change: transform;
+}
+
+#draggable-player.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.player-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70px;
+  height: 140px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px 0 0 20px;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 10px;
+  transition: all 0.3s ease;
+  animation: swipe-hint 3s ease-in-out infinite;
+}
+
+/* 왼쪽으로 당기라는 힌트 애니메이션 */
+@keyframes swipe-hint {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  5% {
+    transform: translateX(-8px);
+  }
+  10% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-8px);
+  }
+  20% {
+    transform: translateX(0);
+  }
+}
+
+.player-handle:active {
+  cursor: grabbing;
+  animation: none;
+}
+
+.player-handle:hover {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -6px 0 25px rgba(0, 0, 0, 0.2);
+  animation: none;
+}
+
+.drag-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  opacity: 0.4;
+  cursor: pointer;
+  padding: 10px;
+  margin: -10px;
+  transition: all 0.3s ease;
+}
+
+.drag-indicator:hover {
+  opacity: 0.7;
+}
+
+.drag-indicator:hover .drag-line {
+  background: #ff3333;
+}
+
+.drag-line {
+  width: 20px;
+  height: 2px;
+  background: #1b1b1b;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.mini-play-button {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #ff3333 0%, #ff6666 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 51, 51, 0.3);
+}
+
+.mini-play-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(255, 51, 51, 0.4);
+}
+
+.mini-play-button svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+}
+
+.now-playing-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.sound-bar {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 16px;
+}
+
+.bar {
+  width: 2px;
+  background: #ff3333;
+  border-radius: 2px;
+  animation: soundwave 1s ease-in-out infinite;
+}
+
+.bar:nth-child(1) {
+  height: 6px;
+  animation-delay: 0s;
+}
+
+.bar:nth-child(2) {
+  height: 12px;
+  animation-delay: 0.2s;
+}
+
+.bar:nth-child(3) {
+  height: 8px;
+  animation-delay: 0.4s;
+}
+
+.bar:nth-child(4) {
+  height: 14px;
+  animation-delay: 0.6s;
+}
+
+.bar.paused {
+  animation-play-state: paused;
+}
+
+@keyframes soundwave {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+
+/* =========================
+   🎵 플레이리스트 패널 (전체 화면)
+   ========================= */
+#playlist-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 420px;
+  height: 100vh;
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
+  z-index: 20000;
+  transform: translateX(100%);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  color: white;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#playlist-panel.active {
+  transform: translateX(0);
+}
+
+#close-playlist-panel {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+#close-playlist-panel:hover {
+  background: rgba(255, 51, 51, 0.2);
+  transform: rotate(90deg);
+}
+
+#close-playlist-panel svg {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+#close-playlist-panel:hover svg {
+  color: #ff3333;
+}
+
+.playlist-panel-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 25px;
+}
+
+.playlist-content {
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.playlist-panel-header {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.playlist-panel-header h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.playlist-panel-header p {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+/* 섹션 헤더 */
+.now-playing-header {
+  margin-bottom: 6px;
+  margin-top: 0;
+}
+
+.playlist-section-header {
+  margin-bottom: 6px;
+  margin-top: 8px;
+}
+
+.now-playing-header h3,
+.playlist-section-header h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.now-playing-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 51, 51, 0.15) 0%,
+    rgba(255, 102, 102, 0.08) 100%
+  );
+  border-radius: 16px;
+  padding: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.now-playing-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.album-art {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ff3333, #ff6666);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.album-art svg {
+  width: 30px;
+  height: 30px;
+  fill: white;
+}
+
+.track-info h4 {
+  font-size: 1.65rem;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+  color: white;
+}
+
+.track-info p {
+  font-size: 1.35rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.time-label {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.5);
+  min-width: 45px;
+  font-family: "Courier New", monospace;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+  transition: height 0.2s ease;
+}
+
+.progress-bar:hover {
+  height: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff3333, #ff6666);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.1s linear;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.progress-bar:hover .progress-fill::after {
+  opacity: 1;
+}
+
+.playlist-tracks {
+  flex: 1;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.playlist-tracks::-webkit-scrollbar {
+  width: 8px;
+}
+
+.playlist-tracks::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.playlist-tracks::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.playlist-tracks::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.track-item {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 10px;
+  border-left: 3px solid transparent;
+}
+
+.track-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.track-item.active {
+  background: rgba(255, 51, 51, 0.15);
+  border-left-color: #ff3333;
+}
+
+.track-album-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.track-album-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.track-number {
+  width: 30px;
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  font-weight: 600;
+}
+
+.track-item.active .track-number {
+  color: #ff3333;
+}
+
+.track-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.track-details .track-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-details .track-artist {
+  font-size: 1.25rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-duration {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: "Courier New", monospace;
+}
+
+/* =========================
+   🎵 플레이어 컨트롤 바
+   ========================= */
+.player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.control-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+.control-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.control-btn-main {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff3333, #ff6666);
+  box-shadow: 0 4px 12px rgba(255, 51, 51, 0.3);
+}
+
+.control-btn-main:hover {
+  background: linear-gradient(135deg, #ff4444, #ff7777);
+  box-shadow: 0 6px 16px rgba(255, 51, 51, 0.4);
+  transform: scale(1.1);
+}
+
+.control-btn-main svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* 활성화된 버튼 스타일 */
+.control-btn.active {
+  background: rgba(255, 51, 51, 0.3);
+  color: #ff3333;
+}
+
+.control-btn.active svg {
+  stroke: #ff3333;
+}
+
+/* 툴팁 */
+.control-btn::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.control-btn::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover::before,
+.control-btn:hover::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* 기존 볼륨 컨트롤 (사용 안 함) */
+.volume-control {
+  display: none;
+}
+
+/* =========================
+   🎵 하단 컨트롤 (볼륨 + 전체화면)
+   ========================= */
+.bottom-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 심플 볼륨 컨트롤 */
+.volume-control-simple {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.volume-icon-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.volume-icon-btn:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+.volume-icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* 볼륨 슬라이더 */
+.volume-slider-simple {
+  flex: 1;
+  height: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+.volume-track {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.volume-fill-simple {
+  position: absolute;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  width: 30%;
+  transition: width 0.1s ease;
+}
+
+.volume-handle {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+
+.volume-slider-simple:hover .volume-handle {
+  opacity: 1;
+}
+
+/* 전체화면 버튼 */
+.fullscreen-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fullscreen-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.fullscreen-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 전체화면 모드 */
+#playlist-panel.fullscreen {
+  width: 100vw;
+}
+
+.fullscreen-btn::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  transform: scale(0);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.fullscreen-btn::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 2px);
+  right: 8px;
+  transform: scale(0);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.fullscreen-btn:hover::before,
+.fullscreen-btn:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.volume-icon-btn::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.volume-icon-btn::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.volume-icon-btn:hover::before,
+.volume-icon-btn:hover::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 767px) {
+  /* WHO I AM 볼륨 노브 */
+  #music-control-button {
+    bottom: 20px;
+    right: 20px;
+    width: 75px;
+    height: 75px;
+  }
+
+  .play-pause-center {
+    width: 40px;
+    height: 40px;
+  }
+
+  .play-pause-center svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Home 드래그 플레이어 */
+  #draggable-player {
+    width: 60px;
+    height: 120px;
+  }
+
+  .player-handle {
+    width: 60px;
+    height: 120px;
+    border-radius: 15px 0 0 15px;
+  }
+
+  .mini-play-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .mini-play-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* 플레이리스트 패널 */
+  #playlist-panel {
+    width: 100vw;
+  }
+
+  .playlist-panel-container {
+    padding: 30px 20px;
+  }
+
+  .playlist-content {
+    gap: 15px;
+  }
+
+  .now-playing-card {
+    padding: 18px;
+  }
+
+  .album-art {
+    width: 55px;
+    height: 55px;
+  }
+
+  .album-art svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .track-item {
+    padding: 12px 15px;
+  }
+
+  .volume-control {
+    padding: 16px;
+  }
+
+  /* 플레이어 컨트롤 */
+  .player-controls {
+    gap: 6px;
+    padding: 16px 12px;
+  }
+
+  .control-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .control-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .control-btn-main {
+    width: 44px;
+    height: 44px;
+  }
+
+  .control-btn-main svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* 하단 컨트롤 */
+  .bottom-controls {
+    padding: 12px 15px;
+  }
+
+  .track-album-thumb {
+    width: 40px;
+    height: 40px;
+  }
+}

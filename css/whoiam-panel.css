@@ -1,0 +1,247 @@
+/* whoiam-panel.css */
+
+/* WHO I AM ë²„íŠ¼ */
+#whoiam-button {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  width: 110px;
+  height: 110px;
+  cursor: pointer;
+  z-index: 9999;
+  opacity: 0;
+  will-change: opacity, transform, top;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+#whoiam-button svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+#whoiam-button .outer-circle {
+  fill: transparent;
+  stroke: #ff3333;
+  stroke-width: 4.5;
+  transition: all 0.3s ease;
+  stroke-dasharray: 691.15;
+  stroke-dashoffset: 691.15;
+  transform-origin: center;
+  transform: rotate(-90deg);
+  animation: loop-border 3s ease-in-out infinite;
+}
+
+#whoiam-button .label-text text {
+  fill: #1b1b1b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#whoiam-button .label-text .who-text {
+  letter-spacing: 0.35em;
+}
+
+#whoiam-button .label-text .iam-text {
+  letter-spacing: 0.25em;
+}
+
+#whoiam-button .underline {
+  stroke: #1b1b1b;
+  stroke-width: 1;
+  transition: all 0.3s ease;
+}
+
+#whoiam-button:hover .label-text text {
+  fill: #ff3333;
+  stroke: #ff3333;
+  stroke-width: 1;
+}
+
+#whoiam-button:hover .underline {
+  stroke: #ff3333;
+}
+
+@keyframes loop-border {
+  0% {
+    stroke-dashoffset: 691.15;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -691.15;
+  }
+}
+
+/* WHO I AM íŒ¨ë„ ì „ì²´ */
+#whoiam-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.15);
+  z-index: 2000;
+  transform: translateX(-100%);
+  transition: transform 1s linear;
+  overflow: hidden;
+}
+
+#whoiam-panel.active {
+  transform: translateX(0);
+}
+
+/* íŒ¨ë„ ë‹«ê¸° ë²„íŠ¼ */
+#close-panel {
+  position: absolute;
+  top: clamp(2rem, 1.56vw, 3rem);
+  right: clamp(2rem, 1.56vw, 3rem);
+  width: clamp(3.5rem, 2.08vw, 4rem);
+  height: clamp(3.5rem, 2.08vw, 4rem);
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+#close-panel:hover {
+  background: rgba(255, 51, 51, 0.1);
+  transform: rotate(90deg);
+}
+
+#close-panel svg {
+  color: #1b1b1b;
+  transition: color 0.3s ease;
+}
+
+#close-panel:hover svg {
+  color: #ff3333;
+}
+
+/* íŒ¨ë„ ì»¨í…Œì´ë„ˆ */
+.panel-content-center-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ì™¼ìª½ í…ìŠ¤íŠ¸ */
+.panel-text-left {
+  position: absolute;
+  left: 11vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.panel-text-left h2 {
+  position: relative;
+  font-size: clamp(4.5rem, 6vw, 10rem);
+  font-weight: 900;
+  font-family: "Montserrat", sans-serif;
+  color: #1b1b1b;
+  line-height: 0.9;
+  text-align: left;
+  margin: 0;
+}
+
+/* "ì•ˆë…•í•˜ì„¸ìš”!" ë¸ŒëŸ¬ì‹œ í…ìŠ¤íŠ¸ */
+.panel-text-left .panel-intro-text {
+  position: absolute;
+  font-size: clamp(2rem, 2.5vw, 4.5rem);
+  font-weight: 500;
+  font-family: "Nanum Brush Script", cursive;
+  color: #1b1b1b;
+  transform: rotate(-8deg);
+  top: -0.7em;
+  left: -0.5em;
+  opacity: 0.85;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  z-index: -1;
+}
+
+/* ì¤‘ì•™ ì¸ë¬¼ ì´ë¯¸ì§€ */
+.panel-image-center {
+  position: absolute;
+  left: 48%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 45vw;
+  height: 90vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1;
+}
+
+.portrait-no-bg {
+  width: 100%;
+  height: 100%;
+  will-change: transform, opacity;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#portrait-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ì˜¤ë¥¸ìª½ ì„¤ëª… í…ìŠ¤íŠ¸ */
+.panel-text-right {
+  position: absolute;
+  right: 5vw;
+  top: 15vh;
+  width: 25vw;
+  max-width: 500px;
+  min-width: 250px;
+  z-index: 2;
+}
+
+.panel-text-right p {
+  font-size: clamp(1.4rem, 1.2vw, 2rem);
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: clamp(1.5rem, 1.3vw, 2.5rem);
+}
+
+.panel-details {
+  margin-top: clamp(2rem, 2vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 1.5vw, 3rem);
+}
+
+.detail-item h3 {
+  font-size: clamp(1.8rem, 1.5vw, 2.2rem);
+  font-weight: 700;
+  color: #1b1b1b;
+  margin-bottom: clamp(1rem, 0.8vw, 1.5rem);
+}
+
+.detail-item p {
+  font-size: clamp(1.4rem, 1.1vw, 1.6rem);
+  line-height: 1.6;
+  color: #888;
+}
