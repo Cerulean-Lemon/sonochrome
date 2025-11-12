@@ -6,6 +6,8 @@
    ========================= */
 #music-control-button {
   position: fixed;
+  top: auto !important;
+  left: auto !important;
   bottom: 30px;
   right: 30px;
   width: 90px;
@@ -45,7 +47,7 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
-.volume-ring svg {
+.volume-ring > svg {
   position: absolute;
   top: -12px;
   left: -12px;
@@ -77,11 +79,11 @@
   }
 }
 
-.play-pause-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+#music-control-button .play-pause-center {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   width: 50px;
   height: 50px;
   background: rgba(255, 255, 255, 0.9);
@@ -95,18 +97,18 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.play-pause-center:hover {
+#music-control-button .play-pause-center:hover {
   background: rgba(255, 255, 255, 1);
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1) !important;
 }
 
-.play-pause-center svg {
+#music-control-button .play-pause-center svg {
   width: 30px;
   height: 30px;
 }
 
-.play-pause-center:hover svg path,
-.play-pause-center:hover svg rect {
+#music-control-button .play-pause-center:hover svg path,
+#music-control-button .play-pause-center:hover svg rect {
   fill: #ff3333;
 }
 
@@ -985,14 +987,14 @@
     height: 75px;
   }
 
-  .play-pause-center {
-    width: 40px;
-    height: 40px;
+  #music-control-button .play-pause-center {
+    width: 40px !important;
+    height: 40px !important;
   }
 
-  .play-pause-center svg {
-    width: 24px;
-    height: 24px;
+  #music-control-button .play-pause-center svg {
+    width: 24px !important;
+    height: 24px !important;
   }
 
   /* Home 드래그 플레이어 */
@@ -1086,5 +1088,44 @@
   .track-album-thumb {
     width: 40px;
     height: 40px;
+  }
+}
+/* ========================================
+   🔧 플레이 아이콘 위치 수정 패치
+   ======================================== */
+
+/* play-pause-center 내부 SVG 아이콘 위치 리셋 */
+#music-control-button .play-pause-center svg {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  width: 24px !important;
+  height: 24px !important;
+  /* display는 JavaScript로 제어하므로 !important 제거 */
+  display: block;
+}
+
+/* 플레이 아이콘 미세 조정 (삼각형을 시각적 중앙에) */
+#music-control-button .play-pause-center #playIcon {
+  margin-left: 2px;
+  display: block; /* 초기값: 플레이 아이콘 표시 */
+}
+
+/* 일시정지 아이콘 */
+#music-control-button .play-pause-center #pauseIcon {
+  margin-left: 0;
+  display: none; /* 초기값: 일시정지 아이콘 숨김 */
+}
+
+/* 반응형 디자인에서도 위치 유지 */
+@media (max-width: 768px) {
+  #music-control-button .play-pause-center svg {
+    width: 20px !important;
+    height: 20px !important;
+    /* display는 JavaScript로 제어 */
+  }
+  
+  #music-control-button .play-pause-center #playIcon {
+    margin-left: 1px;
   }
 }

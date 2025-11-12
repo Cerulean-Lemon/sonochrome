@@ -32,7 +32,16 @@
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
     />
+    <link rel="stylesheet" href="intro-cursor-hide.css">
     <link rel="stylesheet" href="css/root.css" />
+    <!-- 🎵 Music Player CSS 추가 -->
+    <link rel="stylesheet" href="css/music-player.css" />
+    <!-- 🎬 Works Section CSS -->
+    <link rel="stylesheet" href="css/works-section.css" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   </head>
   <body>
     <!-- ✈️ 커스텀 포인터 커서 -->
@@ -77,11 +86,39 @@
       </div>
     </main>
 
+    <!-- 🎬 About Intro Section - Parallax -->
+    <section id="about-intro">
+      <!-- 🎯 카드+텍스트가 보이는 위치 앵커 -->
+      <div id="about-cards-view" style="position: absolute; top: 25%; pointer-events: none;"></div>
+      <div class="intro-container">
+        <!-- 배경 카드들 - 2개만 -->
+        <div class="intro-cards">
+          <!-- 왼쪽: 흑백 사진 -->
+          <div class="intro-card card-left" data-card="photo">
+            <img src="images/snapshot3.jpg" alt="Photo" />
+          </div>
+
+          <!-- 오른쪽: 컬러 음악 이미지 -->
+          <div class="intro-card card-right" data-card="music">
+            <img src="images/about-cardimg3.jpg" alt="Music" />
+          </div>
+        </div>
+
+        <!-- 텍스트 레이어 -->
+        <div class="intro-text-layers">
+          
+          <!-- 사진에 음악을 결합하다 텍스트 -->
+          <div class="intro-text intro-text-subtitle">
+            <h2 class="intro-title">사진에 음악을 결합하다</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- About Section - SONOCHROME Story -->
     <section id="about">
       <!-- 섹션 1: SONO + MONOCHROME 개념 - 중앙 정렬 -->
       <div class="story-section section-concept">
-
         <div class="story-content">
           <div class="concept-header">
             <div class="concept-title-wrapper">
@@ -92,71 +129,90 @@
               <span class="concept-plus">+</span>
               <div class="concept-word">
                 <h2 class="concept-eng">MONOCHROME</h2>
-                <p class="concept-kor">단색의</p>
+                <p class="concept-kor">흑백사진</p>
               </div>
             </div>
           </div>
 
           <h1 class="hero-title">
-            정적인 사진에, 음악을 결합한 새로운 형태의 '시청각적 아카이브'
+            Sonochrome은 사진과 어울리는 음악을 찾아 만든 시청각 아카이브입니다.
           </h1>
-          <p class="hero-subtitle">
-            'SONOCHROME'은 음악과 사진을 좋아하는 제가 떠올린 단순한
-            언어유희에서 시작되었습니다.
-          </p>
         </div>
       </div>
 
-      <!-- 섹션 2: 순간의 빛을 기록하는 사진 - 좌측 정렬 -->
+      <!-- 섹션 2: 순간의 소리를 찾아서 - 좌측 텍스트 + 우측 이미지 -->
       <div class="story-section section-light align-left">
         <div class="story-content">
-          <h2 class="section-heading">"순간의 빛을 기록하는 사진"</h2>
+          <h2 class="section-heading">순간의 소리를 찾아서</h2>
           <p class="section-subtext">
-            사진 속 순간은 소리를 잃어버린 채 침묵한 형태로 남아있습니다.<br />
-            저는 이것을 아직 완성되지 않은 이야기로 보았습니다.
+            사진들은 순간의 소리를 잃고 침묵하곤합니다<br />
+            이곳에서 우리는 사진 속 잃어버린 소리를 찾는 여정을 떠납니다
           </p>
+        </div>
+        
+        <!-- 📸 Interactive Image - Right -->
+        <div class="story-image-container image-right">
+          <div class="story-image-wrapper reveal-right">
+            <img src="images/about-section1.jpg" alt="순간의 소리" class="story-image" />
+            <div class="image-overlay"></div>
+          </div>
         </div>
       </div>
 
-      <!-- 섹션 3: 음악을 결합한 작품 - 우측 정렬 -->
+      <!-- 섹션 3: 음악을 더하다 - 우측 텍스트 + 좌측 이미지 -->
       <div class="story-section section-music align-right">
         <div class="story-content">
-          <h2 class="section-heading">
-            "사진에 음악을 결합한 작품을 만들어 전시하자!"
-          </h2>
+          <h2 class="section-heading">음악을 더하다</h2>
           <p class="section-subtext">
-            저는 이 침묵하는 형태에 '소리'라는 수단을 부여하기로
-            결정했습니다.<br />
-            사진의 감정과 가장 어울리는 소리를 찾아 엮어주는 '질서'를 설계하는
-            것이죠
+            침묵한 사진 속 어울리는 소리를 찾아<br />
+            감성적인 사운드스케이프를 완성합니다
           </p>
+        </div>
+        
+        <!-- 📸 Interactive Image - Left -->
+        <div class="story-image-container image-left">
+          <div class="story-image-wrapper reveal-left">
+            <img src="images/about-section2.jpg" alt="음악을 더하다" class="story-image" />
+            <div class="image-overlay"></div>
+          </div>
         </div>
       </div>
 
-      <!-- 섹션 4: 새로운 의미 - 좌측 정렬 -->
+      <!-- 섹션 4: 새로운 경험 - 좌측 텍스트 + 우측 이미지 -->
       <div class="story-section section-meaning align-left">
         <div class="story-content">
-          <h2 class="section-heading">"새로운 의미가 태어나다!"</h2>
+          <h2 class="section-heading">새로운 경험</h2>
           <p class="section-subtext">
-            정지된 순간이 소리의 만날 때, 비로소 하나의 새로운 의미가
-            태어납니다.<br />
-            침묵하던 '순간'이 온전한 경험으로 완성되는 순간입니다.
+            시각과 청각이 하나 되어<br />
+            다시 태어난 작품들을 감상해보세요
           </p>
+        </div>
+        
+        <!-- 📸 Interactive Image - Right -->
+        <div class="story-image-container image-right">
+          <div class="story-image-wrapper reveal-right">
+            <img src="images/about-section3.jpg" alt="새로운 경험" class="story-image" />
+            <div class="image-overlay"></div>
+          </div>
         </div>
       </div>
 
-      <!-- 섹션 5: 4개의 악장 - 우측 정렬 -->
+      <!-- 섹션 5: 4개의 악장 - 우측 텍스트 + 좌측 이미지 -->
       <div class="story-section section-symphony align-right">
         <div class="story-content">
-          <h2 class="section-heading">
-            이 경험은 하나의 교향곡처럼,<br />
-            4개의 악장으로 전개됩니다.
-          </h2>
+          <h2 class="section-heading">4개의 악장</h2>
           <p class="section-subtext">
-            각 챕터는 고유의 시사를 가지며, 고요한 시작에서부터 감정의 절정을
-            거쳐 마지막 여운에 이르기까지,<br />
-            당신의 감각을 점진적으로 이끌어낸 것입니다.
+            네 가지 테마로 구성된 시청각 여정<br />
+            각 악장이 펼쳐내는 감정의 스펙트럼을 경험하세요
           </p>
+        </div>
+        
+        <!-- 📸 Interactive Image - Left -->
+        <div class="story-image-container image-left">
+          <div class="story-image-wrapper reveal-left">
+            <img src="images/about-section4.jpg" alt="4개의 악장" class="story-image" />
+            <div class="image-overlay"></div>
+          </div>
         </div>
       </div>
 
@@ -164,12 +220,310 @@
       <div class="story-section section-closing">
         <div class="story-content">
           <h2 class="closing-title">
-            이제, 교향곡의 첫 번째 악장으로<br />
-            당신을 초대합니다.
+            자! 이제 첫 번째 악장이 시작됩니다<br />
           </h2>
         </div>
       </div>
     </section>
+
+    <!-- ============================================
+         🎵 WORKS SECTION - 15개 카드로 확장
+         ============================================ -->
+    <section id="works">
+        <!-- Section Header -->
+        <div class="works-header">
+            <h1 class="works-title">WORKS</h1>
+            <p class="works-subtitle">사진과 음악이 만나 완성된 시청각 여정</p>
+        </div>
+
+        <!-- Movement I: 정적 (Static) - Blur 효과 적용 -->
+        <div class="movement-section movement-static">
+            <div class="movement-header">
+                <span class="movement-label">Movement I</span>
+                <h2 class="movement-title">정적 靜寂</h2>
+                <p class="movement-description">
+                    고요함 속에서 시작되는 이야기.<br>
+                    침묵의 순간들이 만들어내는 깊은 울림.
+                </p>
+            </div>
+
+            <!-- Swiper Carousel -->
+            <div class="works-carousel-wrapper">
+                <div class="swiper workSwiper1">
+                    <div class="swiper-wrapper">
+                        <!-- Work Card 1 -->
+                        <div class="swiper-slide">
+                            <a href="images/snapshot7.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/snapshot7.jpg" alt="Bridge at Dusk" class="work-image">
+                                <div class="work-description">
+                                    <h3>황혼의 다리</h3>
+                                    <span>고요한 풍경</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 2 -->
+                        <div class="swiper-slide">
+                            <a href="images/snapshot8.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/snapshot8.jpg" alt="Empty Street" class="work-image">
+                                <div class="work-description">
+                                    <h3>빈 거리</h3>
+                                    <span>도시의 침묵</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 3 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-3.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-3.jpg" alt="Foggy Morning" class="work-image">
+                                <div class="work-description">
+                                    <h3>안개 낀 아침</h3>
+                                    <span>몽환적 순간</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 4 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-4.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-4.jpg" alt="Silent Harbor" class="work-image">
+                                <div class="work-description">
+                                    <h3>고요한 항구</h3>
+                                    <span>정적의 미학</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 5 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-5.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-5.jpg" alt="Winter Solitude" class="work-image">
+                                <div class="work-description">
+                                    <h3>겨울의 고독</h3>
+                                    <span>차가운 감성</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 6 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-6.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-6.jpg" alt="Quiet Alley" class="work-image">
+                                <div class="work-description">
+                                    <h3>조용한 골목</h3>
+                                    <span>숨겨진 이야기</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 7 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-7.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-7.jpg" alt="Abandoned Station" class="work-image">
+                                <div class="work-description">
+                                    <h3>버려진 역</h3>
+                                    <span>시간의 흔적</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 8 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-8.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-8.jpg" alt="Still Lake" class="work-image">
+                                <div class="work-description">
+                                    <h3>고요한 호수</h3>
+                                    <span>반영의 아름다움</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 9 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-9.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-9.jpg" alt="Dawn Silence" class="work-image">
+                                <div class="work-description">
+                                    <h3>새벽의 침묵</h3>
+                                    <span>시작의 순간</span>
+                                </div>
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 10 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-10.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-10.jpg" alt="Frozen Moment" class="work-image">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 11 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-11.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-11.jpg" alt="Empty Bench" class="work-image">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 12 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-12.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-12.jpg" alt="Misty Forest" class="work-image">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 13 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-13.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-13.jpg" alt="Quiet Corner" class="work-image">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 14 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-14.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-14.jpg" alt="Serene Path" class="work-image">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Work Card 15 -->
+                        <div class="swiper-slide">
+                            <a href="images/work1-15.jpg" 
+                               class="glightbox work-card" 
+                               
+                               >
+                                <img src="images/work1-15.jpg" alt="Twilight Calm" class="work-image">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <div class="play-icon"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    
+                    <!-- Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section
       id="contact"
@@ -188,42 +542,27 @@
     <nav id="nav-bar" aria-label="주요 내비게이션">
       <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#about-cards-view">About</a></li>
         <li><a href="#works">Works</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
 
-    <!-- 🎵 WHO I AM 패널 - 볼륨 노브 컨트롤 -->
-    <div id="music-control-button" aria-label="Music Control">
-      <div class="volume-ring" id="volumeRing">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle class="border-circle" cx="50" cy="50" r="45" />
-        </svg>
-        <div id="tickContainer" class="ticks"></div>
-      </div>
-      <div class="play-pause-center" id="playPauseButton">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <g id="playIcon">
-            <path d="M 35 25 L 35 75 L 75 50 Z" fill="#1b1b1b" />
-          </g>
-          <g id="pauseIcon" style="display: none">
-            <rect x="32" y="25" width="12" height="50" fill="#1b1b1b" />
-            <rect x="56" y="25" width="12" height="50" fill="#1b1b1b" />
-          </g>
-        </svg>
-      </div>
-    </div>
-
+    <!-- 💧 Water Effect Container -->
     <div id="water-container"></div>
+
+    <!-- 📊 Loading Bar -->
     <div id="loading-bar"></div>
 
+    <!-- 🎨 Trail Canvas -->
     <canvas id="trail-canvas"></canvas>
 
+    <!-- 🎵 숨겨진 오디오 엘리먼트 -->
     <audio id="bgMusic" loop>
       <source src="Heart Piano.mp3" type="audio/mpeg" />
     </audio>
 
+    <!-- 👤 WHO I AM Button -->
     <div
       id="whoiam-button"
       aria-label="Who I Am"
@@ -242,6 +581,7 @@
       </svg>
     </div>
 
+    <!-- 👤 WHO I AM Panel -->
     <div id="whoiam-panel" aria-hidden="true">
       <button id="close-panel" aria-label="Close Panel">
         <svg
@@ -296,7 +636,35 @@
       </div>
     </div>
 
-    <!-- 🎵 Home 섹션 - 드래그 가능한 플레이어 -->
+    <!-- 🎵 WHO I AM 패널 - 볼륨 노브 컨트롤 -->
+    <div id="music-control-button" aria-label="Music Control">
+      <div class="volume-ring" id="volumeRing">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle class="border-circle" cx="50" cy="50" r="45" />
+        </svg>
+        <div class="ticks" id="tickContainer"></div>
+        <div class="play-pause-center" id="playPauseButton">
+          <svg
+            id="playIcon"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M8 5v14l11-7z" fill="#1b1b1b" />
+          </svg>
+          <svg
+            id="pauseIcon"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            style="display: none"
+          >
+            <rect x="6" y="4" width="4" height="16" fill="#1b1b1b" />
+            <rect x="14" y="4" width="4" height="16" fill="#1b1b1b" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎵 Home 섹션 - 드래그 가능한 미니 플레이어 (3단계) -->
     <div id="draggable-player">
       <div class="player-handle">
         <div class="drag-indicator">
@@ -511,8 +879,6 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
-    <!-- ⭐ SimplexNoise 추가 (무지개 효과용) ⭐ -->
-
     <!-- 커스텀 JS 파일들 -->
     <script src="js/cursor-arrow.js"></script>
     <script src="js/cursor-trail.js"></script>
@@ -521,8 +887,17 @@
     <script src="js/intro.js"></script>
     <script src="js/lenis-scroll.js"></script>
     <script src="js/about-section.js"></script>
+    <script src="js/works-section.js"></script>
 
     <!-- 🎵 통합 음악 플레이어 JS (반드시 마지막에!) -->
+    <!-- ⚠️ intro.js가 이미 initHomeDraggablePlayer()를 호출하므로 여기서는 중복 호출 방지 -->
     <script src="js/music-player-integrated.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- GLightbox JS -->
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    
+    <!-- 🎵 Works-Music 통합 시스템 (반드시 GLightbox 이후에 로드) -->
+    <script src="js/works-music-integration.js"></script>
   </body>
 </html>

@@ -214,13 +214,32 @@ AudioManager.init();
 /* =========================
    🎵 WHO I AM 패널 - 볼륨 노브 컨트롤
    ========================= */
+
+// 🎯 초기화 여부를 추적하는 플래그
+let isWhoIAmMusicControlInitialized = false;
+
 function initWhoIAmMusicControl() {
+  // 🔧 이미 초기화되었으면 스킵 (이벤트 리스너 중복 방지)
+  if (isWhoIAmMusicControlInitialized) {
+    console.log("WHO I AM Music Control already initialized");
+    return;
+  }
+
   const musicButton = document.getElementById("music-control-button");
   const volumeRing = document.getElementById("volumeRing");
   const playPauseButton = document.getElementById("playPauseButton");
   const tickContainer = document.getElementById("tickContainer");
 
   if (!musicButton) return;
+
+  // 🎯 초기 아이콘 상태 설정 - 중요!
+  const playIcon = document.getElementById("playIcon");
+  const pauseIcon = document.getElementById("pauseIcon");
+  if (playIcon && pauseIcon) {
+    // 초기에는 플레이 아이콘만 보이도록
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
+  }
 
   let isDragging = false;
   let volumeSetting = 30;
@@ -334,6 +353,10 @@ function initWhoIAmMusicControl() {
     const tickHighlightPosition = Math.round((volumeSetting * 2.7) / 10);
     createTicks(27, tickHighlightPosition);
   };
+
+  // 🎯 초기화 완료 플래그 설정
+  isWhoIAmMusicControlInitialized = true;
+  console.log("WHO I AM Music Control initialized successfully");
 }
 
 /* =========================
@@ -565,11 +588,17 @@ function initHomeDraggablePlayer() {
   // 플레이어 컨트롤 버튼 초기화
   initPlayerControls();
 
+  // ✨ 초기 플레이리스트를 AudioManager.playlist에 복사
+  if (AudioManager.playlist.length === 0) {
+    AudioManager.playlist = [...playlist];
+    console.log('🎵 Initialized AudioManager.playlist with', AudioManager.playlist.length, 'tracks');
+  }
+
   // 플레이리스트 렌더링
   renderPlaylist();
 
   // 첫 곡 로드
-  AudioManager.loadTrack(0, playlist);
+  AudioManager.loadTrack(0, AudioManager.playlist);
   updateNowPlaying();
 }
 
@@ -846,18 +875,26 @@ function updatePlayPauseButton() {
   }
 }
 
-// 플레이리스트 UI 업데이트
+// ✨ 플레이리스트 UI 업데이트 - 전체 재렌더링으로 수정
 function updatePlaylistUI() {
-  document.querySelectorAll(".track-item").forEach((item, i) => {
-    item.classList.toggle("active", i === AudioManager.currentTrackIndex);
-  });
+  console.log('🔄 updatePlaylistUI called - Rendering full playlist');
+  console.log('📊 AudioManager.playlist length:', AudioManager.playlist.length);
+  renderPlaylist();
 }
 
 function renderPlaylist() {
   const container = document.querySelector(".playlist-tracks");
-  if (!container) return;
+  if (!container) {
+    console.warn('⚠️ playlist-tracks container not found');
+    return;
+  }
 
-  container.innerHTML = playlist
+  // ✨ AudioManager.playlist 사용 (동적으로 추가된 곡들 포함)
+  const playlistToRender = AudioManager.playlist.length > 0 ? AudioManager.playlist : playlist;
+  
+  console.log('🎵 Rendering playlist with', playlistToRender.length, 'tracks');
+
+  container.innerHTML = playlistToRender
     .map(
       (track, index) => `
         <div class="track-item ${
@@ -886,10 +923,12 @@ function renderPlaylist() {
       playTrack(index);
     });
   });
+  
+  console.log('✅ Playlist rendered with', container.querySelectorAll('.track-item').length, 'items');
 }
 
 function playTrack(index) {
-  AudioManager.loadTrack(index, playlist);
+  AudioManager.loadTrack(index, AudioManager.playlist);
   AudioManager.play();
 
   document.querySelectorAll(".track-item").forEach((item, i) => {
@@ -900,7 +939,7 @@ function playTrack(index) {
 }
 
 function updateNowPlaying() {
-  const track = playlist[AudioManager.currentTrackIndex];
+  const track = AudioManager.playlist[AudioManager.currentTrackIndex];
   if (!track) return;
 
   // Now Playing 카드 정보 업데이트
@@ -928,8 +967,25 @@ window.showWhoIAmMusicControl = function () {
       ease: "power2.out",
       delay: 0.5,
     });
+    
+    // 🎯 패널을 다시 열 때 현재 재생 상태에 맞춰 아이콘 업데이트
+    const playIcon = document.getElementById("playIcon");
+    const pauseIcon = document.getElementById("pauseIcon");
+    if (playIcon && pauseIcon) {
+      if (AudioManager.isPlaying) {
+        playIcon.style.display = "none";
+        pauseIcon.style.display = "block";
+      } else {
+        playIcon.style.display = "block";
+        pauseIcon.style.display = "none";
+      }
+    }
   }
-  initWhoIAmMusicControl();
+  
+  // 🔧 초기화는 한 번만 수행
+  if (!isWhoIAmMusicControlInitialized) {
+    initWhoIAmMusicControl();
+  }
 };
 
 window.hideWhoIAmMusicControl = function () {
@@ -945,3 +1001,23 @@ window.hideWhoIAmMusicControl = function () {
     });
   }
 };
+
+// 🎯 페이지 로드 시 WHO I AM Music Control 초기화
+document.addEventListener("DOMContentLoaded", function() {
+  // WHO I AM 패널이 열려있지 않아도 미리 초기화
+  // 이렇게 하면 패널을 처음 열 때도 바로 작동합니다
+  setTimeout(() => {
+    if (!isWhoIAmMusicControlInitialized) {
+      console.log("Initializing WHO I AM Music Control on page load...");
+      initWhoIAmMusicControl();
+    }
+  }, 500); // GSAP 등 다른 라이브러리 로드 대기
+});
+
+// ============================================
+// 🌍 전역 객체 노출 (다른 스크립트에서 사용 가능)
+// ============================================
+window.AudioManager = AudioManager;
+window.updateNowPlaying = updateNowPlaying;
+window.updatePlaylistUI = updatePlaylistUI;
+window.updatePlayPauseButton = updatePlayPauseButton;

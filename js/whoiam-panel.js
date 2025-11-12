@@ -23,6 +23,12 @@ function initWhoIAmButton() {
     if (isPanelOpen) return;
     isPanelOpen = true;
 
+    // 현재 스크롤 위치 저장
+    scrollYBeforeLock = window.scrollY || window.pageYOffset;
+
+    // panel-active 클래스 추가 (position을 fixed로 전환)
+    whoAmIButton.classList.add("panel-active");
+
     whoAmIButton.style.transform = "translateY(0px)";
 
     whoAmIPanel.classList.add("active");
@@ -39,7 +45,6 @@ function initWhoIAmButton() {
 
     navBar.classList.add("hidden");
 
-    scrollYBeforeLock = window.scrollY || window.pageYOffset;
     document.body.classList.add("lock-scroll");
     document.body.style.position = "fixed";
     document.body.style.top = `-${scrollYBeforeLock}px`;
@@ -87,6 +92,8 @@ function initWhoIAmButton() {
       ease: "none",
       onComplete: () => {
         whoAmIButton.style.transform = "translateY(0px)";
+        // panel-active 클래스 제거 (다시 absolute로 복원)
+        whoAmIButton.classList.remove("panel-active");
       },
     });
 

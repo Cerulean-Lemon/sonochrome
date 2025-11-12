@@ -129,13 +129,13 @@
     height: 75px;
   }
 
-  .play-pause-center {
-    width: 40px;
-    height: 40px;
+  #music-control-button .play-pause-center {
+    width: 40px !important;
+    height: 40px !important;
   }
 
-  .play-pause-center svg {
-    width: 24px;
-    height: 24px;
+  #music-control-button .play-pause-center svg {
+    width: 24px !important;
+    height: 24px !important;
   }
 }

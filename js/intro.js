@@ -1,9 +1,23 @@
 /* intro-integrated.js */
 /* Home 드래그 플레이어 초기화 포함 */
 
+// 🚫 인트로 시작 시 기본 마우스 커서 숨기기
+document.body.style.cursor = "none";
+document.documentElement.style.cursor = "none";
+document.body.classList.add("intro-active"); // 인트로 진행 중 표시
+
 const cards = document.querySelectorAll(".card");
 const images = document.querySelectorAll(".card img");
 const totalCards = cards.length;
+
+// 모든 카드와 stage에도 커서 숨기기 적용
+const stage = document.querySelector("#stage");
+if (stage) stage.style.cursor = "none";
+cards.forEach(card => {
+  card.style.cursor = "none";
+  const img = card.querySelector("img");
+  if (img) img.style.cursor = "none";
+});
 
 const masterTimeline = gsap.timeline({
   defaults: { ease: "power1.inOut" },
@@ -97,6 +111,8 @@ cards.forEach((card, index) => {
                 loadingBar.remove();
 
                 document.body.style.overflow = "auto";
+                // 인트로 완료 - 클래스 제거 (하지만 cursor: none은 유지)
+                document.body.classList.remove("intro-active");
 
                 const navBar = document.getElementById("nav-bar");
                 const whoAmIButton = document.getElementById("whoiam-button");
@@ -172,6 +188,15 @@ cards.forEach((card, index) => {
 
                 if (typeof initWaterEffect === "function") {
                   initWaterEffect();
+                }
+                
+                // ✨ 커서 효과 초기화 (인트로 완료 후)
+                if (typeof initArrowCursor === "function") {
+                  initArrowCursor();
+                }
+                
+                if (typeof initCursorTrail === "function") {
+                  initCursorTrail();
                 }
 
                 // 🎵 통합 음악 플레이어 초기화

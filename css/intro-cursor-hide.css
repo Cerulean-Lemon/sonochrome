@@ -1,0 +1,30 @@
+/* intro-cursor-hide.css */
+/* 인트로 애니메이션 중 모든 커서 숨기기 */
+
+/* 인트로가 진행 중일 때 적용되는 클래스 */
+body.intro-active,
+body.intro-active * {
+  cursor: none !important;
+}
+
+/* Stage와 카드들 */
+#stage,
+#stage * {
+  cursor: none !important;
+}
+
+.card,
+.card * {
+  cursor: none !important;
+}
+
+/* 로딩바 */
+#loading-bar {
+  cursor: none !important;
+}
+
+/* 전역 적용 (필요시 사용) */
+.hide-cursor,
+.hide-cursor * {
+  cursor: none !important;
+}

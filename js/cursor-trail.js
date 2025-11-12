@@ -1,7 +1,9 @@
 /* =========================
    ✅ 커서 궤적 효과 - 비행기 꼬리에서 시작
    ========================= */
-(() => {
+   
+// 인트로 완료 후 호출될 초기화 함수
+function initCursorTrail() {
   const canvas = document.getElementById("trail-canvas");
 
   if (!canvas) {
@@ -45,9 +47,14 @@
     mouseMoved = true;
   });
 
-  // ✅ 캔버스 초기 상태 설정
-  canvas.style.opacity = "1";
+  // ✅ 캔버스 페이드인 효과 (인트로 후 나타남)
+  canvas.style.opacity = "0";
   canvas.style.pointerEvents = "none";
+  canvas.style.transition = "opacity 0.5s ease-out";
+  
+  setTimeout(() => {
+    canvas.style.opacity = "1";
+  }, 200);
 
   setupCanvas();
   update(0);
@@ -119,4 +126,6 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
-})();
+}
+
+// 자동 실행하지 않고 대기

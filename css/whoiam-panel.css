@@ -2,7 +2,7 @@
 
 /* WHO I AM ë²„íŠ¼ */
 #whoiam-button {
-  position: fixed;
+  position: absolute; /* fixed → absolute로 변경 (홈 영역에만 고정) */
   top: 30px;
   left: 30px;
   width: 110px;
@@ -17,6 +17,11 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   transition: all 0.3s ease;
+}
+
+/* 패널 열릴 때 fixed로 전환 */
+#whoiam-button.panel-active {
+  position: fixed;
 }
 
 #whoiam-button svg {

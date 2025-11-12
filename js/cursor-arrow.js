@@ -1,5 +1,5 @@
 /* =========================
-   âœ¨ ArrowPointer Cursor Logic âœ¨
+   ✨ ArrowPointer Cursor Logic ✨
    ========================= */
 class ArrowPointer {
   constructor() {
@@ -38,19 +38,19 @@ class ArrowPointer {
   }
 
   init(el, style) {
-    // .curzr ìš”ì†Œê°€ ìžˆëŠ”ì§€ í™•ì¸
+    // .curzr 요소가 있는지 확인
     if (!el) {
       console.error('Cursor element ".curzr" not found.');
       return;
     }
     Object.assign(el.style, style);
     this.cursor.removeAttribute("hidden");
-    // ê¸°ë³¸ ì‹œìŠ¤í…œ ì»¤ì„œë¥¼ ìˆ¨ê¹ë‹ˆë‹¤.
+    // 기본 시스템 커서를 숨깁니다.
     this.root.style.cursor = "none";
   }
 
   move(event) {
-    if (!this.cursor) return; // ì»¤ì„œ ìš”ì†Œê°€ ì—†ìœ¼ë©´ ì¤‘ë‹¨
+    if (!this.cursor) return; // 커서 요소가 없으면 중단
     this.previousPointerX = this.position.pointerX;
     this.previousPointerY = this.position.pointerY;
     this.position.pointerX = event.pageX + this.root.getBoundingClientRect().x;
@@ -71,7 +71,7 @@ class ArrowPointer {
   }
 
   rotate(position) {
-    if (!this.cursor) return; // ì»¤ì„œ ìš”ì†Œê°€ ì—†ìœ¼ë©´ ì¤‘ë‹¨
+    if (!this.cursor) return; // 커서 요소가 없으면 중단
     let unsortedAngle =
       Math.atan(Math.abs(position.distanceY) / Math.abs(position.distanceX)) *
       this.degrees;
@@ -103,7 +103,7 @@ class ArrowPointer {
     style.transform += ` rotate(${this.angleDisplace}deg)`;
 
     setTimeout(() => {
-      if (!this.cursor) return; // setTimeout ì½œë°± ì‹œì ì—ë„ í™•ì¸
+      if (!this.cursor) return; // setTimeout 콜백 시점에도 확인
       modAngle =
         this.angleDisplace >= 0
           ? this.angleDisplace % 360
@@ -130,7 +130,7 @@ class ArrowPointer {
     }
   }
 
-  // ë¹„í–‰ê¸° ë’·ë¶€ë¶„ ìœ„ì¹˜ ê³„ì‚°
+  // 비행기 뒷부분 위치 계산
   getTailPosition() {
     const angleRad = ((this.angleDisplace + 180) * Math.PI) / 180;
     const offset = -1;
@@ -141,9 +141,11 @@ class ArrowPointer {
   }
 }
 
-// âœ¨ ArrowPointer ì»¤ì„œ ì´ˆê¸°í™” âœ¨
+// ✨ ArrowPointer 커서 초기화 ✨
 let globalCursor = null;
-(() => {
+
+// 인트로 완료 후 호출될 초기화 함수
+function initArrowCursor() {
   const cursor = new ArrowPointer();
   globalCursor = cursor;
   if (
@@ -158,4 +160,15 @@ let globalCursor = null;
     cursor.remove();
     globalCursor = null;
   }
-})();
+  
+  // 커서 페이드인 효과
+  if (cursor.cursor) {
+    cursor.cursor.style.opacity = '0';
+    setTimeout(() => {
+      cursor.cursor.style.transition = 'opacity 0.5s ease-out';
+      cursor.cursor.style.opacity = '1';
+    }, 100);
+  }
+}
+
+// 자동 실행하지 않고 대기

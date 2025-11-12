@@ -1,6 +1,114 @@
 /* about-section.css - SONOCHROME Story Style */
 
-/* 기본 설정 */
+/* ========================================
+   🎬 About Intro - Parallax Section
+   ======================================== */
+
+#about-intro {
+  position: relative;
+  width: 100%;
+  height: 250vh;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.intro-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.intro-cards {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.intro-card {
+  position: absolute;
+  width: clamp(240px, 18vw, 320px);
+  height: clamp(320px, 24vw, 450px);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.intro-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-card.card-left img {
+  filter: grayscale(100%);
+}
+
+.intro-card.card-right img {
+  filter: grayscale(0%);
+}
+
+.intro-card[data-card="photo"] {
+  top: 50%;
+  left: 10vw;
+  transform: translateY(-50%);
+}
+
+.intro-card[data-card="music"] {
+  top: 50%;
+  right: 10vw;
+  transform: translateY(-50%);
+}
+
+.intro-text-layers {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.intro-title {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: #1d1d1f;
+  text-align: center;
+  margin: 0;
+}
+
+.intro-text-subtitle {
+  z-index: 10;
+}
+
+/* ========================================
+   📖 About Section - Story
+   ======================================== */
+
 #about {
   position: relative;
   width: 100%;
@@ -10,7 +118,6 @@
   overflow-x: hidden;
 }
 
-/* 섹션 공통 */
 .story-section {
   position: relative;
   width: 100%;
@@ -18,7 +125,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12vh 8vw;
+  padding: 15vh 0;
   box-sizing: border-box;
   background: #ffffff;
 }
@@ -29,22 +136,19 @@
   margin: 0 auto;
 }
 
-
-/* 🎨 섹션 1: SONO + MONOCHROME 개념 */
 .section-concept .story-content {
   text-align: center;
 }
 
 .concept-header {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .concept-title-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .concept-word {
@@ -59,6 +163,7 @@
   font-size: clamp(3rem, 5vw, 6rem);
   font-weight: 700;
   line-height: 1;
+  letter-spacing: -0.015em;
   color: #1d1d1f;
   margin: 0;
   opacity: 0;
@@ -68,6 +173,7 @@
   font-family: "Noto Sans KR", sans-serif;
   font-size: clamp(0.9rem, 1.5vw, 2rem);
   font-weight: 400;
+  letter-spacing: -0.025em;
   color: #86868b;
   margin: 0;
   opacity: 0;
@@ -77,6 +183,7 @@
   font-family: "Playfair Display", serif;
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 300;
+  letter-spacing: -0.02em;
   color: #1d1d1f;
   margin: 0 1rem;
   opacity: 0;
@@ -84,85 +191,114 @@
 
 .hero-title {
   font-family: "Noto Sans KR", sans-serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  color: #1d1d1f;
-  margin: 0 0 1rem 0;
+  font-size: clamp(2.2rem, 4.5vw, 2.7rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #515154;
+  margin: 0 0 1.5rem 0;
   opacity: 0;
 }
 
-.hero-subtitle {
-  font-family: "Noto Sans KR", sans-serif;
-  font-size: clamp(0.95rem, 1.6vw, 2.1rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0.005em;
-  color: #6e6e73;
-  margin: 0;
-  opacity: 0;
-}
 
-/* 🎨 섹션 헤딩 (따옴표 포함) */
 .section-heading {
   font-family: "Noto Sans KR", sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
   color: #1d1d1f;
-  margin: 0 0 2rem 0;
+  margin: 0 0 2.5rem 0;
   opacity: 0;
 }
 
-/* 🎨 섹션 본문 */
 .section-subtext {
   font-family: "Noto Sans KR", sans-serif;
-  font-size: clamp(1.1rem, 2vw, 1.8rem);
+  font-size: clamp(1.15rem, 2.2vw, 2.7rem);
   font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0.005em;
-  color: #1d1d1f;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: #515154;
   margin: 0;
   opacity: 0;
 }
 
-/* 좌측 정렬 */
+.align-left {
+  padding-left: 8vw;
+  padding-right: 8vw;
+}
+
 .align-left .story-content {
   text-align: left;
-  max-width: 900px;
+  max-width: 100%;
   margin-left: 0;
 }
 
-/* 우측 정렬 */
-.align-right .story-content {
-  text-align: right;
-  max-width: 900px;
-  margin-right: 0;
-  margin-left: auto;
+
+
+.align-right {
+  padding-left: 8vw;
+  padding-right: 8vw;
 }
 
-/* 🎨 클로징 섹션 (중앙 정렬) */
+.align-right .story-content {
+  text-align: right;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: 0;
+}
+
 .section-closing .story-content {
   text-align: center;
 }
 
 .closing-title {
   font-family: "Noto Sans KR", sans-serif;
-  font-size: clamp(3rem, 6vw, 6rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
   color: #1d1d1f;
   margin: 0;
   opacity: 0;
 }
 
-/* 🎯 반응형 - 태블릿 */
+/* ========================================
+   🎯 반응형 - 큰 화면 (1920px+)
+   ======================================== */
+@media (min-width: 1920px) {
+  .intro-card {
+    width: 300px;
+    height: 420px;
+  }
+
+  .intro-card[data-card="photo"] {
+    left: 15vw;
+  }
+
+  .intro-card[data-card="music"] {
+    right: 15vw;
+  }
+}
+
+/* ========================================
+   🎯 반응형 - 태블릿 (1024px 이하)
+   ======================================== */
 @media (max-width: 1024px) {
+  .intro-card {
+    width: clamp(220px, 20vw, 280px);
+    height: clamp(300px, 28vw, 400px);
+  }
+
+  .intro-card[data-card="photo"] {
+    left: 6vw;
+  }
+
+  .intro-card[data-card="music"] {
+    right: 6vw;
+  }
+
   .story-section {
-    padding: 10vh 7vw;
+    padding: 12vh 7vw;
   }
 
   .concept-title-wrapper {
@@ -183,24 +319,24 @@
   }
 
   .hero-title {
-    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    font-size: clamp(2rem, 5vw, 3.5rem);
     margin-bottom: 1.5rem;
   }
 
   .hero-subtitle {
-    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    font-size: clamp(0.95rem, 2vw, 1.3rem);
   }
 
   .section-heading {
-    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-size: clamp(2.5rem, 6.5vw, 4.5rem);
   }
 
   .section-subtext {
-    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    font-size: clamp(1.05rem, 2.5vw, 1.7rem);
   }
 
   .closing-title {
-    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-size: clamp(3rem, 7.5vw, 5.5rem);
   }
 
   .align-left .story-content,
@@ -212,10 +348,34 @@
   }
 }
 
-/* 🎯 반응형 - 모바일 */
+/* ========================================
+   🎯 반응형 - 모바일 (768px 이하)
+   ======================================== */
 @media (max-width: 768px) {
+  #about-intro {
+    height: 350vh;
+  }
+
+  .intro-card {
+    width: clamp(180px, 32vw, 240px);
+    height: clamp(260px, 44vw, 340px);
+  }
+
+  .intro-card[data-card="photo"] {
+    left: 4vw;
+  }
+
+  .intro-card[data-card="music"] {
+    right: 4vw;
+  }
+
+  .intro-text .intro-title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    padding: 0 5vw;
+  }
+
   .story-section {
-    padding: 8vh 6vw;
+    padding: 10vh 6vw;
     min-height: 85vh;
   }
 
@@ -238,44 +398,59 @@
   }
 
   .hero-title {
-    font-size: clamp(1.6rem, 6vw, 2.5rem);
-    line-height: 1.5;
+    font-size: clamp(1.8rem, 6.5vw, 3rem);
+    line-height: 1.4;
     margin-bottom: 1.2rem;
   }
 
   .hero-subtitle {
-    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+    font-size: clamp(0.9rem, 3.8vw, 1.2rem);
+    line-height: 1.65;
   }
 
   .section-heading {
-    font-size: clamp(2rem, 7vw, 3.5rem);
-    line-height: 1.3;
-    margin-bottom: 1.5rem;
+    font-size: clamp(2.2rem, 7.5vw, 4rem);
+    line-height: 1.2;
+    margin-bottom: 2rem;
   }
 
   .section-subtext {
-    font-size: clamp(0.95rem, 4vw, 1.4rem);
-    line-height: 1.7;
+    font-size: clamp(1rem, 4.2vw, 1.5rem);
+    line-height: 1.8;
   }
 
   .closing-title {
-    font-size: clamp(2.3rem, 8vw, 4rem);
-  }
-
-  .scroll-indicator span {
-    font-size: 10px;
-  }
-
-  .scroll-indicator svg {
-    width: 16px;
-    height: 16px;
+    font-size: clamp(2.5rem, 8.5vw, 5rem);
   }
 }
 
-/* 🎯 반응형 - 작은 모바일 */
+/* ========================================
+   🎯 반응형 - 작은 모바일 (480px 이하)
+   ======================================== */
 @media (max-width: 480px) {
+  #about-intro {
+    height: 320vh;
+  }
+
+  .intro-card {
+    width: clamp(150px, 38vw, 200px);
+    height: clamp(210px, 52vw, 280px);
+  }
+
+  .intro-card[data-card="photo"] {
+    left: 2vw;
+  }
+
+  .intro-card[data-card="music"] {
+    right: 2vw;
+  }
+
+  .intro-text .intro-title {
+    font-size: clamp(1.8rem, 7vw, 3rem);
+  }
+
   .story-section {
-    padding: 7vh 5vw;
+    padding: 8vh 5vw;
   }
 
   .concept-title-wrapper {
@@ -297,28 +472,32 @@
   }
 
   .hero-title {
-    font-size: clamp(1.4rem, 7vw, 2.2rem);
-    letter-spacing: -0.005em;
+    font-size: clamp(1.6rem, 7.5vw, 2.3rem);
+    letter-spacing: -0.015em;
   }
 
   .hero-subtitle {
-    font-size: clamp(0.8rem, 4vw, 1rem);
+    font-size: clamp(0.85rem, 4.2vw, 1.1rem);
   }
 
   .section-heading {
-    font-size: clamp(1.8rem, 8vw, 3rem);
+    font-size: clamp(2rem, 8.5vw, 3.5rem);
   }
 
   .section-subtext {
-    font-size: clamp(0.9rem, 4.5vw, 1.3rem);
+    font-size: clamp(0.95rem, 4.8vw, 1.4rem);
   }
 
   .closing-title {
-    font-size: clamp(2rem, 9vw, 3.5rem);
+    font-size: clamp(2.2rem, 9.5vw, 4rem);
   }
 }
 
-/* ⚡ 성능 최적화 */
+/* ========================================
+   ⚡ 성능 최적화
+   ======================================== */
+.intro-card,
+.intro-title,
 .concept-eng,
 .concept-kor,
 .concept-plus,
@@ -333,10 +512,191 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 애니메이션 감소 설정 */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
+  }
+}
+/* ========================================
+   📸 Story Images - Interactive Gallery
+   ======================================== */
+
+.story-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  align-items: center;
+}
+
+.section-concept {
+  grid-template-columns: 1fr;
+}
+
+.section-closing {
+  grid-template-columns: 1fr;
+}
+
+/* 이미지 컨테이너 */
+.story-image-container {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 700px;
+  overflow: hidden;
+  fill: transparent;
+}
+
+.image-right {
+  order: 2;
+}
+
+.image-left {
+  order: 0;
+}
+
+.align-left .story-content {
+  order: 1;
+}
+
+.align-right .story-content {
+  order: 1;
+}
+
+/* 이미지 래퍼 */
+.story-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  fill: transparent;
+}
+
+.story-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  transform: scale(1);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.story-image-wrapper:hover .story-image {
+  transform: scale(1.05);
+  fill: transparent;
+}
+
+/* 이미지 오버레이 */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.story-image-wrapper:hover .image-overlay {
+  opacity: 1;
+}
+
+/* 초기 상태 - 애니메이션용 */
+
+/* 초기 상태 - 애니메이션용 */
+/* 오른쪽 이미지: 왼쪽에서 오른쪽으로 등장 (1, 3번) */
+.reveal-right {
+  opacity: 0;
+  clip-path: inset(0 0 0 100%);  /* 왼쪽 가림 */
+  will-change: opacity, clip-path;
+  transform: translateZ(0); /* GPU 가속 */
+}
+
+/* 왼쪽 이미지: 오른쪽에서 왼쪽으로 등장 (2, 4번) */
+.reveal-left {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);  /* 오른쪽 가림 - 왼쪽에서 오른쪽으로 나타남 */
+  will-change: opacity, clip-path;
+  transform: translateZ(0); /* GPU 가속 */
+}
+
+
+
+
+/* ========================================
+   🎯 반응형 - 태블릿 (1024px 이하)
+   ======================================== */
+@media (max-width: 1024px) {
+  .story-section {
+    grid-template-columns: 1fr;
+    gap: 8vh;
+  }
+
+  .story-image-container {
+    height: 50vh;
+    min-height: 350px;
+  }
+
+  .image-right,
+  .image-left {
+    order: 2;
+  }
+
+  .story-content {
+    order: 1 !important;
+  }
+}
+
+/* ========================================
+   🎯 반응형 - 모바일 (768px 이하)
+   ======================================== */
+@media (max-width: 768px) {
+  .story-image-container {
+    height: 40vh;
+    min-height: 300px;
+  }
+
+  .story-image-wrapper {
+    border-radius: 16px;
+  }
+}
+
+/* ========================================
+   🎯 반응형 - 작은 모바일 (480px 이하)
+   ======================================== */
+@media (max-width: 480px) {
+  .story-image-container {
+    height: 35vh;
+    min-height: 250px;
+  }
+
+  .story-image-wrapper {
+    border-radius: 12px;
+  }
+}
+
+/* ========================================
+   ⚡ 성능 최적화
+   ======================================== */
+.story-image,
+.story-image-wrapper {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-image,
+  .story-image-wrapper {
+    will-change: auto;
+    transform: none !important;
   }
 }
