@@ -122,7 +122,6 @@ function initPortraitCanvas() {
   colorImg.src = "images/WHOIAM3.png";
 
   let imagesLoaded = 0;
-  let isDragging = false;
   let colorCanvas = null;
 
   function onImageLoad() {
@@ -198,51 +197,30 @@ function initPortraitCanvas() {
       ctx.restore();
     }
 
-    canvas.addEventListener("mousedown", (e) => {
-      isDragging = true;
-      revealColor(e);
-    });
-
+    // 마우스 호버만으로 색칠 효과 (클릭 불필요)
     canvas.addEventListener("mousemove", (e) => {
-      if (!isDragging) return;
       revealColor(e);
     });
 
-    window.addEventListener("mouseup", () => {
-      isDragging = false;
-    });
-
-    canvas.addEventListener("mouseleave", () => {
-      isDragging = false;
-    });
-
-    canvas.addEventListener(
-      "touchstart",
-      (e) => {
-        e.preventDefault();
-        isDragging = true;
-        revealColor(e.touches[0]);
-      },
-      { passive: false }
-    );
-
+    // 터치 디바이스용 (터치 이동 시 색칠)
     canvas.addEventListener(
       "touchmove",
       (e) => {
         e.preventDefault();
-        if (!isDragging) return;
         revealColor(e.touches[0]);
       },
       { passive: false }
     );
 
-    canvas.addEventListener("touchend", () => {
-      isDragging = false;
-    });
-
-    canvas.addEventListener("touchcancel", () => {
-      isDragging = false;
-    });
+    // 터치 시작 시에도 즉시 색칠
+    canvas.addEventListener(
+      "touchstart",
+      (e) => {
+        e.preventDefault();
+        revealColor(e.touches[0]);
+      },
+      { passive: false }
+    );
   }
 }
 
