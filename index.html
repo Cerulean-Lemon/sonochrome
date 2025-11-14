@@ -34,10 +34,6 @@
     />
     <link rel="stylesheet" href="intro-cursor-hide.css">
     <link rel="stylesheet" href="css/root.css" />
-    <!-- 🎵 Music Player CSS 추가 -->
-    <link rel="stylesheet" href="css/music-player.css" />
-    <!-- 🎬 Works Section CSS -->
-    <link rel="stylesheet" href="css/works-section.css" />
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- GLightbox CSS -->
@@ -523,7 +519,212 @@
             </div>
         </div>
     </section>
+    
 
+    <!-- ============================================
+         🎵 MOVEMENT II: CRESCENDO - 2악장 크레센도
+         ============================================ -->
+<div class="movement-section movement-crescendo" id="movement-crescendo">
+    <div class="movement-header">
+        <span class="movement-label">Movement II</span>
+        <h2 class="movement-title">크레센도 漸强</h2>
+        <p class="movement-description">
+            흑백에서 컬러로, 고요에서 폭발로.<br>
+            점점 강해지는 감정의 파도를 느껴보세요.
+        </p>
+    </div>
+
+    <!-- 카테고리 필터 버튼들 -->
+    <div class="crescendo-categories">
+        <button class="category-btn active" data-category="all">ALL</button>
+        <button class="category-btn" data-category="portrait">Portrait</button>
+        <button class="category-btn" data-category="landscape">Landscape</button>
+        <button class="category-btn" data-category="snapshot">Snapshot</button>
+    </div>
+
+    <!-- 메인 이미지 뷰어 (Before/After 효과) -->
+    <div class="crescendo-main-viewer">
+        <div class="viewer-container">
+            <!-- 흑백 레이어 (왼쪽) -->
+            <div class="image-layer grayscale-layer">
+                <img src="images/snapshot15.jpg" alt="Selected Work" class="main-image">
+            </div>
+            
+            <!-- 컬러 레이어 (오른쪽) -->
+            <div class="image-layer color-layer">
+                <img src="images/snapshot15.jpg" alt="Selected Work" class="main-image">
+            </div>
+            
+            <!-- 드래그 가능한 슬라이더 -->
+            <div class="comparison-slider" id="comparison-slider">
+                <div class="slider-line"></div>
+                <div class="slider-handle">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 7l-5 5 5 5V7zm8 0v10l5-5-5-5z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 썸네일 갤러리 (Swiper 슬라이더) -->
+    <div class="crescendo-thumbnails">
+        <div class="thumbnails-container swiper" id="thumbnails-container">
+            <div class="swiper-wrapper">
+                <!-- Portrait 1 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="portrait" 
+                         data-image="images/snapshot15.jpg" 
+                         data-title="도시의 초상" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-portrait-1.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/snapshot15.jpg" alt="도시의 초상">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>도시의 초상</h4>
+                            <span>3:24</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Landscape 1 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="landscape" 
+                         data-image="images/work2-2.jpg" 
+                         data-title="지평선 너머" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-landscape-1.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/work2-2.jpg" alt="지평선 너머">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>지평선 너머</h4>
+                            <span>5:18</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snapshot 1 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="snapshot" 
+                         data-image="images/work2-3.jpg" 
+                         data-title="순간의 포착" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-snapshot-1.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/work2-3.jpg" alt="순간의 포착">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>순간의 포착</h4>
+                            <span>2:58</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portrait 2 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="portrait" 
+                         data-image="images/work2-4.jpg" 
+                         data-title="내면의 풍경" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-portrait-2.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/work2-4.jpg" alt="내면의 풍경">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>내면의 풍경</h4>
+                            <span>4:12</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Landscape 2 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="landscape" 
+                         data-image="images/work2-5.jpg" 
+                         data-title="새벽의 서곡" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-landscape-2.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/work2-5.jpg" alt="새벽의 서곡">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>새벽의 서곡</h4>
+                            <span>4:45</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snapshot 2 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="snapshot" 
+                         data-image="images/work2-6.jpg" 
+                         data-title="시간의 조각" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-snapshot-2.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/work2-6.jpg" alt="시간의 조각">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>시간의 조각</h4>
+                            <span>3:36</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snapshot 3 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="snapshot" 
+                         data-image="images/work2-7.jpg" 
+                         data-title="색의 폭발" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-snapshot-3.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/work2-7.jpg" alt="색의 폭발">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>색의 폭발</h4>
+                            <span>4:02</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snapshot 4 -->
+                <div class="swiper-slide">
+                    <div class="thumbnail-item" 
+                         data-category="snapshot" 
+                         data-image="images/work2-8.jpg" 
+                         data-title="에너지의 흐름" 
+                         data-subtitle="SONOCHROME"
+                         data-music="crescendo-snapshot-4.mp3">
+                        <div class="thumbnail-image">
+                            <img src="images/work2-8.jpg" alt="에너지의 흐름">
+                        </div>
+                        <div class="thumbnail-info">
+                            <h4>에너지의 흐름</h4>
+                            <span>3:48</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swiper 네비게이션 버튼 -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+            <!-- Swiper 페이지네이션 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
 
     <section
       id="contact"
@@ -558,8 +759,7 @@
     <canvas id="trail-canvas"></canvas>
 
     <!-- 🎵 숨겨진 오디오 엘리먼트 -->
-    <audio id="bgMusic" loop>
-      <source src="Heart Piano.mp3" type="audio/mpeg" />
+    <audio id="bgMusic">
     </audio>
 
     <!-- 👤 WHO I AM Button -->
@@ -727,7 +927,7 @@
                 </svg>
               </div>
               <div class="track-info">
-                <h4>Heart Piano</h4>
+                <h4>마음</h4>
                 <p>Instrumental</p>
               </div>
             </div>
@@ -889,15 +1089,24 @@
     <script src="js/about-section.js"></script>
     <script src="js/works-section.js"></script>
 
-    <!-- 🎵 통합 음악 플레이어 JS (반드시 마지막에!) -->
-    <!-- ⚠️ intro.js가 이미 initHomeDraggablePlayer()를 호출하므로 여기서는 중복 호출 방지 -->
-    <script src="js/music-player-integrated.js"></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- GLightbox JS -->
     <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <!-- 🎯 Sortable.js - 드래그 앤 드롭 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    
+    <!-- 🎵 음악 데이터 먼저 로드 (중요!) -->
+    <script src="js/crescendo-music-data.js"></script>
+    
+    <!-- 🎵 통합 음악 플레이어 JS -->
+    <!-- ⚠️ intro.js가 이미 initHomeDraggablePlayer()를 호출하므로 여기서는 중복 호출 방지 -->
+    <script src="js/music-player-integrated.js"></script>
     
     <!-- 🎵 Works-Music 통합 시스템 (반드시 GLightbox 이후에 로드) -->
     <script src="js/works-music-integration.js"></script>
+    
+    <!-- 🎵 Crescendo Section (모든 음악 시스템 초기화 후 마지막에 로드) -->
+    <script src="js/crescendo-section.js"></script>
   </body>
 </html>

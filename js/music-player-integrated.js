@@ -8,23 +8,55 @@ const AudioManager = {
   currentVolume: 0.3,
   currentTrackIndex: 0,
   isShuffleOn: false,
-  isRepeatOn: false,
+  repeatMode: 0, // 0: 해제, 1: 재생목록 반복, 2: 한 곡 반복
   playlist: [],
+  _nearEndLogged: false, // 곡 종료 임박 로그 플래그
+  _playHelpShown: false, // 디버깅 도움말 표시 플래그
 
   init() {
     this.audio = document.getElementById("bgMusic");
+    
     if (this.audio) {
+      // ⚠️ CRITICAL: loop 속성 강제 제거!
+      this.audio.loop = false;
+      this.audio.removeAttribute('loop');
+      
       this.audio.volume = this.currentVolume;
+      
+      // ✅ 강제로 초기 상태 설정
+      this.isShuffleOn = false;
+      this.repeatMode = 0;
+      
 
-      // 곡 종료 시 다음 곡 재생
-      this.audio.addEventListener("ended", () => {
-        if (this.isRepeatOn) {
+      // ⚠️ CRITICAL: 기존 ended 이벤트 리스너 모두 제거
+      const oldAudio = this.audio.cloneNode(false);
+      this.audio.parentNode.replaceChild(oldAudio, this.audio);
+      this.audio = oldAudio;
+      this.audio.volume = this.currentVolume;
+      this.audio.loop = false;
+      
+      // 곡 종료 시 재생 모드에 따라 처리
+      const endedHandler = () => {
+        
+        if (this.repeatMode === 2) {
+          // 한 곡 반복
           this.audio.currentTime = 0;
           this.play();
-        } else {
+        } else if (this.repeatMode === 1 || this.isShuffleOn) {
+          // 재생목록 반복 또는 셔플 모드
           this.next();
+        } else {
+          // 반복 해제: 다음 곡으로 (마지막 곡이면 멈춤)
+          if (this.currentTrackIndex < this.playlist.length - 1) {
+            this.next();
+          } else {
+            // 재생목록의 마지막 곡이면 멈춤
+            this.pause();
+          }
         }
-      });
+      };
+      
+      this.audio.addEventListener("ended", endedHandler, { once: false });
 
       // 시간 업데이트
       this.audio.addEventListener("timeupdate", () => {
@@ -34,6 +66,12 @@ const AudioManager = {
       // 메타데이터 로드 완료
       this.audio.addEventListener("loadedmetadata", () => {
         this.updateDuration();
+      });
+
+      // 에러 핸들링 추가
+      this.audio.addEventListener("error", (e) => {
+        console.error("오디오 로드 에러:", this.audio.error);
+        console.error("현재 src:", this.audio.src);
       });
     }
   },
@@ -47,6 +85,13 @@ const AudioManager = {
     if (this.audio && progressBar) {
       const progress = (this.audio.currentTime / this.audio.duration) * 100;
       progressBar.style.width = progress + "%";
+      
+      // 곡이 거의 끝나가면 로그 (95% 이상)
+      if (progress > 95 && !this._nearEndLogged) {
+        this._nearEndLogged = true;
+      } else if (progress < 95) {
+        this._nearEndLogged = false;
+      }
     }
 
     if (this.audio && currentTimeEl) {
@@ -72,9 +117,20 @@ const AudioManager = {
 
   play() {
     if (this.audio) {
-      this.audio.play().catch((err) => console.log("재생 실패:", err));
+      // loop 속성 다시 한 번 확인
+      if (this.audio.loop) {
+        console.warn('⚠️ WARNING: audio.loop is TRUE! Forcing to FALSE!');
+        this.audio.loop = false;
+      }
+      
+      this.audio.play().catch((err) => console.error("재생 실패:", err));
       this.isPlaying = true;
       this.updateAllPlayButtons();
+      
+      // 🔧 디버깅 도움말
+      if (!this._playHelpShown) {
+        this._playHelpShown = true;
+      }
     }
   },
 
@@ -95,18 +151,32 @@ const AudioManager = {
   },
 
   next() {
+    
     if (this.isShuffleOn) {
-      // 셔플: 랜덤 인덱스
+      // 셔플: 랜덤 인덱스 (현재 곡 제외)
       let newIndex;
       do {
         newIndex = Math.floor(Math.random() * this.playlist.length);
       } while (newIndex === this.currentTrackIndex && this.playlist.length > 1);
       this.currentTrackIndex = newIndex;
     } else {
-      // 일반: 다음 곡
-      this.currentTrackIndex =
-        (this.currentTrackIndex + 1) % this.playlist.length;
+      // 일반: 다음 곡 (재생목록 반복 모드면 처음으로)
+      this.currentTrackIndex++;
+      
+      if (this.currentTrackIndex >= this.playlist.length) {
+        if (this.repeatMode === 1) {
+          // 재생목록 반복: 처음부터
+          this.currentTrackIndex = 0;
+        } else {
+          // 반복 해제: 마지막 곡에 머물고 멈춤
+          this.currentTrackIndex = this.playlist.length - 1;
+          this.pause();
+          return;
+        }
+      }
     }
+    
+    
     this.loadTrack(this.currentTrackIndex, this.playlist);
     this.play();
     if (typeof updateNowPlaying === "function") updateNowPlaying();
@@ -129,13 +199,44 @@ const AudioManager = {
   },
 
   toggleShuffle() {
+    const oldState = this.isShuffleOn;
     this.isShuffleOn = !this.isShuffleOn;
+    
+    
+    // 셔플을 켰을 때 한 곡 반복 모드면 재생목록 반복으로 변경
+    if (this.isShuffleOn && this.repeatMode === 2) {
+      this.repeatMode = 1; // 재생목록 반복으로 변경
+      
+      // 반복 버튼 UI 업데이트
+      const repeatBtn = document.getElementById('repeat-btn');
+      if (repeatBtn && typeof updateRepeatButtonUI === 'function') {
+        updateRepeatButtonUI(repeatBtn, this.repeatMode);
+      }
+    }
+    
+    
     return this.isShuffleOn;
   },
 
   toggleRepeat() {
-    this.isRepeatOn = !this.isRepeatOn;
-    return this.isRepeatOn;
+    const oldMode = this.repeatMode;
+    // 3단계 순환: 0 (해제) → 1 (재생목록 반복) → 2 (한 곡 반복) → 0
+    this.repeatMode = (this.repeatMode + 1) % 3;
+    
+    
+    // 한 곡 반복으로 전환 시 셔플 자동 해제
+    if (this.repeatMode === 2 && this.isShuffleOn) {
+      this.isShuffleOn = false;
+      // 셔플 버튼 UI 업데이트
+      const shuffleBtn = document.getElementById('shuffle-btn');
+      if (shuffleBtn) {
+        shuffleBtn.classList.remove('active');
+        shuffleBtn.setAttribute('data-tooltip', '셔플');
+      }
+    }
+    
+    
+    return this.repeatMode;
   },
 
   setVolume(volume) {
@@ -157,8 +258,13 @@ const AudioManager = {
   loadTrack(index, playlist) {
     this.currentTrackIndex = index;
     this.playlist = playlist;
+    this._nearEndLogged = false; // 새 곡 로드 시 플래그 리셋
     const track = playlist[index];
     if (this.audio && track) {
+      // ⚠️ CRITICAL: loop 속성 다시 한 번 확인 및 제거
+      this.audio.loop = false;
+      this.audio.removeAttribute('loop');
+      
       this.audio.src = track.file;
     }
   },
@@ -221,7 +327,6 @@ let isWhoIAmMusicControlInitialized = false;
 function initWhoIAmMusicControl() {
   // 🔧 이미 초기화되었으면 스킵 (이벤트 리스너 중복 방지)
   if (isWhoIAmMusicControlInitialized) {
-    console.log("WHO I AM Music Control already initialized");
     return;
   }
 
@@ -356,60 +461,61 @@ function initWhoIAmMusicControl() {
 
   // 🎯 초기화 완료 플래그 설정
   isWhoIAmMusicControlInitialized = true;
-  console.log("WHO I AM Music Control initialized successfully");
 }
 
 /* =========================
    🎵 Home 섹션 - 드래그 가능한 플레이어
    ========================= */
+
+// ✨ 플레이리스트 - 여기에 곡을 추가하면 됩니다!
 const playlist = [
   {
     id: 1,
-    title: "Heart Piano",
-    artist: "Instrumental",
-    duration: "3:45",
-    file: "Heart Piano.mp3",
-    thumbnail: "images/thumbnail-piano.jpg", // 썸네일 추가
+    title: "마음 (Instrumental)",
+    artist: "아이유",
+    duration: "2:56",
+    file: "music/Heart Piano.mp3",
+    thumbnail: "images/thumbnail-piano.jpg",
   },
   {
     id: 2,
-    title: "BLUE",
-    artist: "BIGBANG",
-    duration: "3:30",
-    file: "music/blue.mp3",
-    thumbnail: "images/thumbnail-bigbang.jpg",
+    title: "건물 사이에 피어난 장미",
+    artist: "H1-KEY",
+    duration: "3:15",
+    file: "music/Rose-BLOSSOM.mp3",
+    thumbnail: "images/Rose-Blossom.jpg",
   },
   {
     id: 3,
-    title: "High High",
-    artist: "GD&TOP",
-    duration: "4:02",
-    file: "music/highhigh.mp3",
-    thumbnail: "images/thumbnail-gdtop.jpg",
+    title: "사랑하게 될 거야",
+    artist: "한로로 (HANRORO)",
+    duration: "2:46",
+    file: "music/Landing-in-Love.mp3",
+    thumbnail: "images/Landing-in-Love.jpg",
   },
   {
     id: 4,
-    title: "눈, 코, 입",
-    artist: "태양",
-    duration: "4:28",
-    file: "music/eyes-nose-lips.mp3",
-    thumbnail: "images/thumbnail-taeyang.jpg",
+    title: "TTL (Time To Love)",
+    artist: "티아라, 초신성",
+    duration: "3:38",
+    file: "music/TTL.mp3",
+    thumbnail: "images/TTL.jpg",
   },
   {
     id: 5,
-    title: "크레용 (Crayon)",
-    artist: "G-DRAGON",
-    duration: "3:32",
-    file: "music/crayon.mp3",
-    thumbnail: "images/thumbnail-gd.jpg",
+    title: "Sweet Creature",
+    artist: "Harry Styles",
+    duration: "3:45",
+    file: "music/Sweet-Creature.mp3",
+    thumbnail: "images/Sweet-Creature.jpg",
   },
   {
     id: 6,
-    title: "DOOM DADA",
-    artist: "T.O.P",
-    duration: "3:48",
-    file: "music/doomdada.mp3",
-    thumbnail: "images/thumbnail-top.jpg",
+    title: "APT.",
+    artist: "로제 (ROSÉ), Bruno Mars",
+    duration: "2:49",
+    file: "music/APT.mp3",
+    thumbnail: "images/APT.jpg",
   },
   {
     id: 7,
@@ -426,6 +532,87 @@ const playlist = [
     duration: "4:20",
     file: "music/haruharu.mp3",
     thumbnail: "images/thumbnail-bigbang2.jpg",
+  },
+  // ✨ 새로 추가된 10곡
+  {
+    id: 9,
+    title: "Dynamite",
+    artist: "방탄소년단",
+    duration: "3:19",
+    file: "music/dynamite.mp3",
+    thumbnail: "images/thumbnail-dynamite.jpg",
+  },
+  {
+    id: 10,
+    title: "Love Dive",
+    artist: "IVE",
+    duration: "2:57",
+    file: "music/love-dive.mp3",
+    thumbnail: "images/thumbnail-ive.jpg",
+  },
+  {
+    id: 11,
+    title: "환상동화 (Secret Story of the Swan)",
+    artist: "IZ*ONE",
+    duration: "3:37",
+    file: "music/secret-story.mp3",
+    thumbnail: "images/thumbnail-izone.jpg",
+  },
+  {
+    id: 12,
+    title: "ELEVEN",
+    artist: "IVE",
+    duration: "2:58",
+    file: "music/eleven.mp3",
+    thumbnail: "images/thumbnail-eleven.jpg",
+  },
+  {
+    id: 13,
+    title: "Next Level",
+    artist: "aespa",
+    duration: "3:43",
+    file: "music/next-level.mp3",
+    thumbnail: "images/thumbnail-aespa.jpg",
+  },
+  {
+    id: 14,
+    title: "Shut Down",
+    artist: "BLACKPINK",
+    duration: "2:55",
+    file: "music/shut-down.mp3",
+    thumbnail: "images/thumbnail-blackpink.jpg",
+  },
+  {
+    id: 15,
+    title: "FEVER",
+    artist: "ENHYPEN",
+    duration: "3:18",
+    file: "music/fever.mp3",
+    thumbnail: "images/thumbnail-enhypen.jpg",
+  },
+  {
+    id: 16,
+    title: "좋아좋아",
+    artist: "혁오 (HYUKOH)",
+    duration: "3:55",
+    file: "music/joajoa.mp3",
+    thumbnail: "images/thumbnail-hyukoh.jpg",
+  },
+  {
+    id: 17,
+    title: "밤이 깊었네 (The Night)",
+    artist: "10CM",
+    duration: "3:28",
+    file: "music/the-night.mp3",
+    thumbnail: "images/thumbnail-10cm.jpg",
+  },
+  {
+    id: 18,
+    title: "Candy",
+    artist: "NCT DREAM",
+    duration: "3:30",
+    file: "music/candy.mp3",
+    thumbnail: "images/thumbnail-nct.jpg",
   },
 ];
 
@@ -591,7 +778,6 @@ function initHomeDraggablePlayer() {
   // ✨ 초기 플레이리스트를 AudioManager.playlist에 복사
   if (AudioManager.playlist.length === 0) {
     AudioManager.playlist = [...playlist];
-    console.log('🎵 Initialized AudioManager.playlist with', AudioManager.playlist.length, 'tracks');
   }
 
   // 플레이리스트 렌더링
@@ -604,11 +790,13 @@ function initHomeDraggablePlayer() {
 
 // 플레이어 컨트롤 버튼 초기화
 function initPlayerControls() {
+  
   const playPauseBtn = document.getElementById("play-pause-btn");
   const prevBtn = document.getElementById("prev-btn");
   const nextBtn = document.getElementById("next-btn");
   const shuffleBtn = document.getElementById("shuffle-btn");
   const repeatBtn = document.getElementById("repeat-btn");
+  
 
   // 재생/일시정지
   if (playPauseBtn) {
@@ -616,6 +804,8 @@ function initPlayerControls() {
       AudioManager.toggle();
       updatePlayPauseButton();
     });
+  } else {
+    console.warn('⚠️ Play/Pause button not found!');
   }
 
   // 이전 곡
@@ -623,6 +813,8 @@ function initPlayerControls() {
     prevBtn.addEventListener("click", () => {
       AudioManager.prev();
     });
+  } else {
+    console.warn('⚠️ Previous button not found!');
   }
 
   // 다음 곡
@@ -630,6 +822,8 @@ function initPlayerControls() {
     nextBtn.addEventListener("click", () => {
       AudioManager.next();
     });
+  } else {
+    console.warn('⚠️ Next button not found!');
   }
 
   // 셔플
@@ -637,19 +831,42 @@ function initPlayerControls() {
     shuffleBtn.addEventListener("click", () => {
       const isOn = AudioManager.toggleShuffle();
       shuffleBtn.classList.toggle("active", isOn);
+      shuffleBtn.setAttribute("data-tooltip", isOn ? "셔플 해제" : "셔플");
+      
+      // 셔플 켰을 때 한 곡 반복이 자동으로 해제되면 반복 버튼 UI도 업데이트
+      if (repeatBtn && isOn) {
+        updateRepeatButtonUI(repeatBtn, AudioManager.repeatMode);
+      }
     });
+  } else {
+    console.warn('⚠️ Shuffle button not found!');
   }
 
   // 반복
   if (repeatBtn) {
     repeatBtn.addEventListener("click", () => {
-      const isOn = AudioManager.toggleRepeat();
-      repeatBtn.classList.toggle("active", isOn);
+      const repeatMode = AudioManager.toggleRepeat();
+      updateRepeatButtonUI(repeatBtn, repeatMode);
     });
+  } else {
+    console.warn('⚠️ Repeat button not found!');
   }
 
   // 초기 버튼 상태 업데이트
   updatePlayPauseButton();
+  
+  // 셔플과 반복 버튼 초기 상태 설정
+  if (shuffleBtn) {
+    shuffleBtn.classList.remove("active");
+    shuffleBtn.setAttribute("data-tooltip", "셔플");
+  }
+  if (repeatBtn) {
+    updateRepeatButtonUI(repeatBtn, AudioManager.repeatMode);
+  }
+  
+  if (repeatBtn) {
+    updateRepeatButtonUI(repeatBtn, AudioManager.repeatMode);
+  }
 
   // 볼륨 컨트롤 초기화
   initVolumeControl();
@@ -659,6 +876,48 @@ function initPlayerControls() {
 
   // 프로그레스 바 초기화
   initProgressBar();
+}
+
+// 반복 버튼 UI 업데이트
+function updateRepeatButtonUI(repeatBtn, repeatMode) {
+  // 기본 아이콘
+  const repeatIcon = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M17 1l4 4-4 4"/>
+      <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+      <path d="M7 23l-4-4 4-4"/>
+      <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+    </svg>
+  `;
+
+  // 한 곡 반복 아이콘 (숫자 1 추가)
+  const repeatOneIcon = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M17 1l4 4-4 4"/>
+      <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+      <path d="M7 23l-4-4 4-4"/>
+      <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+    </svg>
+    <span class="repeat-one-badge">1</span>
+  `;
+
+  if (repeatMode === 0) {
+    // 해제
+    repeatBtn.classList.remove("active", "repeat-one");
+    repeatBtn.innerHTML = repeatIcon;
+    repeatBtn.setAttribute("data-tooltip", "반복");
+  } else if (repeatMode === 1) {
+    // 재생목록 반복
+    repeatBtn.classList.add("active");
+    repeatBtn.classList.remove("repeat-one");
+    repeatBtn.innerHTML = repeatIcon;
+    repeatBtn.setAttribute("data-tooltip", "재생목록 반복");
+  } else if (repeatMode === 2) {
+    // 한 곡 반복
+    repeatBtn.classList.add("active", "repeat-one");
+    repeatBtn.innerHTML = repeatOneIcon;
+    repeatBtn.setAttribute("data-tooltip", "한 곡 반복");
+  }
 }
 
 // 프로그레스 바 클릭/드래그 기능
@@ -877,8 +1136,6 @@ function updatePlayPauseButton() {
 
 // ✨ 플레이리스트 UI 업데이트 - 전체 재렌더링으로 수정
 function updatePlaylistUI() {
-  console.log('🔄 updatePlaylistUI called - Rendering full playlist');
-  console.log('📊 AudioManager.playlist length:', AudioManager.playlist.length);
   renderPlaylist();
 }
 
@@ -892,7 +1149,6 @@ function renderPlaylist() {
   // ✨ AudioManager.playlist 사용 (동적으로 추가된 곡들 포함)
   const playlistToRender = AudioManager.playlist.length > 0 ? AudioManager.playlist : playlist;
   
-  console.log('🎵 Rendering playlist with', playlistToRender.length, 'tracks');
 
   container.innerHTML = playlistToRender
     .map(
@@ -924,7 +1180,6 @@ function renderPlaylist() {
     });
   });
   
-  console.log('✅ Playlist rendered with', container.querySelectorAll('.track-item').length, 'items');
 }
 
 function playTrack(index) {
@@ -1008,7 +1263,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // 이렇게 하면 패널을 처음 열 때도 바로 작동합니다
   setTimeout(() => {
     if (!isWhoIAmMusicControlInitialized) {
-      console.log("Initializing WHO I AM Music Control on page load...");
       initWhoIAmMusicControl();
     }
   }, 500); // GSAP 등 다른 라이브러리 로드 대기

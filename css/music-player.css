@@ -734,6 +734,32 @@
   stroke: #ff3333;
 }
 
+/* 🔁 한 곡 반복 버튼 - "1" 뱃지 */
+.control-btn.repeat-one {
+  position: relative;
+}
+
+.repeat-one-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ff3333;
+  pointer-events: none;
+  z-index: 1;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.control-btn.repeat-one svg {
+  opacity: 0.5;
+}
+
+.control-btn.repeat-one:hover svg {
+  opacity: 0.6;
+}
+
 /* 툴팁 */
 .control-btn::before {
   content: attr(data-tooltip);

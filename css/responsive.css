@@ -1,4 +1,4 @@
-/* responsive.css */
+/* responsive.css - 크레센도 섹션 포함 버전 */
 
 /* WHO I AM / HOME / NAV / 패널 등의 모바일 레이아웃 */
 @media (max-width: 767px) {
@@ -118,6 +118,143 @@
   .detail-item p {
     font-size: 1.4rem;
   }
+
+  /* ============================================
+     🎵 CRESCENDO SECTION - 모바일 반응형 (개선됨)
+     ============================================ */
+  .movement-crescendo {
+    padding: 60px 0;
+  }
+
+  .movement-crescendo .movement-header {
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+
+  .movement-crescendo .movement-title {
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+
+  .movement-crescendo .movement-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  /* 카테고리 버튼 - 모바일 최적화 */
+  .crescendo-categories {
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+
+  .category-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    min-width: 70px;
+    white-space: nowrap;
+  }
+
+  /* 메인 뷰어 - 모바일 */
+  .crescendo-main-viewer {
+    padding: 0 20px;
+  }
+
+  .viewer-container {
+    aspect-ratio: 4 / 5; /* 모바일에서 세로 비율 */
+    border-radius: 15px;
+  }
+
+  /* 트랙 정보 - 모바일 */
+  .current-track-info {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 10px;
+  }
+
+  .track-title {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .track-artist {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  /* 슬라이더 핸들 - 모바일 최적화 */
+  .slider-handle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .slider-handle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* 썸네일 갤러리 - 모바일 */
+  .crescendo-thumbnails {
+    padding: 0 15px;
+  }
+
+  .thumbnails-container {
+    gap: 15px;
+    padding: 15px 0;
+  }
+
+  .thumbnail-item {
+    width: 140px;
+    min-width: 140px;
+  }
+
+  .thumbnail-info h4 {
+    font-size: 13px;
+  }
+
+  .thumbnail-info span {
+    font-size: 11px;
+  }
+
+  /* 네비게이션 버튼 - 모바일 */
+  .thumbnail-nav {
+    width: 35px;
+    height: 35px;
+  }
+
+  .thumbnail-nav svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .thumbnail-prev {
+    left: 10px;
+  }
+
+  .thumbnail-next {
+    right: 10px;
+  }
+
+  /* 재생 오버레이 - 모바일 */
+  .thumbnail-play-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .thumbnail-play-icon::after {
+    border-left: 10px solid white;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+  }
+
+  /* 스크롤바 - 모바일에서 더 두껍게 */
+  .thumbnails-container::-webkit-scrollbar {
+    height: 4px;
+  }
 }
 
 /* 음악 컨트롤 모바일 사이즈 - 오른쪽 하단 위치 유지 */
@@ -137,5 +274,264 @@
   #music-control-button .play-pause-center svg {
     width: 24px !important;
     height: 24px !important;
+  }
+}
+
+/* 초소형 디바이스 (480px 이하) */
+@media (max-width: 480px) {
+  /* 크레센도 섹션 초소형 디바이스 최적화 */
+  .movement-crescendo {
+    padding: 40px 0;
+  }
+
+  .movement-crescendo .movement-title {
+    font-size: 2.5rem;
+  }
+
+  .movement-crescendo .movement-description {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  /* 카테고리 버튼 - 초소형 */
+  .crescendo-categories {
+    padding: 0 15px;
+    gap: 8px;
+  }
+
+  .category-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+    min-width: 60px;
+  }
+
+  /* 메인 뷰어 - 초소형 */
+  .crescendo-main-viewer {
+    padding: 0 15px;
+  }
+
+  .viewer-container {
+    border-radius: 12px;
+  }
+
+  /* 트랙 정보 - 초소형 */
+  .current-track-info {
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    padding: 8px 12px;
+  }
+
+  .track-title {
+    font-size: 14px;
+  }
+
+  .track-artist {
+    font-size: 11px;
+  }
+
+  /* 슬라이더 핸들 - 초소형 */
+  .slider-handle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .slider-handle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* 썸네일 갤러리 - 초소형 */
+  .thumbnails-container {
+    gap: 12px;
+  }
+
+  .thumbnail-item {
+    width: 120px;
+    min-width: 120px;
+  }
+
+  .thumbnail-info h4 {
+    font-size: 12px;
+  }
+
+  .thumbnail-info span {
+    font-size: 10px;
+  }
+
+  /* 네비게이션 버튼 - 초소형 */
+  .thumbnail-nav {
+    width: 32px;
+    height: 32px;
+  }
+
+  .thumbnail-prev {
+    left: 8px;
+  }
+
+  .thumbnail-next {
+    right: 8px;
+  }
+
+  /* 재생 오버레이 - 초소형 */
+  .thumbnail-play-icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* 태블릿 (768px ~ 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .movement-crescendo {
+    padding: 100px 0;
+  }
+
+  .crescendo-main-viewer {
+    max-width: 900px;
+  }
+
+  .thumbnail-item {
+    width: 160px;
+    min-width: 160px;
+  }
+}
+
+/* 대형 화면 (1920px 이상) */
+@media (min-width: 1920px) {
+  .movement-crescendo {
+    padding: 150px 0;
+  }
+
+  .crescendo-main-viewer {
+    max-width: 1400px;
+  }
+
+  .viewer-container {
+    border-radius: 24px;
+  }
+
+  .thumbnail-item {
+    width: 200px;
+    min-width: 200px;
+  }
+
+  .category-btn {
+    padding: 12px 28px;
+    font-size: 15px;
+  }
+
+  .current-track-info {
+    bottom: 40px;
+    left: 40px;
+    padding: 20px 30px;
+  }
+
+  .track-title {
+    font-size: 20px;
+  }
+
+  .track-artist {
+    font-size: 16px;
+  }
+}
+
+/* 가로 모드 (Landscape) - 모바일/태블릿 */
+@media (max-height: 600px) and (orientation: landscape) {
+  .movement-crescendo {
+    padding: 40px 0;
+  }
+
+  .viewer-container {
+    aspect-ratio: 16 / 9;
+  }
+
+  .current-track-info {
+    bottom: 15px;
+    left: 15px;
+    padding: 8px 12px;
+  }
+
+  .track-title {
+    font-size: 14px;
+  }
+
+  .track-artist {
+    font-size: 11px;
+  }
+
+  .thumbnail-item {
+    width: 100px;
+    min-width: 100px;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  /* 터치 영역 확대 */
+  .category-btn {
+    min-height: 44px; /* iOS 권장 터치 영역 */
+  }
+
+  .thumbnail-item {
+    min-height: 44px;
+  }
+
+  /* 썸네일 호버 효과 비활성화 */
+  .thumbnail-item:hover {
+    transform: none;
+  }
+
+  .thumbnail-item:active {
+    transform: scale(0.95);
+  }
+
+  /* 슬라이더 핸들 터치 영역 확대 */
+  .slider-handle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* 네비게이션 버튼 터치 영역 확대 */
+  .thumbnail-nav {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* 다크모드 지원 (선택사항) */
+@media (prefers-color-scheme: dark) {
+  .movement-crescendo {
+    background: #000000;
+  }
+}
+
+/* 저사양 디바이스 - 애니메이션 감소 */
+@media (prefers-reduced-motion: reduce) {
+  .thumbnail-item,
+  .category-btn,
+  .slider-handle {
+    transition: none;
+  }
+
+  .thumbnails-container {
+    scroll-behavior: auto;
+  }
+
+  .playing-indicator .bar {
+    animation: none;
+    height: 12px;
+  }
+}
+
+/* 인쇄 최적화 (선택사항) */
+@media print {
+  .movement-crescendo {
+    page-break-inside: avoid;
+  }
+
+  .thumbnail-nav,
+  .category-btn,
+  .slider-handle {
+    display: none;
   }
 }

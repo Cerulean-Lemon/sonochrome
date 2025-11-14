@@ -15,7 +15,7 @@ const worksMusicData = {
     artist: "IU",
     album: "Movement I: 정적",
     duration: "2:56",
-    file: "Heart Piano.mp3",
+    file: "music/Heart Piano.mp3",
     thumbnail: "images/snapshot7.jpg",
     description: ""
   },
@@ -141,10 +141,12 @@ const WorksMusicManager = {
     );
     
     if (existingIndex === -1) {
-      // 🆕 새로운 트랙 → 플레이리스트 끝에 추가
+      // 🆕 새로운 트랙 → 현재 재생 중인 곡 바로 다음에 추가
       console.log('🆕 Adding new track to playlist');
-      AudioManager.playlist.push(musicData);
-      AudioManager.currentTrackIndex = AudioManager.playlist.length - 1;
+      const insertPosition = AudioManager.currentTrackIndex + 1;
+      AudioManager.playlist.splice(insertPosition, 0, musicData);
+      AudioManager.currentTrackIndex = insertPosition;
+      console.log('📊 Inserted at position:', insertPosition);
       console.log('📊 New playlist length:', AudioManager.playlist.length);
     } else {
       // 🔄 이미 있는 트랙 → 해당 인덱스로 이동
@@ -371,7 +373,97 @@ function initWorksMusicIntegration() {
   // 3. "전체 재생" 버튼 추가
   addPlayAllButton();
   
+  // 4. 플레이리스트 드래그 앤 드롭 초기화
+  setTimeout(() => {
+    initPlaylistDragAndDrop();
+  }, 1000); // 플레이리스트 UI가 완전히 렌더링된 후 초기화
+  
   console.log('✅ Works-Music Integration fully initialized');
+}
+
+// ============================================
+// 🎯 드래그 앤 드롭 플레이리스트 초기화
+// ============================================
+function initPlaylistDragAndDrop() {
+  console.log('🎯 Initializing playlist drag and drop...');
+  
+  const playlistContainer = document.querySelector('.playlist-tracks');
+  
+  if (!playlistContainer) {
+    console.warn('⚠️ Playlist container not found, retrying...');
+    setTimeout(initPlaylistDragAndDrop, 500);
+    return;
+  }
+  
+  if (typeof Sortable === 'undefined') {
+    console.warn('⚠️ Sortable.js not loaded, retrying...');
+    setTimeout(initPlaylistDragAndDrop, 500);
+    return;
+  }
+  
+  // Sortable.js로 드래그 앤 드롭 활성화
+  const sortable = new Sortable(playlistContainer, {
+    animation: 200,
+    easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+    handle: '.track-item', // 전체 트랙 아이템을 드래그 핸들로
+    draggable: '.track-item',
+    ghostClass: 'track-ghost',
+    chosenClass: 'track-chosen',
+    dragClass: 'track-dragging',
+    
+    // 드래그 시작
+    onStart: function(evt) {
+      console.log('🎵 Drag started:', evt.oldIndex);
+      evt.item.classList.add('dragging');
+    },
+    
+    // 드래그 종료 및 순서 업데이트
+    onEnd: function(evt) {
+      console.log('🎵 Drag ended: from', evt.oldIndex, 'to', evt.newIndex);
+      evt.item.classList.remove('dragging');
+      
+      if (evt.oldIndex === evt.newIndex) {
+        console.log('⏭️ No position change');
+        return;
+      }
+      
+      // AudioManager.playlist 배열 업데이트
+      if (typeof AudioManager !== 'undefined' && AudioManager.playlist) {
+        const movedTrack = AudioManager.playlist[evt.oldIndex];
+        
+        // 1. 원래 위치에서 제거
+        AudioManager.playlist.splice(evt.oldIndex, 1);
+        
+        // 2. 새 위치에 삽입
+        AudioManager.playlist.splice(evt.newIndex, 0, movedTrack);
+        
+        // 3. currentTrackIndex 업데이트
+        if (evt.oldIndex === AudioManager.currentTrackIndex) {
+          // 현재 재생 중인 곡을 이동한 경우
+          AudioManager.currentTrackIndex = evt.newIndex;
+          console.log('🎵 Current track moved to:', evt.newIndex);
+        } else if (evt.oldIndex < AudioManager.currentTrackIndex && evt.newIndex >= AudioManager.currentTrackIndex) {
+          // 현재 곡보다 앞에 있던 곡을 뒤로 이동
+          AudioManager.currentTrackIndex--;
+          console.log('🎵 Current track index adjusted to:', AudioManager.currentTrackIndex);
+        } else if (evt.oldIndex > AudioManager.currentTrackIndex && evt.newIndex <= AudioManager.currentTrackIndex) {
+          // 현재 곡보다 뒤에 있던 곡을 앞으로 이동
+          AudioManager.currentTrackIndex++;
+          console.log('🎵 Current track index adjusted to:', AudioManager.currentTrackIndex);
+        }
+        
+        console.log('✅ Playlist reordered');
+        console.log('📊 Updated playlist:', AudioManager.playlist.map(t => t.title));
+        
+        // UI 업데이트
+        if (typeof updatePlaylistUI === 'function') {
+          updatePlaylistUI();
+        }
+      }
+    }
+  });
+  
+  console.log('✅ Playlist drag and drop initialized');
 }
 
 // ============================================
@@ -464,6 +556,60 @@ function injectWorksMusicStyles() {
     
     .play-all-btn.playing {
       background: #1d1d1f;
+    }
+    
+    /* 🎯 드래그 앤 드롭 스타일 */
+    .playlist-tracks {
+      cursor: default;
+    }
+    
+    .track-item {
+      cursor: grab;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    
+    .track-item:active {
+      cursor: grabbing;
+    }
+    
+    /* 드래그 중인 아이템 */
+    .track-item.dragging {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+    
+    /* 선택된 아이템 */
+    .track-item.track-chosen {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 고스트 (드래그 위치 표시) */
+    .track-item.track-ghost {
+      opacity: 0.3;
+      background: rgba(255, 51, 51, 0.1);
+      border: 2px dashed #ff3333;
+    }
+    
+    /* 드래그 중 애니메이션 */
+    .track-item.track-dragging {
+      opacity: 0.8;
+      transform: rotate(2deg) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
+    
+    /* 드래그 가능 힌트 - 호버 시 표시 */
+    .track-item:hover::before {
+      content: '⋮⋮';
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 16px;
+      letter-spacing: -2px;
     }
   `;
   document.head.appendChild(style);
