@@ -107,7 +107,6 @@ function initWorkSwipers() {
         },
         on: {
             init: function() {
-                console.log('🎠 Swiper initialized');
                 const swiperContainer = document.querySelector('.works-carousel-wrapper');
                 if (swiperContainer) {
                     requestAnimationFrame(() => {
@@ -118,7 +117,6 @@ function initWorkSwipers() {
         }
     });
 
-    console.log('✅ Swiper created');
     return workSwiper1;
 }
 
@@ -148,8 +146,6 @@ function initWorksAnimation() {
             ease: 'power2.out'
         });
     });
-
-    console.log('✅ Works animations initialized');
 }
 
 // ============================================
@@ -180,16 +176,12 @@ function initMovementHeaderAnimation() {
             ease: 'power2.out'
         });
     });
-
-    console.log('✅ Movement headers animated');
 }
 
 // ============================================
 // 🚀 초기화 함수
 // ============================================
 function initWorksSection() {
-    console.log('🎵 Initializing Works Section...');
-    
     if (typeof Swiper === 'undefined') {
         console.error('❌ Swiper library not loaded!');
         return;
@@ -200,7 +192,6 @@ function initWorksSection() {
         // ❌ GLightbox는 works-music-integration.js에서 초기화
         initWorksAnimation();
         initMovementHeaderAnimation();
-        console.log('✅ Works Section fully initialized!');
     } catch (error) {
         console.error('❌ Error initializing Works Section:', error);
     }

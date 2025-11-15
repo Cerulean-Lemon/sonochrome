@@ -282,10 +282,6 @@ gsap
     { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power3.out" }
   );
 
-console.log("✅ About Section - SONOCHROME Story Animations Loaded");
-console.log("🎬 Korean subtitle appears after cards");
-console.log("📸 Left: Grayscale Photo | 🎵 Right: Color Music");
-
 // ========================================
 
 // ========================================
@@ -386,7 +382,3 @@ imageWrappers.forEach((wrapper) => {
     });
   });
 });
-
-console.log("📸 Story Images - Unified Reveal Animations Loaded");
-console.log("✨ Right Images: Reveal from Right → Left");
-console.log("✨ Left Images: Reveal from Left → Right");
