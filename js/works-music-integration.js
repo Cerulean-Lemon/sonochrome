@@ -105,13 +105,8 @@ const WorksMusicManager = {
    * 📝 클릭 순서대로 플레이리스트에 쌓이고, 중복된 곡은 해당 위치로 이동
    */
   playWorkMusic(imageUrl) {
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('🎵 playWorkMusic 호출됨!');
-    console.log('📸 Image URL:', imageUrl);
-    
     // 이미지 URL에서 파일명 추출
     const filename = imageUrl.split('/').pop().split('?')[0]; // 쿼리 파라미터 제거
-    console.log('📁 Extracted filename:', filename);
     
     const musicData = worksMusicData[filename];
     
@@ -120,9 +115,7 @@ const WorksMusicManager = {
       console.warn('📋 Available files:', Object.keys(worksMusicData));
       return;
     }
-    
-    console.log('✅ Music data found:', musicData);
-    
+
     this.isWorkMode = true;
     this.currentWorkTrack = musicData;
     
@@ -131,10 +124,7 @@ const WorksMusicManager = {
       console.error('❌ AudioManager is not defined!');
       return;
     }
-    
-    console.log('✅ AudioManager found');
-    console.log('📊 Current playlist length:', AudioManager.playlist.length);
-    
+
     // ✨ 플레이리스트에서 이미 존재하는지 확인
     const existingIndex = AudioManager.playlist.findIndex(
       track => track.id === musicData.id
@@ -142,26 +132,17 @@ const WorksMusicManager = {
     
     if (existingIndex === -1) {
       // 🆕 새로운 트랙 → 현재 재생 중인 곡 바로 다음에 추가
-      console.log('🆕 Adding new track to playlist');
       const insertPosition = AudioManager.currentTrackIndex + 1;
       AudioManager.playlist.splice(insertPosition, 0, musicData);
       AudioManager.currentTrackIndex = insertPosition;
-      console.log('📊 Inserted at position:', insertPosition);
-      console.log('📊 New playlist length:', AudioManager.playlist.length);
     } else {
       // 🔄 이미 있는 트랙 → 해당 인덱스로 이동
-      console.log('🔄 Track already in playlist, moving to index:', existingIndex);
       AudioManager.currentTrackIndex = existingIndex;
     }
-    
-    console.log('🎯 Current track index:', AudioManager.currentTrackIndex);
-    console.log('🎵 Loading track...');
-    
+
     // 트랙 로드 및 재생
     AudioManager.loadTrack(AudioManager.currentTrackIndex, AudioManager.playlist);
     AudioManager.play();
-    
-    console.log('▶️ Play command sent');
     
     // UI 업데이트
     this.updatePlayerUI(musicData);
@@ -170,16 +151,12 @@ const WorksMusicManager = {
     // 플레이리스트 패널 업데이트
     if (typeof updatePlaylistUI === 'function') {
       updatePlaylistUI();
-      console.log('✅ Playlist UI updated');
     }
-    
+
     // 현재 재생 정보 업데이트
     if (typeof updateNowPlaying === 'function') {
       updateNowPlaying();
-      console.log('✅ Now Playing updated');
     }
-    
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   },
   
   /**
@@ -241,8 +218,6 @@ const WorksMusicManager = {
       if (typeof updatePlaylistUI === 'function') {
         updatePlaylistUI();
       }
-      
-      console.log(`🎵 Added ${addedCount} new tracks. Total: ${AudioManager.playlist.length}`);
     }
   }
 };
@@ -251,11 +226,8 @@ const WorksMusicManager = {
 // 🎵 GLightbox 초기화 (텍스트 완전 제거 버전)
 // ============================================
 function initWorksMusicIntegration() {
-  console.log('🎵 Initializing Works-Music Integration...');
-  
   // 1. Work 카드 설정
   const workCards = document.querySelectorAll('.work-card');
-  console.log(`📊 Found ${workCards.length} work cards`);
   
   workCards.forEach((card, index) => {
     const imageUrl = card.getAttribute('href');
@@ -278,8 +250,6 @@ function initWorksMusicIntegration() {
       
       // Gallery 속성만 설정 (같은 앨범끼리 그룹화)
       card.setAttribute('data-gallery', musicData.album);
-      
-      console.log(`✅ Configured card ${index}: ${filename} → ${musicData.title}`);
     } else {
       console.warn(`⚠️ No music data for: ${filename}`);
     }
@@ -290,9 +260,7 @@ function initWorksMusicIntegration() {
     console.error('❌ GLightbox library not found!');
     return;
   }
-  
-  console.log('🔄 Initializing GLightbox...');
-  
+
   WorksMusicManager.lightboxInstance = GLightbox({
     selector: '.work-card',
     touchNavigation: true,
@@ -311,9 +279,6 @@ function initWorksMusicIntegration() {
     
     // ✅ 라이트박스 열릴 때
     onOpen: () => {
-      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log('📸 GLightbox opened');
-      
       setTimeout(() => {
         // 현재 활성 슬라이드 찾기 (여러 방법 시도)
         let activeSlide = document.querySelector('.glightbox-container .gslide.current .gslide-image img');
@@ -326,8 +291,7 @@ function initWorksMusicIntegration() {
         
         if (activeSlide) {
           const imageSrc = activeSlide.getAttribute('src') || activeSlide.src;
-          console.log('📸 Current slide found:', imageSrc);
-          
+
           if (imageSrc) {
             WorksMusicManager.playWorkMusic(imageSrc);
           } else {
@@ -335,18 +299,12 @@ function initWorksMusicIntegration() {
           }
         } else {
           console.error('❌ Could not find current slide image');
-          console.log('🔍 Available elements:', 
-            document.querySelectorAll('.glightbox-container .gslide').length,
-            'slides');
         }
       }, 150); // 약간 더 긴 딜레이로 DOM 완전 로드 보장
     },
     
     // ✅ 슬라이드 변경 시
     onSlideChange: () => {
-      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log('🔄 Slide changed');
-      
       setTimeout(() => {
         let activeSlide = document.querySelector('.glightbox-container .gslide.current .gslide-image img');
         if (!activeSlide) {
@@ -358,8 +316,7 @@ function initWorksMusicIntegration() {
         
         if (activeSlide) {
           const imageSrc = activeSlide.getAttribute('src') || activeSlide.src;
-          console.log('📸 Changed to:', imageSrc);
-          
+
           if (imageSrc) {
             WorksMusicManager.playWorkMusic(imageSrc);
           }
@@ -367,9 +324,7 @@ function initWorksMusicIntegration() {
       }, 150);
     }
   });
-  
-  console.log('✅ GLightbox initialized successfully');
-  
+
   // 3. "전체 재생" 버튼 추가
   addPlayAllButton();
   
@@ -377,16 +332,12 @@ function initWorksMusicIntegration() {
   setTimeout(() => {
     initPlaylistDragAndDrop();
   }, 1000); // 플레이리스트 UI가 완전히 렌더링된 후 초기화
-  
-  console.log('✅ Works-Music Integration fully initialized');
 }
 
 // ============================================
 // 🎯 드래그 앤 드롭 플레이리스트 초기화
 // ============================================
 function initPlaylistDragAndDrop() {
-  console.log('🎯 Initializing playlist drag and drop...');
-  
   const playlistContainer = document.querySelector('.playlist-tracks');
   
   if (!playlistContainer) {
@@ -413,17 +364,14 @@ function initPlaylistDragAndDrop() {
     
     // 드래그 시작
     onStart: function(evt) {
-      console.log('🎵 Drag started:', evt.oldIndex);
       evt.item.classList.add('dragging');
     },
-    
+
     // 드래그 종료 및 순서 업데이트
     onEnd: function(evt) {
-      console.log('🎵 Drag ended: from', evt.oldIndex, 'to', evt.newIndex);
       evt.item.classList.remove('dragging');
-      
+
       if (evt.oldIndex === evt.newIndex) {
-        console.log('⏭️ No position change');
         return;
       }
       
@@ -441,19 +389,13 @@ function initPlaylistDragAndDrop() {
         if (evt.oldIndex === AudioManager.currentTrackIndex) {
           // 현재 재생 중인 곡을 이동한 경우
           AudioManager.currentTrackIndex = evt.newIndex;
-          console.log('🎵 Current track moved to:', evt.newIndex);
         } else if (evt.oldIndex < AudioManager.currentTrackIndex && evt.newIndex >= AudioManager.currentTrackIndex) {
           // 현재 곡보다 앞에 있던 곡을 뒤로 이동
           AudioManager.currentTrackIndex--;
-          console.log('🎵 Current track index adjusted to:', AudioManager.currentTrackIndex);
         } else if (evt.oldIndex > AudioManager.currentTrackIndex && evt.newIndex <= AudioManager.currentTrackIndex) {
           // 현재 곡보다 뒤에 있던 곡을 앞으로 이동
           AudioManager.currentTrackIndex++;
-          console.log('🎵 Current track index adjusted to:', AudioManager.currentTrackIndex);
         }
-        
-        console.log('✅ Playlist reordered');
-        console.log('📊 Updated playlist:', AudioManager.playlist.map(t => t.title));
         
         // UI 업데이트
         if (typeof updatePlaylistUI === 'function') {
@@ -462,8 +404,6 @@ function initPlaylistDragAndDrop() {
       }
     }
   });
-  
-  console.log('✅ Playlist drag and drop initialized');
 }
 
 // ============================================
@@ -485,7 +425,6 @@ function addPlayAllButton() {
     `;
     
     playAllBtn.addEventListener('click', function() {
-      console.log('🎵 Play All button clicked');
       WorksMusicManager.addAllWorksToPlaylist();
       
       const firstCard = header.parentElement.querySelector('.work-card');
@@ -620,14 +559,9 @@ function injectWorksMusicStyles() {
 // ============================================
 function waitAndInit() {
   if (typeof GLightbox !== 'undefined' && typeof Swiper !== 'undefined') {
-    console.log('✅ All libraries loaded');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     injectWorksMusicStyles();
     initWorksMusicIntegration();
   } else {
-    console.log('⏳ Waiting for libraries...');
-    console.log('  GLightbox:', typeof GLightbox !== 'undefined' ? '✅' : '❌');
-    console.log('  Swiper:', typeof Swiper !== 'undefined' ? '✅' : '❌');
     setTimeout(waitAndInit, 100);
   }
 }

@@ -25,18 +25,13 @@ class CrescendoSection {
      */
     init() {
         if (this.initialized) {
-            console.log('ℹ️ Crescendo Section already initialized');
             return;
         }
-        
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        console.log('🎵 Initializing Crescendo Section v5 (완벽한 슬라이더)...');
-        
+
         // DOM 요소 캐싱
         this.cacheElements();
         
         if (!this.elements.section) {
-            console.log('⚠️ Crescendo section not found in DOM');
             return;
         }
         
@@ -57,10 +52,8 @@ class CrescendoSection {
         
         // 키보드 단축키 설정
         this.setupKeyboardShortcuts();
-        
+
         this.initialized = true;
-        console.log('✅ Crescendo Section v5 initialized with perfect slider');
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     }
 
     /**
@@ -79,15 +72,6 @@ class CrescendoSection {
             trackTitle: document.querySelector('.crescendo-main-viewer .track-title'),
             trackArtist: document.querySelector('.crescendo-main-viewer .track-artist'),
         };
-        
-        console.log('📦 Elements cached:', {
-            section: !!this.elements.section,
-            categoryBtns: this.elements.categoryBtns.length,
-            thumbnails: this.elements.thumbnails.length,
-            slider: !!this.elements.slider,
-            mainImages: this.elements.mainImages.length,
-            viewerContainer: !!this.elements.viewerContainer
-        });
     }
 
     /**
@@ -98,14 +82,10 @@ class CrescendoSection {
             console.warn('⚠️ Slider elements not ready');
             return;
         }
-        
-        console.log('🎯 Initializing slider at 50%...');
-        
+
         // 슬라이더 위치 50%로 설정
         this.sliderPosition = 50;
         this.updateSliderVisual(50);
-        
-        console.log('✅ Slider initialized at 50% (left: grayscale, right: color)');
     }
 
     /**
@@ -138,8 +118,6 @@ class CrescendoSection {
      * ⭐ 썸네일 초기 가시성 확보
      */
     ensureThumbnailsVisible() {
-        console.log('👁️ Ensuring thumbnails are visible...');
-        
         let visibleCount = 0;
         this.elements.thumbnails.forEach(thumb => {
             thumb.classList.remove('hidden');
@@ -149,8 +127,6 @@ class CrescendoSection {
             thumb.style.minWidth = '180px';
             visibleCount++;
         });
-        
-        console.log(`✅ ${visibleCount} thumbnails made visible`);
     }
 
     /**
@@ -205,20 +181,15 @@ class CrescendoSection {
                 }
             }
         });
-
-        console.log('✅ Swiper initialized with', this.swiperInstance.slides.length, 'slides');
     }
 
     /**
      * 이벤트 리스너 설정
      */
     setupEventListeners() {
-        console.log('🔗 Setting up event listeners...');
-        
         // 카테고리 버튼 이벤트
         this.elements.categoryBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                console.log('📂 Category button clicked:', btn.dataset.category);
                 this.filterByCategory(btn.dataset.category);
             });
         });
@@ -227,16 +198,12 @@ class CrescendoSection {
         this.elements.thumbnails.forEach((thumb, index) => {
             thumb.addEventListener('click', (e) => {
                 if (this.swiperInstance && this.swiperInstance.animating) {
-                    console.log('⏸️ Swiper is animating, ignoring click');
                     return;
                 }
-                
+
                 e.preventDefault();
                 e.stopPropagation();
-                
-                console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-                console.log('🖼️ Thumbnail clicked:', thumb.dataset.title);
-                
+
                 this.selectImage(thumb, index);
                 this.playCrescendoMusic(thumb);
             });
@@ -258,8 +225,6 @@ class CrescendoSection {
         if (this.elements.slider && this.elements.viewerContainer) {
             this.setupSliderEvents();
         }
-        
-        console.log('✅ Event listeners attached');
     }
 
     /**
@@ -267,13 +232,11 @@ class CrescendoSection {
      */
     playCrescendoMusic(thumbnail) {
         const musicFile = thumbnail.dataset.music;
-        
+
         if (!musicFile) {
             console.warn('⚠️ No music file specified for this thumbnail');
             return;
         }
-        
-        console.log('📁 Music file:', musicFile);
         
         if (!window.crescendoMusicData) {
             console.error('❌ crescendoMusicData not loaded!');
@@ -288,61 +251,44 @@ class CrescendoSection {
             return;
         }
         
-        console.log('✅ Music data found:', musicData);
-        
         if (!window.AudioManager) {
             console.error('❌ AudioManager not found!');
             return;
         }
-        
-        console.log('✅ AudioManager found');
-        console.log('📊 Current playlist length:', window.AudioManager.playlist.length);
-        
+
         const existingIndex = window.AudioManager.playlist.findIndex(
             track => track.id === musicData.id
         );
         
         if (existingIndex === -1) {
-            console.log('🆕 Adding new track to playlist');
             const insertPosition = window.AudioManager.currentTrackIndex + 1;
             window.AudioManager.playlist.splice(insertPosition, 0, musicData);
             window.AudioManager.currentTrackIndex = insertPosition;
-            console.log('📊 Inserted at position:', insertPosition);
         } else {
-            console.log('🔄 Track already in playlist, jumping to position:', existingIndex);
             window.AudioManager.currentTrackIndex = existingIndex;
         }
-        
-        console.log('📊 New playlist length:', window.AudioManager.playlist.length);
         
         window.AudioManager.loadTrack(
             window.AudioManager.currentTrackIndex,
             window.AudioManager.playlist
         );
         window.AudioManager.play();
-        
-        console.log('🎵 Music playing:', musicData.title);
-        
+
         if (typeof updatePlaylistUI === 'function') {
             updatePlaylistUI();
-            console.log('✅ Playlist UI updated');
         }
-        
+
         if (typeof updateNowPlaying === 'function') {
             updateNowPlaying();
-            console.log('✅ Now Playing updated');
         }
-        
+
         const player = document.getElementById('draggable-player');
         if (player) {
             if (!player.classList.contains('visible')) {
                 player.classList.add('visible');
                 player.style.bottom = '30px';
-                console.log('✅ Music player shown');
             }
         }
-        
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     }
 
     /**
@@ -357,23 +303,19 @@ class CrescendoSection {
             console.warn('⚠️ Slider elements not found');
             return;
         }
-        
-        console.log('🎚️ Setting up slider events (v5 - 완벽한 드래그)...');
-        
+
         const startDrag = (clientX) => {
             this.isDragging = true;
             container.style.cursor = 'ew-resize';
             document.body.style.userSelect = 'none';
             this.updateSliderPosition(clientX);
-            console.log('🖱️ Slider drag started');
         };
-        
+
         const endDrag = () => {
             if (this.isDragging) {
                 this.isDragging = false;
                 container.style.cursor = 'crosshair';
                 document.body.style.userSelect = '';
-                console.log('🖱️ Slider drag ended at:', this.sliderPosition.toFixed(1) + '%');
             }
         };
         
@@ -420,12 +362,9 @@ class CrescendoSection {
             if (e.target.closest('.comparison-slider')) {
                 return;
             }
-            
-            console.log('📍 Container clicked, moving slider');
+
             this.updateSliderPosition(e.clientX);
         });
-        
-        console.log('✅ Slider events attached (완벽한 범위 이동 가능)');
     }
 
     /**
@@ -452,9 +391,7 @@ class CrescendoSection {
      */
     filterByCategory(category) {
         this.currentCategory = category;
-        
-        console.log('📂 Filtering by category:', category);
-        
+
         this.elements.categoryBtns.forEach(btn => {
             if (btn.dataset.category === category) {
                 btn.classList.add('active');
@@ -496,31 +433,21 @@ class CrescendoSection {
                 }
             });
         }
-        
-        console.log(`✅ Category filter applied: ${visibleCount} visible`);
     }
 
     /**
      * 이미지 선택 (슬라이더 리셋 포함)
      */
     selectImage(thumbnail, index) {
-        console.log('🖼️ Selecting image:', thumbnail.dataset.title);
-        
         this.elements.thumbnails.forEach(t => t.classList.remove('active'));
         thumbnail.classList.add('active');
         
         const imageSrc = thumbnail.dataset.image;
         const title = thumbnail.dataset.title;
         const subtitle = thumbnail.dataset.subtitle;
-        
-        console.log('📷 Loading image:', imageSrc);
-        
+
         this.elements.mainImages.forEach((img, idx) => {
             img.src = imageSrc;
-            
-            img.onload = () => {
-                console.log(`✅ Image ${idx + 1} loaded:`, imageSrc);
-            };
             
             img.onerror = () => {
                 console.error(`❌ Failed to load image ${idx + 1}:`, imageSrc);
@@ -546,10 +473,8 @@ class CrescendoSection {
      * ⭐ 슬라이더를 50%로 리셋
      */
     resetSliderTo50() {
-        console.log('🔄 Resetting slider to 50%...');
         this.sliderPosition = 50;
         this.updateSliderVisual(50);
-        console.log('✅ Slider reset to 50% (center position)');
     }
 
     /**
@@ -573,7 +498,6 @@ class CrescendoSection {
     loadFirstImage() {
         const firstThumbnail = this.elements.thumbnails[0];
         if (firstThumbnail) {
-            console.log('📸 Loading first image with slider at 50%');
             this.selectImage(firstThumbnail, 0);
         }
     }
@@ -583,7 +507,6 @@ class CrescendoSection {
      */
     setupScrollAnimations() {
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-            console.log('⚠️ GSAP or ScrollTrigger not available');
             return;
         }
         
@@ -640,8 +563,6 @@ class CrescendoSection {
             },
             ease: 'power2.out'
         });
-        
-        console.log('✅ Scroll animations setup');
     }
 
     /**
@@ -671,8 +592,6 @@ class CrescendoSection {
                     break;
             }
         });
-        
-        console.log('✅ Keyboard shortcuts setup');
     }
 
     /**
@@ -736,5 +655,3 @@ window.addEventListener('scroll', () => {
         crescendoInitialized = true;
     }
 });
-
-console.log('💫 Crescendo Section script loaded (v5 - Perfect Slider Movement)');

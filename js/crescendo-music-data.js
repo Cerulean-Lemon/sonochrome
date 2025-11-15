@@ -98,5 +98,3 @@ const crescendoMusicData = {
 
 // 전역으로 내보내기
 window.crescendoMusicData = crescendoMusicData;
-
-console.log('✅ Crescendo music data loaded:', Object.keys(crescendoMusicData).length, 'tracks');
