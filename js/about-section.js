@@ -36,7 +36,7 @@ introTimeline
     },
     0
   )
-  
+
   // 🎬 Phase 2: 한글 텍스트 페이드 인
   .to(
     ".intro-text-subtitle",
@@ -47,10 +47,10 @@ introTimeline
     },
     0.8
   )
-  
+
   // 🎬 Phase 2 유지 (한글 텍스트 표시)
   .to({}, { duration: 0.7 })
-  
+
   // 🎬 Phase 3: 한글 텍스트 페이드 아웃
   .to(
     ".intro-text-subtitle",
@@ -62,7 +62,7 @@ introTimeline
     },
     ">"
   )
-  
+
   // 🎬 Phase 4: 두 카드가 중앙으로 이동
   .to(
     ".intro-card[data-card='photo']",
@@ -87,7 +87,7 @@ introTimeline
     },
     "-=1.8"
   )
-  
+
   // 🎬 Phase 4: 포개지면서 블렌드 효과
   .to(
     ".intro-card[data-card='photo']",
@@ -98,10 +98,10 @@ introTimeline
     },
     "-=1"
   )
-  
+
   // 🎬 Phase 4 유지
   .to({}, { duration: 0.7 })
-  
+
   // 🎬 Phase 5: 카드들이 위로 올라가며 사라짐
   .to(
     ".intro-card",
@@ -176,7 +176,7 @@ conceptTimeline
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
     "-=0.4"
-  )
+  );
 
 // 🎯 섹션 2: 순간의 빛
 gsap
@@ -282,10 +282,6 @@ gsap
     { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power3.out" }
   );
 
-console.log("✅ About Section - SONOCHROME Story Animations Loaded");
-console.log("🎬 Korean subtitle appears after cards");
-console.log("📸 Left: Grayscale Photo | 🎵 Right: Color Music");
-
 // ========================================
 
 // ========================================
@@ -295,8 +291,9 @@ console.log("📸 Left: Grayscale Photo | 🎵 Right: Color Music");
 // 🎨 오른쪽 이미지들: 왼쪽에서 오른쪽으로 스르륵 등장 (1, 3번)
 gsap.utils.toArray(".reveal-right").forEach((element, index) => {
   const section = element.closest(".story-section");
-  
-  gsap.fromTo(element, 
+
+  gsap.fromTo(
+    element,
     {
       opacity: 0,
       clipPath: "inset(0% 0% 0% 100%)", // 시작: 왼쪽 완전히 가림
@@ -331,8 +328,9 @@ gsap.utils.toArray(".reveal-right").forEach((element, index) => {
 // 🎨 왼쪽 이미지들: 왼쪽에서 오른쪽으로 스르륵 등장 (2, 4번)
 gsap.utils.toArray(".reveal-left").forEach((element, index) => {
   const section = element.closest(".story-section");
-  
-  gsap.fromTo(element, 
+
+  gsap.fromTo(
+    element,
     {
       opacity: 0,
       clipPath: "inset(0% 100% 0% 0%)", // 시작: 오른쪽 완전히 가림 - 왼쪽에서 오른쪽으로 나타남
@@ -386,7 +384,3 @@ imageWrappers.forEach((wrapper) => {
     });
   });
 });
-
-console.log("📸 Story Images - Unified Reveal Animations Loaded");
-console.log("✨ Right Images: Reveal from Right → Left");
-console.log("✨ Left Images: Reveal from Left → Right");

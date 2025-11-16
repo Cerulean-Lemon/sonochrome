@@ -18,8 +18,6 @@ function initSmoothScroll() {
       }
     });
   });
-
-  console.log("✅ Smooth scroll initialized (CSS scroll-behavior)");
 }
 
 // 페이지 로드 후 실행
