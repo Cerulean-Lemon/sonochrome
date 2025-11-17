@@ -1,6 +1,6 @@
 /* ============================================
-   SONOCHROME - Movement IV: ECHO Section (완전 개선판)
-   이미지 잘림 방지 + 자연스러운 배치
+   SONOCHROME - Movement IV: ECHO (완벽한 무한 스크롤)
+   JavaScript 방식 - CSS 애니메이션 없음!
    ============================================ */
 
 /* ============================================
@@ -15,7 +15,6 @@
   overflow: hidden;
 }
 
-/* 배경 노이즈 효과 */
 .movement-echo::before {
   content: "";
   position: absolute;
@@ -50,7 +49,6 @@
   animation: headerFadeIn 1s ease forwards;
 }
 
-/* Movement 레이블 */
 .movement-echo .movement-label {
   display: inline-block !important;
   font-size: clamp(1rem, 1.5vw, 1.2rem) !important;
@@ -63,7 +61,6 @@
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-/* Movement 타이틀 */
 .movement-echo .movement-title {
   font-size: clamp(4rem, 8vw, 8rem) !important;
   font-weight: 700 !important;
@@ -74,7 +71,6 @@
   font-family: "Noto Serif KR", serif !important;
 }
 
-/* 한자 서브타이틀 */
 .movement-echo .subtitle {
   display: block;
   font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -84,7 +80,6 @@
   font-family: "Noto Serif KR", serif;
 }
 
-/* Movement 설명 */
 .movement-echo .movement-description {
   font-size: clamp(1rem, 1.8vw, 1.3rem) !important;
   line-height: 1.6 !important;
@@ -109,98 +104,61 @@
 }
 
 /* ============================================
-   🖼️ Echo Gallery - 자연스러운 레이아웃
+   🖼️ Echo Gallery
    ============================================ */
 .echo-gallery {
   position: relative;
   width: 100%;
-  max-width: 100rem;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 3vw, 3.75rem);
-  margin-bottom: clamp(3.75rem, 8vh, 6.25rem);
+  padding: 0;
+  margin-bottom: clamp(4rem, 8vh, 6rem);
 }
 
-/* 스크롤 트랙 - 유연한 높이 */
+/* ============================================
+   📦 스크롤 트랙 - JavaScript로 제어
+   ============================================ */
 .scroll-track {
   position: relative;
   width: 100%;
   overflow: hidden;
   display: flex;
   align-items: center;
-  margin-bottom: clamp(1.5rem, 3vh, 3rem);
-  /* 높이를 내부 아이템에 맞게 자동 조정 */
-  min-height: 30vh;
-  max-height: 50vh;
+  margin-bottom: clamp(2.5rem, 4vh, 4rem);
+  padding: 1rem 0;
 }
 
-/* 트랙 1, 3 - 세로 사진 위주 (더 높게) */
-.scroll-track.track-1,
 .scroll-track.track-3 {
-  min-height: 35vh;
+  min-height: 45vh;
+  height: 50vh;
   max-height: 55vh;
 }
 
-/* 트랙 2 - 가로 사진 위주 (낮게) */
 .scroll-track.track-2 {
-  min-height: 28vh;
-  max-height: 42vh;
-}
-
-/* 스크롤 컨텐츠 컨테이너 */
-.scroll-content {
-  display: flex;
-  gap: clamp(1.25rem, 2vw, 2rem);
-  align-items: center;
-  animation: infiniteScroll 40s linear infinite;
-  will-change: transform;
-}
-
-/* 복제본 컨테이너 */
-.scroll-content-clone {
-  display: flex;
-  gap: clamp(1.25rem, 2vw, 2rem);
-  align-items: center;
-  animation: infiniteScroll 40s linear infinite;
-  will-change: transform;
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Track 2 역방향 */
-.track-2 .scroll-content,
-.track-2 .scroll-content-clone {
-  animation: infiniteScrollReverse 45s linear infinite;
-}
-
-/* Track 3 느린 속도 */
-.track-3 .scroll-content,
-.track-3 .scroll-content-clone {
-  animation: infiniteScroll 50s linear infinite;
-}
-
-/* 무한 스크롤 애니메이션 */
-@keyframes infiniteScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes infiniteScrollReverse {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+  min-height: 35vh;
+  height: 40vh;
+  max-height: 45vh;
 }
 
 /* ============================================
-   📸 Echo 아이템 - 자연스러운 크기 분산
+ 스크롤 트랙 내부 - JS가 움직임
+   ============================================ */
+.scroll-track-inner {
+  display: flex;
+  gap: clamp(2rem, 3vw, 3.5rem);
+  align-items: center;
+  padding: 0 clamp(1rem, 2vw, 2rem);
+  will-change: transform;
+  /* CSS 애니메이션 없음! JS가 제어 */
+}
+
+/* 호버 시 일시정지 */
+.scroll-track:hover .scroll-track-inner {
+  /* JS에서 처리 */
+}
+
+/* ============================================
+    Echo 아이템
    ============================================ */
 .echo-item {
   position: relative;
@@ -214,81 +172,56 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* 아이템 크기를 auto로 설정하여 이미지에 맞춤 */
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.3);
 }
 
-/* ============================================
-   세로 사진 크기 (Portrait)
-   ============================================ */
-
-/* Track 1, 3의 세로 사진 - 기본 크기 */
-.track-1 .echo-item.portrait,
+/* Track 3 - 세로 사진 */
 .track-3 .echo-item.portrait {
   width: auto;
-  height: clamp(18rem, 38vh, 26rem);
+  height: 85%;
   aspect-ratio: 3 / 4;
+  max-height: 42vh;
 }
 
-/* Track 1, 3의 가로 사진 - 조금 더 넓게 */
-.track-1 .echo-item.landscape,
-.track-3 .echo-item.landscape {
+.track-3 .echo-item.portrait:nth-child(4n + 1) {
+  height: 90%;
+  max-height: 45vh;
+}
+
+.track-3 .echo-item.portrait:nth-child(4n + 3) {
+  height: 75%;
+  max-height: 38vh;
+}
+
+/* Track 2 - 가로 사진 */
+.track-2 .echo-item.landscape {
   width: auto;
-  height: clamp(15rem, 30vh, 22rem);
+  height: 85%;
+  aspect-ratio: 16 / 9;
+  max-height: 34vh;
+}
+
+.track-2 .echo-item.landscape:nth-child(3n + 1) {
+  height: 90%;
+  max-height: 36vh;
+}
+
+.track-2 .echo-item.landscape:nth-child(3n + 2) {
+  height: 80%;
+  max-height: 32vh;
   aspect-ratio: 4 / 3;
 }
 
-/* Track 2의 가로 사진 - 가장 넓게 */
-.track-2 .echo-item.landscape {
-  width: auto;
-  height: clamp(13rem, 28vh, 20rem);
-  aspect-ratio: 16 / 9;
-}
-
-/* Track 2의 세로 사진 - 작게 */
-.track-2 .echo-item.portrait {
-  width: auto;
-  height: clamp(14rem, 32vh, 19rem);
-  aspect-ratio: 3 / 4;
-}
-
 /* ============================================
-   다양한 크기 변형 (자연스러운 배치)
-   ============================================ */
-
-/* 큰 세로 사진 */
-.track-1 .echo-item.portrait:nth-child(3n + 1),
-.track-3 .echo-item.portrait:nth-child(3n + 1) {
-  height: clamp(20rem, 42vh, 29rem);
-}
-
-/* 중간 크기 세로 사진 */
-.track-1 .echo-item.portrait:nth-child(3n + 2),
-.track-3 .echo-item.portrait:nth-child(3n + 2) {
-  height: clamp(17rem, 36vh, 24rem);
-}
-
-/* 작은 세로 사진 */
-.track-1 .echo-item.portrait:nth-child(3n),
-.track-3 .echo-item.portrait:nth-child(3n) {
-  height: clamp(15rem, 32vh, 21rem);
-}
-
-/* 가로 사진도 약간의 변형 */
-.track-2 .echo-item.landscape:nth-child(2n) {
-  height: clamp(15rem, 32vh, 22rem);
-}
-
-/* ============================================
-   이미지 스타일 - 잘리지 않게
+   이미지 스타일
    ============================================ */
 .echo-item img {
   width: 100%;
   height: 100%;
-  /* cover 대신 contain 사용하여 이미지 전체가 보이도록 */
   object-fit: cover;
   object-position: center;
   background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   filter: grayscale(20%) brightness(0.95);
 }
 
@@ -297,299 +230,68 @@
   transform: scale(1.05) translateY(-0.5rem);
   border-color: rgba(255, 51, 51, 0.5);
   box-shadow: 0 0.625rem 1.875rem rgba(255, 51, 51, 0.3),
-    0 0 2.5rem rgba(255, 51, 51, 0.2);
+    0 0 2.5rem rgba(255, 51, 51, 0.2), 0 0.25rem 1rem rgba(0, 0, 0, 0.4);
   z-index: 10;
 }
 
 .echo-item:hover img {
   transform: scale(1.05);
-  filter: grayscale(0%) brightness(1);
-}
-
-/* 호버 시 애니메이션 일시정지 */
-.scroll-track:hover .scroll-content,
-.scroll-track:hover .scroll-content-clone {
-  animation-play-state: paused;
+  filter: grayscale(0%) brightness(1.05);
 }
 
 /* ============================================
-   💬 Echo 메시지
+   💬 Echo 메시지 - 트랙들 사이에 배치
    ============================================ */
 .echo-message {
   text-align: center;
   padding: 0 5vw;
-  margin-top: clamp(3.75rem, 8vh, 6.25rem);
+  margin-top: clamp(4rem, 8vh, 6rem);
+  margin-bottom: clamp(4rem, 8vh, 6rem);
   position: relative;
   z-index: 10;
 }
 
 .echo-quote {
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   font-family: "Noto Serif KR", serif;
   font-weight: 300;
   letter-spacing: 0.05em;
   position: relative;
   display: inline-block;
+  text-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.5);
 }
 
-/* 인용 부호 장식 */
 .echo-quote::before,
 .echo-quote::after {
   content: '"';
   position: absolute;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  color: rgba(255, 51, 51, 0.3);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: rgba(255, 51, 51, 0.4);
   font-family: "Georgia", serif;
+  font-weight: 700;
 }
 
 .echo-quote::before {
-  top: -1.25rem;
-  left: -1.875rem;
+  top: -1.5rem;
+  left: -2.5rem;
 }
 
 .echo-quote::after {
-  bottom: -1.25rem;
-  right: -1.875rem;
+  bottom: -1.5rem;
+  right: -2.5rem;
 }
 
 /* ============================================
-   📱 반응형 디자인
+   🎨 그라디언트 페이드 효과
    ============================================ */
-
-/* 태블릿 (1024px 이하) */
-@media (max-width: 1024px) {
-  .movement-echo .movement-label {
-    font-size: 1rem !important;
-    margin-bottom: 1.125rem !important;
-  }
-
-  .movement-echo .movement-title {
-    font-size: clamp(3rem, 7vw, 6rem) !important;
-  }
-
-  .movement-echo .subtitle {
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
-  }
-
-  .movement-echo .movement-description {
-    font-size: clamp(0.95rem, 1.6vw, 1.2rem) !important;
-    margin-top: 1.5625rem !important;
-  }
-
-  /* 트랙 높이 조정 */
-  .scroll-track.track-1,
-  .scroll-track.track-3 {
-    min-height: 32vh;
-    max-height: 48vh;
-  }
-
-  .scroll-track.track-2 {
-    min-height: 25vh;
-    max-height: 38vh;
-  }
-
-  /* 이미지 크기 조정 */
-  .track-1 .echo-item.portrait,
-  .track-3 .echo-item.portrait {
-    height: clamp(16rem, 35vh, 24rem);
-  }
-
-  .track-2 .echo-item.landscape {
-    height: clamp(12rem, 26vh, 18rem);
-  }
-
-  /* 애니메이션 속도 조정 */
-  .scroll-content,
-  .scroll-content-clone {
-    animation-duration: 30s;
-  }
-
-  .track-2 .scroll-content,
-  .track-2 .scroll-content-clone {
-    animation-duration: 35s;
-  }
-
-  .track-3 .scroll-content,
-  .track-3 .scroll-content-clone {
-    animation-duration: 40s;
-  }
-}
-
-/* 모바일 (768px 이하) */
-@media (max-width: 768px) {
-  .movement-echo {
-    padding: clamp(3.75rem, 8vh, 5rem) 0;
-  }
-
-  .movement-echo .movement-header {
-    margin-bottom: clamp(3.125rem, 6vh, 5rem);
-  }
-
-  .movement-echo .movement-label {
-    font-size: 0.95rem !important;
-    margin-bottom: 0.9375rem !important;
-  }
-
-  .movement-echo .movement-title {
-    font-size: clamp(2.5rem, 10vw, 4.5rem) !important;
-    line-height: 1 !important;
-  }
-
-  .movement-echo .subtitle {
-    font-size: clamp(1rem, 4vw, 1.8rem);
-    margin-top: 0.9375rem;
-  }
-
-  .movement-echo .movement-description {
-    font-size: clamp(0.9rem, 3vw, 1.1rem) !important;
-    margin-top: 1.25rem !important;
-    padding: 0 1.25rem !important;
-  }
-
-  /* 트랙 높이 더 작게 */
-  .scroll-track.track-1,
-  .scroll-track.track-3 {
-    min-height: 28vh;
-    max-height: 42vh;
-  }
-
-  .scroll-track.track-2 {
-    min-height: 22vh;
-    max-height: 34vh;
-  }
-
-  /* 이미지 크기 더 작게 */
-  .track-1 .echo-item.portrait,
-  .track-3 .echo-item.portrait {
-    height: clamp(13rem, 30vh, 20rem);
-  }
-
-  .track-1 .echo-item.landscape,
-  .track-3 .echo-item.landscape {
-    height: clamp(11rem, 26vh, 17rem);
-  }
-
-  .track-2 .echo-item.landscape {
-    height: clamp(10rem, 24vh, 16rem);
-  }
-
-  .track-2 .echo-item.portrait {
-    height: clamp(12rem, 28vh, 17rem);
-  }
-
-  .scroll-content,
-  .scroll-content-clone {
-    gap: clamp(1rem, 2vw, 1.5rem);
-  }
-
-  /* 모바일에서 애니메이션 속도 더 빠르게 */
-  .scroll-content,
-  .scroll-content-clone {
-    animation-duration: 25s;
-  }
-
-  .track-2 .scroll-content,
-  .track-2 .scroll-content-clone {
-    animation-duration: 28s;
-  }
-
-  .track-3 .scroll-content,
-  .track-3 .scroll-content-clone {
-    animation-duration: 30s;
-  }
-
-  /* 큰/작은 사이즈 변형 제거 (모바일에서는 균일하게) */
-  .track-1 .echo-item.portrait:nth-child(3n + 1),
-  .track-3 .echo-item.portrait:nth-child(3n + 1),
-  .track-1 .echo-item.portrait:nth-child(3n + 2),
-  .track-3 .echo-item.portrait:nth-child(3n + 2),
-  .track-1 .echo-item.portrait:nth-child(3n),
-  .track-3 .echo-item.portrait:nth-child(3n) {
-    height: clamp(13rem, 30vh, 20rem);
-  }
-}
-
-/* 소형 모바일 (480px 이하) */
-@media (max-width: 480px) {
-  .movement-echo .movement-label {
-    font-size: 0.85rem !important;
-    letter-spacing: 0.15em !important;
-  }
-
-  .movement-echo .movement-title {
-    font-size: clamp(2rem, 12vw, 3.5rem) !important;
-  }
-
-  .movement-echo .subtitle {
-    font-size: clamp(0.9rem, 5vw, 1.5rem);
-  }
-
-  .movement-echo .movement-description {
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-  }
-
-  /* 더 작은 트랙 높이 */
-  .scroll-track.track-1,
-  .scroll-track.track-3 {
-    min-height: 25vh;
-    max-height: 38vh;
-  }
-
-  .scroll-track.track-2 {
-    min-height: 20vh;
-    max-height: 30vh;
-  }
-
-  /* 이미지 크기 최소화 */
-  .track-1 .echo-item.portrait,
-  .track-3 .echo-item.portrait {
-    height: clamp(11rem, 27vh, 17rem);
-  }
-
-  .track-1 .echo-item.landscape,
-  .track-3 .echo-item.landscape {
-    height: clamp(9rem, 23vh, 14rem);
-  }
-
-  .track-2 .echo-item.landscape {
-    height: clamp(8rem, 21vh, 13rem);
-  }
-
-  .track-2 .echo-item.portrait {
-    height: clamp(10rem, 25vh, 15rem);
-  }
-
-  /* 초소형에서는 더 빠른 애니메이션 */
-  .scroll-content,
-  .scroll-content-clone {
-    animation-duration: 20s;
-  }
-
-  .track-2 .scroll-content,
-  .track-2 .scroll-content-clone {
-    animation-duration: 22s;
-  }
-
-  .track-3 .scroll-content,
-  .track-3 .scroll-content-clone {
-    animation-duration: 25s;
-  }
-}
-
-/* ============================================
-   🎨 추가 시각 효과
-   ============================================ */
-
-/* 그라디언트 페이드 효과 (좌우) */
 .scroll-track::before,
 .scroll-track::after {
   content: "";
   position: absolute;
   top: 0;
-  width: clamp(3.125rem, 8vw, 6.25rem);
+  width: clamp(4rem, 10vw, 8rem);
   height: 100%;
   z-index: 5;
   pointer-events: none;
@@ -600,6 +302,7 @@
   background: linear-gradient(
     90deg,
     rgba(10, 10, 10, 1) 0%,
+    rgba(10, 10, 10, 0.7) 50%,
     rgba(10, 10, 10, 0) 100%
   );
 }
@@ -609,52 +312,106 @@
   background: linear-gradient(
     -90deg,
     rgba(10, 10, 10, 1) 0%,
+    rgba(10, 10, 10, 0.7) 50%,
     rgba(10, 10, 10, 0) 100%
   );
 }
 
-/* 로딩 시 페이드인 효과 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(1.25rem);
+/* ============================================
+   📱 반응형 디자인
+   ============================================ */
+
+/* 태블릿 */
+@media (max-width: 1024px) {
+  .scroll-track.track-3 {
+    min-height: 40vh;
+    height: 43vh;
+    max-height: 47vh;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .scroll-track.track-2 {
+    min-height: 30vh;
+    height: 33vh;
+    max-height: 37vh;
+  }
+
+  .scroll-track-inner {
+    gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+
+  .track-3 .echo-item.portrait {
+    height: 83%;
+    max-height: 37vh;
+  }
+
+  .track-2 .echo-item.landscape {
+    height: 83%;
+    max-height: 28vh;
   }
 }
 
-.movement-echo {
-  animation: fadeIn 1s ease-out;
+/* 모바일 */
+@media (max-width: 768px) {
+  .scroll-track.track-3 {
+    min-height: 35vh;
+    height: 38vh;
+    max-height: 42vh;
+  }
+
+  .scroll-track.track-2 {
+    min-height: 25vh;
+    height: 28vh;
+    max-height: 32vh;
+  }
+
+  .scroll-track-inner {
+    gap: clamp(1.25rem, 2vw, 1.75rem);
+  }
+
+  .track-3 .echo-item.portrait {
+    height: 80%;
+    max-height: 32vh;
+  }
+
+  .track-2 .echo-item.landscape {
+    height: 80%;
+    max-height: 24vh;
+  }
 }
 
-.scroll-track {
-  animation: fadeIn 1s ease-out backwards;
-}
+/* 소형 모바일 */
+@media (max-width: 480px) {
+  .scroll-track.track-3 {
+    min-height: 30vh;
+    height: 33vh;
+    max-height: 36vh;
+  }
 
-.track-1 {
-  animation-delay: 0.2s;
-}
+  .scroll-track.track-2 {
+    min-height: 22vh;
+    height: 25vh;
+    max-height: 28vh;
+  }
 
-.track-2 {
-  animation-delay: 0.4s;
-}
+  .scroll-track-inner {
+    gap: 1rem;
+  }
 
-.track-3 {
-  animation-delay: 0.6s;
-}
+  .track-3 .echo-item.portrait {
+    height: 75%;
+    max-height: 27vh;
+  }
 
-.echo-message {
-  animation: fadeIn 1s ease-out backwards;
-  animation-delay: 0.8s;
+  .track-2 .echo-item.landscape {
+    height: 75%;
+    max-height: 20vh;
+  }
 }
 
 /* ============================================
    🌟 성능 최적화
    ============================================ */
-.scroll-content,
-.scroll-content-clone,
+.scroll-track-inner,
 .echo-item {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -691,7 +448,6 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(0.625rem);
-  -webkit-backdrop-filter: blur(0.625rem);
   animation: fadeIn 0.3s ease;
 }
 
@@ -713,6 +469,15 @@
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -743,7 +508,6 @@
   font-family: "Inter", sans-serif;
 }
 
-/* 모달 버튼 스타일 */
 .modal-close,
 .modal-prev,
 .modal-next {
@@ -787,16 +551,6 @@
   border-color: rgba(255, 51, 51, 0.5);
 }
 
-.modal-prev:hover,
-.modal-next:hover {
-  transform: scale(1.1) translateY(-50%);
-}
-
-.modal-close:hover {
-  transform: scale(1.1);
-}
-
-/* 모바일 모달 조정 */
 @media (max-width: 768px) {
   .modal-content {
     max-width: 95vw;
@@ -813,18 +567,5 @@
     width: 2.1875rem;
     height: 2.1875rem;
     font-size: 1.2rem;
-  }
-
-  .modal-prev {
-    left: 0.625rem;
-  }
-
-  .modal-next {
-    right: 0.625rem;
-  }
-
-  .modal-close {
-    top: 0.625rem;
-    right: 0.625rem;
   }
 }
