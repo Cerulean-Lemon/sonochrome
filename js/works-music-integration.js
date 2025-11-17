@@ -32,14 +32,14 @@ const worksMusicData = {
     description: "",
   },
   // 3번 위치: 대기줄 (원래 9번)
-  "work-section3.jpg": {
-    id: "work_3",
+  "work-section6.jpg": {
+    id: "work_6",
     title: "대기줄",
     artist: "2024.05.07",
     album: "Movement I: 정적",
     duration: "4:25",
     file: "music/hesitate.mp3",
-    thumbnail: "images/work-section3.jpg",
+    thumbnail: "images/work-section6.jpg",
     description: "",
   },
   // 4번 위치: 어? (그대로)
@@ -65,14 +65,14 @@ const worksMusicData = {
     description: "",
   },
   // 6번 위치: 터널
-  "work-section6.jpg": {
-    id: "work_6",
+  "work-section3.jpg": {
+    id: "work_3",
     title: "터널",
     artist: "2024.01.06",
     album: "Movement I: 정적",
     duration: "4:08",
     file: "music/tunnel.mp3",
-    thumbnail: "images/work-section6.jpg",
+    thumbnail: "images/work-section3.jpg",
     description: "",
   },
   // 7번 위치: 회상
