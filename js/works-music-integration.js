@@ -76,36 +76,36 @@ const worksMusicData = {
     description: "",
   },
   // 7번 위치: 회상
-  "work-section7.jpg": {
+  "work-section7.png": {
     id: "work_7",
     title: "회상",
     artist: "2024.03.28",
     album: "Movement I: 정적",
     duration: "4:26",
     file: "music/Reminiscence.mp3",
-    thumbnail: "images/work-section7.jpg",
+    thumbnail: "images/work-section7.png",
     description: "",
   },
   // 8번 위치: 漂亮
-  "work-section8.jpg": {
+  "work-section8.png": {
     id: "work_8",
     title: "漂亮",
     artist: "2024.09.03",
     album: "Movement I: 정적",
     duration: "3:47",
     file: "music/beautiful.mp3",
-    thumbnail: "images/work-section8.jpg",
+    thumbnail: "images/work-section8.png",
     description: "",
   },
   // 9번 위치: HUSH
-  "work-section9.jpg": {
+  "work-section9.png": {
     id: "work_9",
     title: "HUSH",
     artist: "2025.06.19",
     album: "Movement I: 정적",
     duration: "4:05",
     file: "music/Hush.mp3",
-    thumbnail: "images/work-section9.jpg",
+    thumbnail: "images/work-section9.png",
     description: "",
   },
   // 10번 위치: 정직한 사진
