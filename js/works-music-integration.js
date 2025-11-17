@@ -17,7 +17,7 @@ const worksMusicData = {
     album: "Movement I: 정적",
     duration: "2:25",
     file: "music/Stairs.mp3",
-    thumbnail: "images/work-section1.jpg",
+    thumbnail: "images/work-section1.Jpg",
     description: "",
   },
   // 2번 위치: 당신이 잠든 사이에
@@ -28,7 +28,7 @@ const worksMusicData = {
     album: "Movement I: 정적",
     duration: "4:48",
     file: "music/City of Stars.mp3",
-    thumbnail: "images/work-section2.jpg",
+    thumbnail: "images/work-section2.Jpg",
     description: "",
   },
   // 3번 위치: 대기줄 (원래 9번)
@@ -39,7 +39,7 @@ const worksMusicData = {
     album: "Movement I: 정적",
     duration: "4:25",
     file: "music/hesitate.mp3",
-    thumbnail: "images/work-section6.jpg",
+    thumbnail: "images/work-section6.Jpg",
     description: "",
   },
   // 4번 위치: 어? (그대로)
@@ -50,7 +50,7 @@ const worksMusicData = {
     album: "Movement I: 정적",
     duration: "4:19",
     file: "music/whoru.mp3",
-    thumbnail: "images/work-section4.jpg",
+    thumbnail: "images/work-section4.Jpg",
     description: "",
   },
   // 5번 위치: 이지금
@@ -61,7 +61,7 @@ const worksMusicData = {
     album: "Movement I: 정적",
     duration: "3:20",
     file: "music/knee.mp3",
-    thumbnail: "images/work-section5.jpg",
+    thumbnail: "images/work-section5.Jpg",
     description: "",
   },
   // 6번 위치: 터널
@@ -72,7 +72,7 @@ const worksMusicData = {
     album: "Movement I: 정적",
     duration: "4:08",
     file: "music/tunnel.mp3",
-    thumbnail: "images/work-section3.jpg",
+    thumbnail: "images/work-section3.Jpg",
     description: "",
   },
   // 7번 위치: 회상
@@ -116,7 +116,7 @@ const worksMusicData = {
     album: "Movement I: 정적",
     duration: "4:23",
     file: "music/Flower Dance.mp3",
-    thumbnail: "images/work-section10.jpg",
+    thumbnail: "images/work-section10.Jpg",
     description: "",
   },
 };
