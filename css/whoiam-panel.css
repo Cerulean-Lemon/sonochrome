@@ -86,7 +86,7 @@
   }
 }
 
-/* WHO I AM íŒ¨ë„ ì „ì²´ */
+/* WHO I AM */
 #whoiam-panel {
   position: fixed;
   left: 0;
@@ -107,7 +107,7 @@
   transform: translateX(0);
 }
 
-/* íŒ¨ë„ ë‹«ê¸° ë²„íŠ¼ */
+/* 닫기패널*/
 #close-panel {
   position: absolute;
   top: clamp(2rem, 1.56vw, 3rem);
@@ -139,7 +139,7 @@
   color: #ff3333;
 }
 
-/* íŒ¨ë„ ì»¨í…Œì´ë„ˆ */
+/* 센터이미지 */
 .panel-content-center-image {
   position: relative;
   width: 100%;
@@ -147,13 +147,15 @@
   overflow: hidden;
 }
 
-/* ì™¼ìª½ í…ìŠ¤íŠ¸ */
+/* 왼쪽 텍스트 */
 .panel-text-left {
   position: absolute;
   left: 11vw;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
+  opacity: 0;
+  will-change: opacity, transform;
 }
 
 .panel-text-left h2 {
@@ -165,9 +167,35 @@
   line-height: 0.9;
   text-align: left;
   margin: 0;
+  overflow: visible;
+  cursor: pointer;
 }
 
-/* "ì•ˆë…•í•˜ì„¸ìš”!" ë¸ŒëŸ¬ì‹œ í…ìŠ¤íŠ¸ */
+/* 텍스트 라인 컨테이너 */
+.panel-text-left h2 .text-line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* 개별 글자 스타일 */
+.panel-text-left h2 .letter {
+  display: inline-block;
+  transition: color 0.3s ease;
+  will-change: transform;
+  transform-origin: center;
+}
+
+.panel-text-left h2 .letter-space {
+  display: inline-block;
+}
+
+/* 안녕하세요 개별 글자 */
+.panel-text-left .panel-intro-text .intro-letter {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* 패널 왼쪽 텍스트 인트로 텍스트 */
 .panel-text-left .panel-intro-text {
   position: absolute;
   font-size: clamp(2rem, 2.5vw, 4.5rem);
@@ -183,7 +211,7 @@
   z-index: -1;
 }
 
-/* ì¤‘ì•™ ì¸ë¬¼ ì´ë¯¸ì§€ */
+/* 이미지 중앙 */
 .panel-image-center {
   position: absolute;
   left: 48%;
@@ -213,40 +241,201 @@
   object-fit: contain;
 }
 
-/* ì˜¤ë¥¸ìª½ ì„¤ëª… í…ìŠ¤íŠ¸ */
-.panel-text-right {
+
+/* 마우스 호버 안내 문구 */
+.hover-hint {
   position: absolute;
-  right: 5vw;
-  top: 15vh;
-  width: 25vw;
-  max-width: 500px;
-  min-width: 250px;
-  z-index: 2;
+  bottom: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(1.2rem, 1vw, 1.6rem);
+  color: #999;
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
 }
 
-.panel-text-right p {
-  font-size: clamp(1.4rem, 1.2vw, 2rem);
-  line-height: 1.8;
-  color: #666;
-  margin-bottom: clamp(1.5rem, 1.3vw, 2.5rem);
-}
-
-.panel-details {
-  margin-top: clamp(2rem, 2vw, 4rem);
+/* 스킬 게이지 컨테이너 */
+.skills-container {
+  position: absolute;
+  right: 14vw;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: clamp(1.5rem, 1.5vw, 3rem);
+  gap: clamp(2rem, 3vw, 4rem);
+  z-index: 3;
 }
 
-.detail-item h3 {
-  font-size: clamp(1.8rem, 1.5vw, 2.2rem);
+/* 게이지 래퍼 - 가로 배치 */
+.gauges-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(2rem, 3vw, 4rem);
+  align-items: center;
+  justify-content: center;
+}
+
+/* 스킬 아이템들 - 세로 정렬 */
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+  opacity: 0;
+}
+
+/* 게이지 */
+.skill-gauge {
+  position: relative;
+  width: clamp(120px, 10vw, 180px);
+  height: clamp(120px, 10vw, 180px);
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.skill-gauge svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+/* 퍼센트 텍스트 */
+.skill-percent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.8rem, 2vw, 2.8rem);
   font-weight: 700;
+  font-family: "Montserrat", sans-serif;
   color: #1b1b1b;
-  margin-bottom: clamp(1rem, 0.8vw, 1.5rem);
+  pointer-events: none;
 }
 
-.detail-item p {
-  font-size: clamp(1.4rem, 1.1vw, 1.6rem);
+/* 스킬 이름 */
+.skill-name {
+  font-size: clamp(1.4rem, 1.6vw, 1.8rem);
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  color: #1b1b1b;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+/* 설명 텍스트 */
+.skills-description {
+  margin-top: clamp(3rem, 4vw, 5rem);
+  padding-top: clamp(2rem, 3vw, 4rem);
+  border-top: 2px solid #e0e0e0;
+  text-align: center;
+}
+
+.skills-description .desc-line {
+  font-size: clamp(1.6rem, 1.8vw, 2.2rem);
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #666;
   line-height: 1.6;
-  color: #888;
+  margin: 0;
+  opacity: 0;
+}
+/* 이미지 색칠 안내 문구 */
+/* .image-paint-hint {
+  position: absolute;
+  top: 5rem;
+  left: 52%;
+  transform: translateX(-50%);
+  font-size: clamp(1.4rem, 1.2vw, 1.8rem);
+  color: #ffd3d3;
+  font-weight: 600;
+  font-family: "Noto Sans KR", sans-serif;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  text-align: center;
+} */
+
+/* 이미지 설명 문구 */
+.image-description {
+  position: absolute;
+  bottom: -6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(1.3rem, 1.1vw, 1.7rem);
+  color: #666;
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 마퀴 텍스트 (상단 흐르는 텍스트) */
+.whoiam-marquee {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: clamp(2.5rem, 3vw, 4rem);
+  overflow: hidden;
+  background: linear-gradient(90deg, #1b1b1b 0%, #2a2a2a 50%, #1b1b1b 100%);
+  z-index: 2500;
+  opacity: 0;
+  border-bottom: 2px solid #ff3333;
+}
+
+.whoiam-marquee-inner {
+  display: block;
+  width: 200%;
+  position: absolute;
+  overflow: hidden;
+  animation: marquee-scroll 25s linear infinite;
+  will-change: transform;
+}
+
+.whoiam-marquee-text {
+  float: left;
+  width: 50%;
+  height: clamp(2.5rem, 3vw, 4rem);
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.2rem, 1.4vw, 1.8rem);
+  font-weight: 500;
+  font-family: "pretendard", sans-serif;
+  color: #fff;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  padding: 0 2vw;
+}
+
+.whoiam-marquee-text span {
+  margin: 0 clamp(1.5rem, 2vw, 3rem);
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1rem, 1.5vw, 2rem);
+}
+
+
+@keyframes marquee-scroll {
+  0% { 
+    left: 0; 
+  }
+  100% { 
+    left: -100%; 
+  }
+}
+
+/* 마퀴 hover 효과 */
+.whoiam-marquee:hover .whoiam-marquee-inner {
+  animation-play-state: paused;
 }

@@ -1,6 +1,7 @@
 // ============================================
-// 🎼 MOVEMENT III - RHAPSODY SECTION (v3.0)
+// 🎼 MOVEMENT III - RHAPSODY SECTION (v3.1)
 // 세로로 긴 스크롤 기반 갤러리
+// ⭐ 헤더 페이드인 문제 수정됨
 // ============================================
 
 // GSAP 플러그인 등록
@@ -12,117 +13,158 @@ if (typeof gsap !== "undefined" && gsap.registerPlugin) {
 // 🎨 랩소디 갤러리 초기화
 // ============================================
 function initRhapsodySection() {
-  console.log("🚀 Rhapsody Section v3.0 초기화");
+  console.log("🚀 Rhapsody Section v3.1 초기화");
 
   const rhapsodySection = document.querySelector(".movement-rhapsody");
   if (!rhapsodySection) return;
+
+  // ⭐ 헤더 애니메이션 수정 - CSS의 !important 오버라이드
+  const rhapsodyHeader = document.querySelector(".rhapsody-header");
+  if (rhapsodyHeader) {
+    // 초기 상태 강제 설정 (CSS !important 오버라이드)
+    gsap.set(rhapsodyHeader, {
+      opacity: 0,
+      y: 30,
+      clearProps: "all", // 기존 인라인 스타일 제거
+      immediateRender: true,
+      force3D: true
+    });
+    
+    // ScrollTrigger 애니메이션
+    const headerAnimation = gsap.to(rhapsodyHeader, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: rhapsodyHeader,
+        start: "top 85%", // 더 일찍 시작
+        end: "top 50%",
+        toggleActions: "play none none reverse",
+        onComplete: () => {
+          // 애니메이션 완료 후 클래스 추가 (상태 유지)
+          rhapsodyHeader.classList.add('animated');
+        },
+        onReverseComplete: () => {
+          rhapsodyHeader.classList.remove('animated');
+        },
+        // 디버깅용
+        onToggle: self => {
+          console.log("헤더 애니메이션 상태:", self.isActive ? "활성" : "비활성");
+        }
+      }
+    });
+    
+    // 즉시 실행 옵션: 헤더가 이미 뷰포트에 있는 경우
+    ScrollTrigger.refresh();
+  }
 
   // 이미지 데이터 - 다양한 크기와 애니메이션 타입
   const rhapsodyImages = [
     {
       src: "images/rhapsody-section1.jpg",
-      title: "자유로운 순간",
-      date: "24.03.15",
+      title: "LUCETE",
+      date: "내게 소중한 사람들",
       size: "size-large",
-      animation: "reveal-left", // 왼쪽에서 오른쪽으로 reveal
+      animation: "reveal-left",
     },
     {
       src: "images/rhapsody-section2.jpg",
-      title: "빛의 흔적",
-      date: "24.04.22",
+      title: "화목한 분위기",
+      date: "화분",
       size: "size-medium",
-      animation: "scale-up", // 작게 시작해서 커지며 등장
+      animation: "scale-up",
     },
     {
       src: "images/rhapsody-section3.jpg",
-      title: "도시의 리듬",
-      date: "24.05.10",
+      title: "오렌지게 귤이게",
+      date: "한라봉",
       size: "size-wide",
-      animation: "reveal-left", // 오른쪽에서 왼쪽으로 reveal
+      animation: "reveal-left",
     },
     {
       src: "images/rhapsody-section4.jpg",
-      title: "침묵의 소리",
-      date: "24.06.03",
+      title: "쓰~노우맨",
+      date: "carpe diem",
       size: "size-tall",
-      animation: "fade-in", // 단순 페이드인
+      animation: "fade-in",
     },
     {
       src: "images/rhapsody-section5.jpg",
-      title: "색의 대화",
-      date: "24.07.18",
+      title: "종돌이",
+      date: "종로구 마스코트",
       size: "size-medium",
-      animation: "reveal-bottom", // 아래에서 위로 reveal
+      animation: "reveal-bottom",
     },
     {
       src: "images/rhapsody-section6.jpg",
-      title: "시간의 층",
-      date: "24.08.25",
+      title: "훈련소 첫날 밤",
+      date: "하...",
       size: "size-large",
-      animation: "scale-rotate", // 확대 + 회전
+      animation: "scale-rotate",
     },
     {
       src: "images/rhapsody-section7.jpg",
-      title: "공간의 춤",
-      date: "24.09.12",
+      title: "SCARED라 읽은 사람 손",
+      date: "미스치프",
       size: "size-wide",
-      animation: "reveal-left", // 왼쪽에서 오른쪽으로 reveal
+      animation: "reveal-left",
     },
     {
       src: "images/rhapsody-section8.jpg",
-      title: "기억의 조각",
-      date: "24.10.07",
+      title: "소리있는 아우성",
+      date: "꼭끼오",
       size: "size-medium",
-      animation: "scale-up", // 작게 시작해서 커지며 등장
+      animation: "scale-up",
     },
     {
       src: "images/rhapsody-section9.jpg",
-      title: "감정의 스펙트럼",
-      date: "24.11.20",
+      title: "야 쟤 운다",
+      date: "우냐???",
       size: "size-large",
-      animation: "reveal-left", // 오른쪽에서 왼쪽으로 reveal
+      animation: "reveal-left",
     },
     {
       src: "images/rhapsody-section10.jpg",
-      title: "무한의 경계",
-      date: "24.12.15",
+      title: "오토포커스",
+      date: "초점 잡는 척",
       size: "size-tall",
-      animation: "fade-in", // 단순 페이드인
+      animation: "fade-in",
     },
     {
       src: "images/rhapsody-section11.jpg",
-      title: "",
-      date: "",
+      title: "코렐라인",
+      date: "어렸을 때 생각나고 무섭고 그래요",
       size: "size-large",
-      animation: "reveal-left", //
+      animation: "reveal-left",
     },
     {
       src: "images/rhapsody-section12.jpg",
-      title: "",
-      date: "",
+      title: "서촌 어느 가을날",
+      date: "한적한 골목길",
       size: "size-wide",
-      animation: "scale-up", //
+      animation: "scale-up",
     },
     {
       src: "images/rhapsody-section13.jpg",
-      title: "",
-      date: "",
+      title: "교토 여우신사",
+      date: "한적함이란 없는 곳",
       size: "size-tall",
-      animation: "fade-in", //
+      animation: "fade-in",
     },
     {
       src: "images/rhapsody-section14.jpg",
-      title: "",
-      date: "",
+      title: "이태원 골목길",
+      date: "한적함이란 없는 곳2",
       size: "size-tall",
-      animation: "reveal-right", //
+      animation: "reveal-right",
     },
     {
       src: "images/rhapsody-section15.jpg",
-      title: "",
-      date: "",
+      title: "한강공원 포탈",
+      date: "서울둘레길 9.3KM",
       size: "size-large",
-      animation: "scale-rotate", //
+      animation: "scale-rotate",
     },
   ];
 
@@ -155,6 +197,7 @@ function initRhapsodySection() {
       // 이미지 컨테이너
       const container = document.createElement("div");
       container.className = `rhapsody-image-container ${image.size} ${image.animation}`;
+      container.classList.add('gsap-active'); // GSAP 제어 표시
 
       container.innerHTML = `
         <div class="rhapsody-image-wrap">
@@ -179,19 +222,6 @@ function initRhapsodySection() {
   // ============================================
   // 🎬 GSAP 애니메이션 설정 - 다양한 reveal 효과
   // ============================================
-
-  // 헤더 애니메이션
-  gsap.to(".rhapsody-header", {
-    scrollTrigger: {
-      trigger: ".rhapsody-header",
-      start: "top 80%",
-      toggleActions: "play none none reverse",
-    },
-    opacity: 1,
-    y: 0,
-    duration: 1,
-    ease: "power3.out",
-  });
 
   // 각 이미지 섹션별 애니메이션 적용
   const imageSections = document.querySelectorAll(".rhapsody-item-section");
@@ -442,7 +472,7 @@ function initRhapsodySection() {
     }
   });
 
-  console.log("✅ Rhapsody Section v3.0 초기화 완료");
+  console.log("✅ Rhapsody Section v3.1 초기화 완료");
 
   // ============================================
   // 🎯 추가 스크롤 인터랙션
@@ -487,17 +517,39 @@ function initRhapsodySection() {
 }
 
 // ============================================
+// 🔧 디버깅 유틸리티
+// ============================================
+function debugRhapsodyHeader() {
+  const header = document.querySelector('.rhapsody-header');
+  if (header) {
+    const computedStyle = window.getComputedStyle(header);
+    console.log('🔍 Rhapsody Header 스타일 체크:', {
+      opacity: computedStyle.opacity,
+      transform: computedStyle.transform,
+      animation: computedStyle.animation,
+      transition: computedStyle.transition
+    });
+  }
+}
+
+// ============================================
 // 🎯 자동 실행
 // ============================================
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initRhapsodySection);
+  document.addEventListener("DOMContentLoaded", () => {
+    initRhapsodySection();
+    // 디버깅용 (필요시 주석 해제)
+    // setTimeout(debugRhapsodyHeader, 100);
+  });
 } else {
   initRhapsodySection();
+  // 디버깅용 (필요시 주석 해제)  
+  // setTimeout(debugRhapsodyHeader, 100);
 }
 
 // ============================================
 // 📤 Export
 // ============================================
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { initRhapsodySection };
+  module.exports = { initRhapsodySection, debugRhapsodyHeader };
 }

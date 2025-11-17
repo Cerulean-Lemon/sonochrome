@@ -198,6 +198,24 @@
   overflow: hidden;
 }
 
+/* ⭐ 폴백: 페이지 로드 후 3초 뒤 자동으로 표시 (GSAP 실패 대비) */
+@keyframes emergencyFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* GSAP이 3초 내에 제어하지 못하면 강제로 표시 */
+.rhapsody-image-container {
+  animation: emergencyFadeIn 1s ease-out 3s forwards;
+}
+
+/* GSAP이 제어를 시작하면 이 애니메이션 제거 */
+.rhapsody-image-container.gsap-active {
+  animation: none !important;
+}
+
 /* ============================================
    🌟 추가 효과들
    ============================================ */

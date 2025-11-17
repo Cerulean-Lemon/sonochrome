@@ -467,7 +467,7 @@ const playlist = [
     artist: "아이유",
     duration: "2:56",
     file: "music/Heart Piano.mp3",
-    thumbnail: "images/thumbnail-piano.jpg",
+    thumbnail: "images/heart.jpg",
   },
   {
     id: 2,

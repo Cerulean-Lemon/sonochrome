@@ -1,26 +1,36 @@
 /* ============================================
-   🎼 UNIFIED MOVEMENT HEADERS - 통일된 헤더 스타일
+   🎼 UNIFIED MOVEMENT HEADERS - 통일된 헤더 스타일 (수정됨)
    모든 Movement 섹션 헤더를 중앙 정렬로 통일
+   ⭐ GSAP 애니메이션과 충돌하지 않도록 수정
    ============================================ */
 
 /* ============================================
-   📌 공통 Movement 헤더 스타일
+   📌 공통 Movement 헤더 스타일 - ECHO 스타일 통일
    ============================================ */
 .movement-section .movement-header,
 .movement-crescendo .movement-header,
-.movement-rhapsody .rhapsody-header {
+.movement-rhapsody .rhapsody-header,
+.movement-echo .movement-header {
   text-align: center !important;
   padding: 0 5vw !important;
-  margin-bottom: 100px !important;
+  margin-bottom: clamp(3.75rem, 8vh, 6.25rem) !important;
   max-width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
-  /* ⭐ 수정: 기본적으로 보이도록 설정 */
-  opacity: 1 !important;
-  transform: none !important;
+  position: relative !important;
+  z-index: 10 !important;
+  /* ⭐ 수정: 초기 상태를 투명하게 설정 (GSAP이 제어할 수 있도록) */
+  opacity: 0;
+  transform: translateY(30px);
 }
 
-/* Movement 레이블 - 빨간색 소문자 */
+/* ⭐ GSAP이 제어하지 않는 헤더만 CSS 애니메이션 적용 */
+.movement-section .movement-header.css-animate,
+.movement-crescendo .movement-header.css-animate {
+  animation: headerFadeIn 1s ease forwards;
+}
+
+/* Movement 레이블 - 빨간색 대문자 */
 .movement-label,
 .rhapsody-label {
   display: inline-block !important;
@@ -29,37 +39,63 @@
   color: #ff3333 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.2em !important;
-  margin-bottom: 20px !important;
-  text-align: center !important;
+  margin-bottom: 1.25rem !important;
   opacity: 0.9 !important;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-/* Movement 타이틀 - 대형 세리프 */
+/* Movement 타이틀 - 대형 세리프 (ECHO 스타일) */
 .movement-title,
 .rhapsody-title {
-  font-family: "Playfair Display", serif !important;
-  font-size: clamp(3.5rem, 7vw, 7rem) !important;
-  font-weight: 600 !important;
-  color: #ffffff !important;
-  margin-bottom: 25px !important;
+  font-size: clamp(4rem, 8vw, 8rem) !important;
+  font-weight: 700 !important;
+  line-height: 0.95 !important;
   letter-spacing: -0.02em !important;
-  line-height: 1.1 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  font-family: "Noto Serif KR", serif !important;
   text-align: center !important;
-  position: relative !important;
 }
 
-/* Movement 설명 - 한글 부제 */
+/* Movement Subtitle - 한글 · 한자 (ECHO 스타일) */
+.movement-section .subtitle,
+.movement-crescendo .subtitle,
+.movement-rhapsody .subtitle,
+.movement-echo .subtitle {
+  display: block !important;
+  font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+  font-weight: 200 !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  margin-top: clamp(0.625rem, 1.5vh, 1.25rem) !important;
+  font-family: "Noto Serif KR", serif !important;
+  text-align: center !important;
+}
+
+/* Movement 설명 */
 .movement-description,
 .rhapsody-description {
-  font-family: "Noto Sans KR", "Pretendard Variable", sans-serif !important;
-  font-size: clamp(1rem, 1.6vw, 1.3rem) !important;
+  font-size: clamp(1rem, 1.8vw, 1.3rem) !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-top: 1.875rem !important;
+  max-width: 50rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-family: "Noto Serif KR", serif !important;
   font-weight: 300 !important;
-  color: rgba(255, 255, 255, 0.5) !important;
-  line-height: 1.7 !important;
-  max-width: 700px !important;
-  margin: 0 auto !important;
   text-align: center !important;
-  letter-spacing: -0.01em !important;
+}
+
+/* 헤더 페이드인 애니메이션 (CSS 폴백용) */
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(1.875rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ============================================
@@ -68,7 +104,6 @@
 #works {
   background: #000000 !important;
   padding: 150px 0 !important;
-  /* ⭐ 수정: 명시적으로 보이도록 설정 */
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -76,9 +111,10 @@
 
 #works .movement-header {
   margin-bottom: 100px !important;
-  /* ⭐ 수정: Works 헤더도 명시적으로 보이도록 */
-  opacity: 1 !important;
-  transform: none !important;
+  /* ⭐ 수정: Works는 CSS 애니메이션 사용 */
+  animation: headerFadeIn 1s ease forwards;
+  opacity: 1;
+  transform: none;
 }
 
 #works .movement-label {
@@ -127,7 +163,6 @@
 .movement-crescendo {
   background: #000000 !important;
   padding: 150px 0 !important;
-  /* ⭐ 수정: 명시적으로 보이도록 설정 */
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -136,9 +171,10 @@
 .movement-crescendo .movement-header {
   text-align: center !important;
   margin-bottom: 100px !important;
-  /* ⭐ 수정: Crescendo 헤더도 명시적으로 보이도록 */
-  opacity: 1 !important;
-  transform: none !important;
+  /* ⭐ 수정: Crescendo도 CSS 애니메이션 사용 */
+  animation: headerFadeIn 1s ease forwards;
+  opacity: 1;
+  transform: none;
 }
 
 /* Crescendo 메인 뷰어 */
@@ -166,73 +202,17 @@
   opacity: 1 !important;
 }
 
+/* ⭐ 수정: 랩소디 헤더는 GSAP이 제어하므로 초기값만 설정 */
 .movement-rhapsody .rhapsody-header {
+  /* opacity와 transform은 위의 공통 스타일에서 설정됨 */
+  /* GSAP이 이 값들을 애니메이션으로 변경할 예정 */
+}
+
+/* ⭐ GSAP 애니메이션이 완료된 후 상태 유지 */
+.movement-rhapsody .rhapsody-header.animated {
   opacity: 1 !important;
   transform: none !important;
 }
-
-/* Movement 레이블 */
-.movement-label,
-.rhapsody-label {
-  display: inline-block !important;
-  font-size: clamp(1rem, 1.5vw, 1.2rem) !important;
-  font-weight: 600 !important;
-  color: #ff3333 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.2em !important;
-  margin-bottom: 20px !important;
-  text-align: center !important;
-  opacity: 0.9 !important;
-  font-family: "Inter", sans-serif !important;
-}
-
-/* Movement 타이틀 */
-.movement-title,
-.rhapsody-title {
-  font-size: clamp(4rem, 8vw, 8rem) !important;
-  font-weight: 700 !important;
-  line-height: 0.95 !important;
-  letter-spacing: -0.02em !important;
-  color: #ffffff !important;
-  margin: 0 !important;
-  font-family: "Noto Serif KR", serif !important;
-  text-align: center !important;
-}
-
-/* Movement 설명 */
-.movement-description,
-.rhapsody-description {
-  font-size: clamp(1rem, 1.8vw, 1.3rem) !important;
-  line-height: 1.6 !important;
-  color: rgba(255, 255, 255, 0.7) !important;
-  margin-top: 30px !important;
-  max-width: 800px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  text-align: center !important;
-  font-family: "Noto Serif KR", serif !important;
-  font-weight: 300 !important;
-}
-
-/* ⭐ 수정: 애니메이션 제거 (선택적으로 사용) */
-/* 페이드인 애니메이션을 원하면 주석 해제 */
-/*
-.movement-header,
-.rhapsody-header {
-  animation: fadeInUp 1s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-*/
 
 /* ============================================
    📱 반응형 조정
@@ -302,52 +282,6 @@
 }
 
 /* ============================================
-   ✨ 한자 부제 효과
-   ============================================ */
-
-/* Works에 한자 추가 */
-#works .movement-title::after {
-  content: "靜寂";
-  position: absolute;
-  top: -25%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.25em;
-  color: rgba(255, 51, 51, 0.35);
-  font-weight: 400;
-  letter-spacing: 0.5em;
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-/* Crescendo에 한자 추가 */
-.movement-crescendo .movement-title::after {
-  content: "漸強";
-  position: absolute;
-  top: -25%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.25em;
-  color: rgba(255, 51, 51, 0.35);
-  font-weight: 400;
-  letter-spacing: 0.5em;
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-/* Rhapsody에 한자 추가 */
-.movement-rhapsody .rhapsody-title::after {
-  content: "狂詩曲";
-  position: absolute;
-  top: -25%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.25em;
-  color: rgba(255, 51, 51, 0.35);
-  font-weight: 400;
-  letter-spacing: 0.5em;
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-/* ============================================
    🎯 섹션 간 일관성 유지
    ============================================ */
 
@@ -393,4 +327,9 @@ section[id="works"],
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
+}
+
+/* ⭐ 페이지 로드 시 부드러운 전환 */
+.movement-rhapsody .rhapsody-header {
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
