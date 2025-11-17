@@ -10,36 +10,36 @@
 // ============================================
 const worksMusicData = {
   // 1번 위치: 전지적 사슴벌레 시점
-  "work-section8.jpg": {
-    id: "work_8",
+  "work-section1.jpg": {
+    id: "work_1",
     title: "전지적 사슴벌레 시점",
     artist: "2025.03.06",
     album: "Movement I: 정적",
     duration: "2:25",
     file: "music/Stairs.mp3",
-    thumbnail: "images/work-section8.jpg",
+    thumbnail: "images/work-section1.jpg",
     description: "",
   },
   // 2번 위치: 당신이 잠든 사이에
-  "work-section7.jpg": {
-    id: "work_7",
+  "work-section2.jpg": {
+    id: "work_2",
     title: "당신이 잠든 사이에",
     artist: "2024.03.21",
     album: "Movement I: 정적",
     duration: "4:48",
     file: "music/City of Stars.mp3",
-    thumbnail: "images/work-section7.jpg",
+    thumbnail: "images/work-section2.jpg",
     description: "",
   },
   // 3번 위치: 대기줄 (원래 9번)
-  "work-section9.jpg": {
-    id: "work_9",
+  "work-section3.jpg": {
+    id: "work_3",
     title: "대기줄",
     artist: "2024.05.07",
     album: "Movement I: 정적",
     duration: "4:25",
     file: "music/hesitate.mp3",
-    thumbnail: "images/work-section9.jpg",
+    thumbnail: "images/work-section3.jpg",
     description: "",
   },
   // 4번 위치: 어? (그대로)
@@ -54,58 +54,58 @@ const worksMusicData = {
     description: "",
   },
   // 5번 위치: 이지금
-  "work-section6.jpg": {
-    id: "work_6",
+  "work-section5.jpg": {
+    id: "work_5",
     title: "이지금",
     artist: "2024.03.10",
     album: "Movement I: 정적",
     duration: "3:20",
     file: "music/knee.mp3",
-    thumbnail: "images/work-section6.jpg",
+    thumbnail: "images/work-section5.jpg",
     description: "",
   },
   // 6번 위치: 터널
-  "work-section2.jpg": {
-    id: "work_2",
+  "work-section6.jpg": {
+    id: "work_6",
     title: "터널",
     artist: "2024.01.06",
     album: "Movement I: 정적",
     duration: "4:08",
     file: "music/tunnel.mp3",
-    thumbnail: "images/work-section2.jpg",
+    thumbnail: "images/work-section6.jpg",
     description: "",
   },
   // 7번 위치: 회상
-  "work-section1.jpg": {
-    id: "work_1",
+  "work-section7.jpg": {
+    id: "work_7",
     title: "회상",
     artist: "2024.03.28",
     album: "Movement I: 정적",
     duration: "4:26",
     file: "music/Reminiscence.mp3",
-    thumbnail: "images/work-section1.jpg",
+    thumbnail: "images/work-section7.jpg",
     description: "",
   },
   // 8번 위치: 漂亮
-  "work-section5.jpg": {
-    id: "work_5",
+  "work-section8.jpg": {
+    id: "work_8",
     title: "漂亮",
     artist: "2024.09.03",
     album: "Movement I: 정적",
     duration: "3:47",
     file: "music/beautiful.mp3",
-    thumbnail: "images/work-section5.jpg",
+    thumbnail: "images/work-section8.jpg",
     description: "",
   },
   // 9번 위치: HUSH
-  "work-section3.jpg": {
-    id: "work_3",
+  "work-section9.jpg": {
+    id: "work_9",
     title: "HUSH",
     artist: "2025.06.19",
     album: "Movement I: 정적",
     duration: "4:05",
     file: "music/Hush.mp3",
-    thumbnail: "images/work-section3.jpg",
+    thumbnail: "images/work-section9.jpg",
     description: "",
   },
   // 10번 위치: 정직한 사진
