@@ -10,7 +10,7 @@
 // ============================================
 const worksMusicData = {
   // 1번 위치: 전지적 사슴벌레 시점
-  "work-section1.jpg": {
+  "work-section1.png": {
     id: "work_1",
     title: "전지적 사슴벌레 시점",
     artist: "2025.03.06",
@@ -21,7 +21,7 @@ const worksMusicData = {
     description: "",
   },
   // 2번 위치: 당신이 잠든 사이에
-  "work-section2.jpg": {
+  "work-section2.png": {
     id: "work_2",
     title: "당신이 잠든 사이에",
     artist: "2024.03.21",
@@ -32,7 +32,7 @@ const worksMusicData = {
     description: "",
   },
   // 3번 위치: 대기줄 (원래 9번)
-  "work-section6.jpg": {
+  "work-section6.png": {
     id: "work_6",
     title: "대기줄",
     artist: "2024.05.07",
@@ -43,7 +43,7 @@ const worksMusicData = {
     description: "",
   },
   // 4번 위치: 어? (그대로)
-  "work-section4.jpg": {
+  "work-section4.png": {
     id: "work_4",
     title: "어?",
     artist: "2024.09.04",
@@ -54,7 +54,7 @@ const worksMusicData = {
     description: "",
   },
   // 5번 위치: 이지금
-  "work-section5.jpg": {
+  "work-section5.png": {
     id: "work_5",
     title: "이지금",
     artist: "2024.03.10",
@@ -65,7 +65,7 @@ const worksMusicData = {
     description: "",
   },
   // 6번 위치: 터널
-  "work-section3.jpg": {
+  "work-section3.png": {
     id: "work_3",
     title: "터널",
     artist: "2024.01.06",
@@ -109,7 +109,7 @@ const worksMusicData = {
     description: "",
   },
   // 10번 위치: 정직한 사진
-  "work-section10.jpg": {
+  "work-section10.png": {
     id: "work_10",
     title: "정직한 사진",
     artist: "2023.11.16",
