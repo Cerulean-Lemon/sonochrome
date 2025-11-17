@@ -120,7 +120,7 @@
   }
 
   /* ============================================
-     🎵 CRESCENDO SECTION - 모바일 반응형 (개선됨)
+     🎵 CRESCENDO SECTION - 모바일 반응형
      ============================================ */
   .movement-crescendo {
     padding: 60px 0;
@@ -139,22 +139,6 @@
   .movement-crescendo .movement-description {
     font-size: 1.1rem;
     line-height: 1.6;
-  }
-
-  /* 카테고리 버튼 - 모바일 최적화 */
-  .crescendo-categories {
-    gap: 10px;
-    flex-wrap: wrap;
-    padding: 0 20px;
-    margin-bottom: 30px;
-    justify-content: center;
-  }
-
-  .category-btn {
-    padding: 8px 16px;
-    font-size: 12px;
-    min-width: 70px;
-    white-space: nowrap;
   }
 
   /* 메인 뷰어 - 모바일 */
@@ -218,6 +202,21 @@
 
   .thumbnail-info span {
     font-size: 11px;
+  }
+
+  /* ⭐ 페이지네이션 - 15개 인디케이터 모바일 최적화 */
+  .swiper-pagination {
+    gap: 4px !important;
+    padding: 0 10px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    width: 24px !important;
   }
 
   /* 네비게이션 버튼 - 모바일 */
@@ -293,18 +292,6 @@
     padding: 0 10px;
   }
 
-  /* 카테고리 버튼 - 초소형 */
-  .crescendo-categories {
-    padding: 0 15px;
-    gap: 8px;
-  }
-
-  .category-btn {
-    padding: 6px 12px;
-    font-size: 11px;
-    min-width: 60px;
-  }
-
   /* 메인 뷰어 - 초소형 */
   .crescendo-main-viewer {
     padding: 0 15px;
@@ -357,6 +344,21 @@
 
   .thumbnail-info span {
     font-size: 10px;
+  }
+
+  /* ⭐ 페이지네이션 - 15개 인디케이터 초소형 최적화 */
+  .swiper-pagination {
+    gap: 3px !important;
+    padding: 0 5px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 5px !important;
+    height: 5px !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    width: 20px !important;
   }
 
   /* 네비게이션 버튼 - 초소형 */
@@ -415,11 +417,6 @@
     min-width: 200px;
   }
 
-  .category-btn {
-    padding: 12px 28px;
-    font-size: 15px;
-  }
-
   .current-track-info {
     bottom: 40px;
     left: 40px;
@@ -467,15 +464,6 @@
 
 /* 터치 디바이스 최적화 */
 @media (hover: none) and (pointer: coarse) {
-  /* 터치 영역 확대 */
-  .category-btn {
-    min-height: 44px; /* iOS 권장 터치 영역 */
-  }
-
-  .thumbnail-item {
-    min-height: 44px;
-  }
-
   /* 썸네일 호버 효과 비활성화 */
   .thumbnail-item:hover {
     transform: none;
@@ -508,7 +496,6 @@
 /* 저사양 디바이스 - 애니메이션 감소 */
 @media (prefers-reduced-motion: reduce) {
   .thumbnail-item,
-  .category-btn,
   .slider-handle {
     transition: none;
   }
@@ -530,7 +517,6 @@
   }
 
   .thumbnail-nav,
-  .category-btn,
   .slider-handle {
     display: none;
   }

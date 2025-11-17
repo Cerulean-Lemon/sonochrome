@@ -416,12 +416,6 @@
   line-height: 1.2;
 }
 
-.playlist-panel-header p {
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
-}
-
 /* 섹션 헤더 */
 .now-playing-header {
   margin-bottom: 6px;
@@ -1150,7 +1144,7 @@
     height: 20px !important;
     /* display는 JavaScript로 제어 */
   }
-  
+
   #music-control-button .play-pause-center #playIcon {
     margin-left: 1px;
   }

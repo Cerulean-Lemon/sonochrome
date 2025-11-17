@@ -143,7 +143,12 @@ class ArrowPointer {
 
 // âœ¨ ArrowPointer ì»¤ì„œ ì´ˆê¸°í™” âœ¨
 let globalCursor = null;
-(() => {
+
+// 인트로 완료 후 호출될 초기화 함수
+function initArrowCursor() {
+  // 이미 초기화되었다면 중복 실행 방지
+  if (globalCursor) return;
+
   const cursor = new ArrowPointer();
   globalCursor = cursor;
   if (
@@ -158,4 +163,9 @@ let globalCursor = null;
     cursor.remove();
     globalCursor = null;
   }
-})();
+}
+
+// 인트로가 진행 중이 아닐 때만 즉시 실행 (개발 중 편의를 위해)
+if (!document.body.classList.contains("intro-active")) {
+  initArrowCursor();
+}

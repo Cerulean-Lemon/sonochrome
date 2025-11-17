@@ -1,7 +1,14 @@
 /* =========================
    ✅ 커서 궤적 효과 - 비행기 꼬리에서 시작
    ========================= */
-(() => {
+
+let trailAnimationId = null;
+
+// 인트로 완료 후 호출될 초기화 함수
+function initCursorTrail() {
+  // 이미 초기화되었다면 중복 실행 방지
+  if (trailAnimationId) return;
+
   const canvas = document.getElementById("trail-canvas");
 
   if (!canvas) {
@@ -112,11 +119,16 @@
     ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y);
     ctx.stroke();
 
-    window.requestAnimationFrame(update);
+    trailAnimationId = window.requestAnimationFrame(update);
   }
 
   function setupCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
-})();
+}
+
+// 인트로가 진행 중이 아닐 때만 즉시 실행 (개발 중 편의를 위해)
+if (!document.body.classList.contains("intro-active")) {
+  initCursorTrail();
+}

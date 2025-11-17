@@ -3,517 +3,363 @@
    ✅ 슬라이더 완벽한 범위 이동 (0% ~ 100%)
    ✅ 썸네일 클릭 피드백 개선
    ✅ 초기 위치 50% 보장
+   ⭐ 헤더 스타일은 movement-headers-unified.css에서 관리
    ============================================ */
 
 /* 크레센도 섹션 컨테이너 */
 .movement-crescendo {
-    background: #000000 !important;
-    padding: 120px 0 !important;
-    position: relative !important;
-    overflow: hidden !important;
-}
-
-/* 섹션 헤더 스타일 오버라이드 */
-.movement-crescendo .movement-header {
-    padding: 0 5vw !important;
-    margin-bottom: 60px !important;
-}
-
-.movement-crescendo .movement-label {
-    color: #ff3333 !important;
-}
-
-.movement-crescendo .movement-title {
-    color: #ffffff !important;
-}
-
-.movement-crescendo .movement-description {
-    color: rgba(255, 255, 255, 0.6) !important;
+  background: #000000 !important;
+  padding: 150px 0 !important; /* 패딩 증가 */
+  position: relative !important;
+  overflow: hidden !important;
 }
 
 /* ============================================
    📱 카테고리 필터 버튼
    ============================================ */
 .movement-crescendo .crescendo-categories {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 20px !important;
-    margin-bottom: 40px !important;
-    padding: 0 5vw !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 20px !important;
+  margin-bottom: 40px !important;
+  padding: 0 5vw !important;
 }
 
 .movement-crescendo .category-btn {
-    display: inline-block !important;
-    padding: 10px 24px !important;
-    background: rgba(255, 255, 255, 0.12) !important;
-    border: 2px solid rgba(255, 255, 255, 0.4) !important;
-    color: rgba(255, 255, 255, 0.95) !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.05em !important;
-    border-radius: 25px !important;
-    cursor: pointer !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    text-transform: uppercase !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  display: inline-block !important;
+  padding: 10px 24px !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 2px solid rgba(255, 255, 255, 0.4) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 25px !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-transform: uppercase !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .movement-crescendo .category-btn:hover {
-    background: rgba(255, 51, 51, 0.2) !important;
-    border-color: rgba(255, 51, 51, 0.7) !important;
-    color: #ffffff !important;
-    transform: translateY(-2px) !important;
+  background: rgba(255, 51, 51, 0.2) !important;
+  border-color: rgba(255, 51, 51, 0.7) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
 }
 
 .movement-crescendo .category-btn.active {
-    background: #ff3333 !important;
-    border-color: #ff3333 !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 20px rgba(255, 51, 51, 0.5) !important;
+  background: #ff3333 !important;
+  border-color: #ff3333 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(255, 51, 51, 0.5) !important;
 }
 
 /* ============================================
    🖼️ 메인 이미지 뷰어 (Before/After)
    ============================================ */
 .movement-crescendo .crescendo-main-viewer {
-    width: 100% !important;
-    max-width: 1200px !important;
-    margin: 0 auto 60px !important;
-    padding: 0 5vw !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto 60px !important;
+  padding: 0 5vw !important;
 }
 
 .movement-crescendo .viewer-container {
-    position: relative !important;
-    width: 100% !important;
-    aspect-ratio: 16 / 10 !important;
-    border-radius: 20px !important;
-    overflow: hidden !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
-    background: #0a0a0a !important;
-    cursor: crosshair !important;
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 16 / 10 !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+  background: #0a0a0a !important;
+  cursor: crosshair !important;
 }
 
 /* 이미지 레이어 */
 .movement-crescendo .image-layer {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
-    pointer-events: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
 }
 
 .movement-crescendo .grayscale-layer {
-    z-index: 1 !important;
+  z-index: 1 !important;
 }
 
 .movement-crescendo .grayscale-layer img {
-    filter: grayscale(100%) contrast(1.2) !important;
+  filter: grayscale(100%) contrast(1.2) !important;
 }
 
 .movement-crescendo .color-layer {
-    z-index: 2 !important;
-    /* ⭐ 초기 clip-path 제거 - JavaScript가 설정 */
-    transition: clip-path 0.05s ease-out !important;
+  z-index: 2 !important;
+  /* ⭐ 초기 clip-path 제거 - JavaScript가 설정 */
+  transition: clip-path 0.05s ease-out !important;
 }
 
 .movement-crescendo .main-image {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
-    opacity: 1 !important;
-    user-select: none !important;
-    -webkit-user-drag: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  opacity: 1 !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
 }
 
 /* ============================================
    🎚️ 비교 슬라이더 (v5 - 완벽한 이동 범위)
    ============================================ */
 .movement-crescendo .comparison-slider {
-    position: absolute !important;
-    top: 0 !important;
-    /* ⭐ left와 transform은 JavaScript가 제어 */
-    width: 80px !important;
-    height: 100% !important;
-    z-index: 3 !important;
-    cursor: ew-resize !important;
-    /* ⭐ transition 제거 - JavaScript가 직접 제어 */
-    will-change: transform !important;
+  position: absolute !important;
+  top: 0 !important;
+  /* ⭐ left와 transform은 JavaScript가 제어 */
+  width: 80px !important;
+  height: 100% !important;
+  z-index: 3 !important;
+  cursor: ew-resize !important;
+  /* ⭐ transition 제거 - JavaScript가 직접 제어 */
+  will-change: transform !important;
 }
 
 /* 슬라이더 라인 */
 .movement-crescendo .slider-line {
-    position: absolute !important;
-    top: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: 3px !important;
-    height: 100% !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    box-shadow: 0 0 15px rgba(255, 51, 51, 0.6) !important;
-    pointer-events: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 3px !important;
+  height: 100% !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 0 15px rgba(255, 51, 51, 0.6) !important;
+  pointer-events: none !important;
 }
 
 /* 슬라이더 핸들 */
 .movement-crescendo .slider-handle {
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 50px !important;
-    height: 50px !important;
-    background: #ff3333 !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 4px 20px rgba(255, 51, 51, 0.6), 
-                0 0 30px rgba(255, 51, 51, 0.3) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    pointer-events: none !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 50px !important;
+  height: 50px !important;
+  background: #ff3333 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 20px rgba(255, 51, 51, 0.6), 0 0 30px rgba(255, 51, 51, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  pointer-events: none !important;
 }
 
 /* 슬라이더 호버 효과 */
 .movement-crescendo .comparison-slider:hover .slider-handle {
-    transform: translate(-50%, -50%) scale(1.1) !important;
-    box-shadow: 0 6px 30px rgba(255, 51, 51, 0.8), 
-                0 0 40px rgba(255, 51, 51, 0.5) !important;
+  transform: translate(-50%, -50%) scale(1.1) !important;
+  box-shadow: 0 6px 30px rgba(255, 51, 51, 0.8), 0 0 40px rgba(255, 51, 51, 0.5) !important;
 }
 
 /* 슬라이더 드래그 중 */
 .movement-crescendo .comparison-slider:active .slider-handle {
-    transform: translate(-50%, -50%) scale(1.15) !important;
-    box-shadow: 0 8px 40px rgba(255, 51, 51, 1), 
-                0 0 50px rgba(255, 51, 51, 0.7) !important;
+  transform: translate(-50%, -50%) scale(1.15) !important;
+  box-shadow: 0 8px 40px rgba(255, 51, 51, 1), 0 0 50px rgba(255, 51, 51, 0.7) !important;
 }
 
 .movement-crescendo .slider-handle svg {
-    width: 28px !important;
-    height: 28px !important;
-    color: white !important;
-}
-
-/* 현재 트랙 정보 */
-.movement-crescendo .current-track-info {
-    position: absolute !important;
-    bottom: 30px !important;
-    left: 30px !important;
-    background: rgba(0, 0, 0, 0.8) !important;
-    backdrop-filter: blur(20px) !important;
-    padding: 15px 25px !important;
-    border-radius: 15px !important;
-    z-index: 4 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    pointer-events: none !important;
+  width: 28px !important;
+  height: 28px !important;
+  color: white !important;
 }
 
 .movement-crescendo .track-title {
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    margin-bottom: 5px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin-bottom: 5px !important;
 }
 
 .movement-crescendo .track-artist {
-    font-size: 14px !important;
-    color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 14px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 /* ============================================
    🎴 썸네일 갤러리 - Swiper 슬라이드
    ============================================ */
 .movement-crescendo .crescendo-thumbnails {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 1400px !important;
-    margin: 0 auto !important;
-    padding: 0 5vw !important;
-    overflow: hidden !important;
+  position: relative !important;
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 5vw !important;
+  overflow: hidden !important;
 }
 
 .movement-crescendo .thumbnails-container {
-    overflow: visible !important;
-    padding: 20px 0 40px 0 !important;
+  overflow: visible !important;
+  padding: 20px 0 40px 0 !important;
 }
 
 /* Swiper 슬라이드 래퍼 */
 .movement-crescendo .swiper-wrapper {
-    display: flex !important;
-    align-items: center !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 /* Swiper 슬라이드 */
 .movement-crescendo .swiper-slide {
-    width: auto !important;
-    height: auto !important;
+  width: auto !important;
+  height: auto !important;
 }
 
 /* ============================================
    🎴 썸네일 아이템 (개선된 버전)
    ============================================ */
 .movement-crescendo .thumbnail-item {
-    width: 180px !important;
-    min-width: 180px !important;
-    max-width: 180px !important;
-    cursor: pointer !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: scale(1) !important;
-    display: block !important;
-    margin-right: 20px !important;
-    user-select: none !important;
+  width: 180px !important;
+  min-width: 180px !important;
+  max-width: 180px !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1) !important;
+  display: block !important;
+  margin-right: 20px !important;
+  user-select: none !important;
 }
 
 .movement-crescendo .swiper-slide:last-child .thumbnail-item {
-    margin-right: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* ⭐ 썸네일 호버 효과 개선 */
 .movement-crescendo .thumbnail-item:hover {
-    transform: translateY(-8px) !important;
+  transform: translateY(-8px) !important;
 }
 
 /* ⭐ 썸네일 클릭 피드백 */
 .movement-crescendo .thumbnail-item:active {
-    transform: scale(0.95) !important;
+  transform: scale(0.95) !important;
 }
 
 .movement-crescendo .thumbnail-item.active {
-    transform: scale(1.05) !important;
+  transform: scale(1.05) !important;
 }
 
 /* 썸네일 이미지 */
 .movement-crescendo .thumbnail-image {
-    position: relative !important;
-    width: 100% !important;
-    aspect-ratio: 1 / 1 !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    margin-bottom: 10px !important;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
-    border: 2px solid rgba(255, 255, 255, 0.15) !important;
-    transition: all 0.3s ease !important;
-    display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  margin-bottom: 10px !important;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%) !important;
+  border: 2px solid rgba(255, 255, 255, 0.15) !important;
+  transition: all 0.3s ease !important;
+  display: block !important;
 }
 
 .movement-crescendo .thumbnail-item.active .thumbnail-image {
-    border-color: #ff3333 !important;
-    box-shadow: 0 4px 20px rgba(255, 51, 51, 0.5) !important;
+  border-color: #ff3333 !important;
+  box-shadow: 0 4px 20px rgba(255, 51, 51, 0.5) !important;
 }
 
 .movement-crescendo .thumbnail-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    transition: transform 0.3s ease !important;
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .movement-crescendo .thumbnail-item:hover .thumbnail-image img {
-    transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
 }
-
-
 
 /* 재생 중 인디케이터 */
 .movement-crescendo .playing-indicator {
-    display: flex !important;
-    gap: 4px !important;
-    align-items: flex-end !important;
-    height: 20px !important;
+  display: flex !important;
+  gap: 4px !important;
+  align-items: flex-end !important;
+  height: 20px !important;
 }
 
 .movement-crescendo .playing-indicator .bar {
-    width: 3px !important;
-    background: white !important;
-    border-radius: 2px !important;
-    animation: soundWave 0.8s ease-in-out infinite !important;
+  width: 3px !important;
+  background: white !important;
+  border-radius: 2px !important;
+  animation: soundWave 0.8s ease-in-out infinite !important;
 }
 
 .movement-crescendo .playing-indicator .bar1 {
-    animation-delay: 0s !important;
+  animation-delay: 0s !important;
 }
 
 .movement-crescendo .playing-indicator .bar2 {
-    animation-delay: 0.2s !important;
+  animation-delay: 0.2s !important;
 }
 
 .movement-crescendo .playing-indicator .bar3 {
-    animation-delay: 0.4s !important;
+  animation-delay: 0.4s !important;
 }
 
 @keyframes soundWave {
-    0%, 100% {
-        height: 6px;
-    }
-    50% {
-        height: 20px;
-    }
+  0%,
+  100% {
+    height: 6px;
+  }
+  50% {
+    height: 20px;
+  }
 }
 
 /* 썸네일 정보 */
 .movement-crescendo .thumbnail-info {
-    padding: 0 5px !important;
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  padding: 0 5px !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .movement-crescendo .thumbnail-info h4 {
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    color: #ffffff !important;
-    margin: 0 0 4px 0 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin: 0 0 4px 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .movement-crescendo .thumbnail-info span {
-    font-size: 12px !important;
-    color: rgba(255, 255, 255, 0.5) !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    display: block !important;
+  font-size: 12px !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: block !important;
 }
 
 /* ============================================
    🔘 Swiper 네비게이션 및 페이지네이션
    ============================================ */
-.movement-crescendo .swiper-button-next,
-.movement-crescendo .swiper-button-prev {
-    width: 50px !important;
-    height: 50px !important;
-    background: rgba(255, 51, 51, 0.9) !important;
-    border-radius: 50% !important;
-    color: white !important;
-    opacity: 0.8 !important;
-    transition: all 0.3s ease !important;
-}
-
-.movement-crescendo .swiper-button-next::after,
-.movement-crescendo .swiper-button-prev::after {
-    font-size: 20px !important;
-    font-weight: bold !important;
-}
-
-.movement-crescendo .swiper-button-next:hover,
-.movement-crescendo .swiper-button-prev:hover {
-    opacity: 1 !important;
-    background: #ff3333 !important;
-    box-shadow: 0 4px 20px rgba(255, 51, 51, 0.5) !important;
-    transform: scale(1.1) !important;
-}
-
-.movement-crescendo .swiper-button-disabled {
-    opacity: 0.3 !important;
-    cursor: not-allowed !important;
-}
-
-/* Swiper 페이지네이션 */
-.movement-crescendo .swiper-pagination {
-    bottom: 0 !important;
-}
-
-.movement-crescendo .swiper-pagination-bullet {
-    width: 8px !important;
-    height: 8px !important;
-    background: rgba(255, 255, 255, 0.3) !important;
-    opacity: 1 !important;
-    transition: all 0.3s ease !important;
-}
-
-.movement-crescendo .swiper-pagination-bullet-active {
-    background: #ff3333 !important;
-    width: 24px !important;
-    border-radius: 4px !important;
-}
 
 /* ============================================
    🎯 HIDDEN 상태
    ============================================ */
 .movement-crescendo .swiper-slide.hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .movement-crescendo .thumbnail-item.hidden {
-    display: none !important;
-}
-
-/* ⭐ 이전 네비게이션 버튼 스타일 제거 */
-.movement-crescendo .thumbnail-nav,
-.movement-crescendo .thumbnail-prev,
-.movement-crescendo .thumbnail-next {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
-
-/* ============================================
-   📱 RESPONSIVE
-   ============================================ */
-@media (max-width: 768px) {
-    .movement-crescendo {
-        padding: 80px 0 !important;
-    }
-
-    .movement-crescendo .crescendo-categories {
-        gap: 10px !important;
-        flex-wrap: wrap !important;
-    }
-
-    .movement-crescendo .category-btn {
-        padding: 8px 16px !important;
-        font-size: 12px !important;
-    }
-
-    .movement-crescendo .viewer-container {
-        aspect-ratio: 4 / 5 !important;
-    }
-    
-    /* ⭐ 모바일에서 슬라이더 터치 영역 더 확대 */
-    .movement-crescendo .comparison-slider {
-        width: 100px !important;
-    }
-    
-    .movement-crescendo .slider-handle {
-        width: 55px !important;
-        height: 55px !important;
-    }
-
-    .movement-crescendo .current-track-info {
-        bottom: 20px !important;
-        left: 20px !important;
-        padding: 10px 15px !important;
-    }
-
-    .movement-crescendo .track-title {
-        font-size: 16px !important;
-    }
-
-    .movement-crescendo .track-artist {
-        font-size: 12px !important;
-    }
-
-    .movement-crescendo .thumbnail-item {
-        width: 140px !important;
-        min-width: 140px !important;
-        max-width: 140px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .movement-crescendo .thumbnail-item {
-        width: 120px !important;
-        min-width: 120px !important;
-        max-width: 120px !important;
-    }
+  display: none !important;
 }

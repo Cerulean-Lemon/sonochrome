@@ -6,8 +6,11 @@
 @import url("./nav.css");
 @import url("./whoiam-panel.css");
 @import url("./about-section.css");
-@import url("./works-section.css");        /* 1악장 - Works Section */
-@import url("./crescendo-section.css");    /* 2악장 - Crescendo Section ✅ 추가! */
+@import url("./works-section.css"); /* 1악장 - Works Section */
+@import url("./crescendo-section.css"); /* 2악장 - Crescendo Section */
+@import url("./rhapsody-section.css"); /* 3악장 - Rhapsody Section */
+@import url("./echo-section.css"); /* 4악장 - Echo Section */
+@import url("./movement-headers-unified.css"); /* 통일된 Movement 헤더 스타일 */
 @import url("./effects-canvas.css");
 @import url("./music-player.css");
-@import url("./responsive.css");           /* 반응형은 항상 마지막 */
+@import url("./responsive.css"); /* 반응형은 항상 마지막 */

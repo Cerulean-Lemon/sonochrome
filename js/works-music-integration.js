@@ -122,6 +122,20 @@ const worksMusicData = {
 };
 
 // ============================================
+// 🎼 RHAPSODY SECTION - 음악 데이터 (단일 곡)
+// ============================================
+const rhapsodyMusicData = {
+  id: "rhapsody_theme",
+  title: "Rhapsody in Dream", // ⭐ 여기에 실제 곡 제목 입력
+  artist: "SONOCHROME", // ⭐ 여기에 실제 아티스트명 입력
+  album: "Movement III: 랩소디",
+  duration: "5:30", // ⭐ 여기에 실제 재생 시간 입력
+  file: "music/rhapsody-theme.mp3", // ⭐ 여기에 실제 음악 파일 경로 입력
+  thumbnail: "images/rhapsody-section1.jpg", // 대표 이미지
+  description: "자유로운 형식의 즉흥적 선율",
+};
+
+// ============================================
 // 🎵 WORKS-MUSIC 통합 매니저
 // ============================================
 const WorksMusicManager = {
@@ -251,6 +265,161 @@ const WorksMusicManager = {
       if (typeof updatePlaylistUI === "function") {
         updatePlaylistUI();
       }
+    }
+  },
+
+  /**
+   * Crescendo 섹션의 모든 음악을 플레이리스트에 추가
+   */
+  addAllCrescendoToPlaylist() {
+    if (
+      typeof AudioManager !== "undefined" &&
+      typeof crescendoMusicData !== "undefined"
+    ) {
+      let addedCount = 0;
+      Object.values(crescendoMusicData).forEach((track) => {
+        const exists = AudioManager.playlist.some((t) => t.id === track.id);
+        if (!exists) {
+          AudioManager.playlist.push(track);
+          addedCount++;
+        }
+      });
+
+      if (typeof updatePlaylistUI === "function") {
+        updatePlaylistUI();
+      }
+    }
+  },
+
+  /**
+   * 크레센도 섹션 음악 재생 (썸네일 클릭용)
+   */
+  playCrescendoMusic(musicKey) {
+    if (typeof crescendoMusicData === "undefined") {
+      console.error("❌ crescendoMusicData is not defined!");
+      return;
+    }
+
+    const musicData = crescendoMusicData[musicKey];
+
+    if (!musicData) {
+      console.warn("❌ No music data found for:", musicKey);
+      return;
+    }
+
+    if (typeof AudioManager === "undefined") {
+      console.error("❌ AudioManager is not defined!");
+      return;
+    }
+
+    // 플레이리스트에서 이미 존재하는지 확인
+    const existingIndex = AudioManager.playlist.findIndex(
+      (track) => track.id === musicData.id
+    );
+
+    if (existingIndex === -1) {
+      // 새로운 트랙 → 현재 재생 중인 곡 바로 다음에 추가
+      const insertPosition = AudioManager.currentTrackIndex + 1;
+      AudioManager.playlist.splice(insertPosition, 0, musicData);
+      AudioManager.currentTrackIndex = insertPosition;
+    } else {
+      // 이미 있는 트랙 → 해당 인덱스로 이동
+      AudioManager.currentTrackIndex = existingIndex;
+    }
+
+    // 트랙 로드 및 재생
+    AudioManager.loadTrack(
+      AudioManager.currentTrackIndex,
+      AudioManager.playlist
+    );
+    AudioManager.play();
+
+    // UI 업데이트
+    this.updatePlayerUI(musicData);
+    this.showMiniPlayer();
+
+    // 플레이리스트 패널 업데이트
+    if (typeof updatePlaylistUI === "function") {
+      updatePlaylistUI();
+    }
+
+    // 현재 재생 정보 업데이트
+    if (typeof updateNowPlaying === "function") {
+      updateNowPlaying();
+    }
+  },
+
+  /**
+   * Rhapsody 섹션의 음악을 플레이리스트에 추가 (단일 곡)
+   */
+  addRhapsodyToPlaylist() {
+    if (
+      typeof AudioManager !== "undefined" &&
+      typeof rhapsodyMusicData !== "undefined"
+    ) {
+      const exists = AudioManager.playlist.some(
+        (t) => t.id === rhapsodyMusicData.id
+      );
+      if (!exists) {
+        AudioManager.playlist.push(rhapsodyMusicData);
+      }
+
+      if (typeof updatePlaylistUI === "function") {
+        updatePlaylistUI();
+      }
+    }
+  },
+
+  /**
+   * 랩소디 섹션 음악 재생 (전체 재생 버튼용)
+   */
+  playRhapsodyMusic() {
+    if (typeof rhapsodyMusicData === "undefined") {
+      console.error("❌ rhapsodyMusicData is not defined!");
+      return;
+    }
+
+    if (typeof AudioManager === "undefined") {
+      console.error("❌ AudioManager is not defined!");
+      return;
+    }
+
+    const musicData = rhapsodyMusicData;
+
+    // 플레이리스트에서 이미 존재하는지 확인
+    const existingIndex = AudioManager.playlist.findIndex(
+      (track) => track.id === musicData.id
+    );
+
+    if (existingIndex === -1) {
+      // 새로운 트랙 → 현재 재생 중인 곡 바로 다음에 추가
+      const insertPosition = AudioManager.currentTrackIndex + 1;
+      AudioManager.playlist.splice(insertPosition, 0, musicData);
+      AudioManager.currentTrackIndex = insertPosition;
+    } else {
+      // 이미 있는 트랙 → 해당 인덱스로 이동
+      AudioManager.currentTrackIndex = existingIndex;
+    }
+
+    // 트랙 로드 및 재생
+    AudioManager.loadTrack(
+      AudioManager.currentTrackIndex,
+      AudioManager.playlist
+    );
+    AudioManager.play();
+
+    // UI 업데이트
+    this.updatePlayerUI(musicData);
+    this.showMiniPlayer();
+
+    // 플레이리스트 패널 업데이트
+    if (typeof updatePlaylistUI === "function") {
+      updatePlaylistUI();
+    }
+
+    // 현재 재생 정보 업데이트
+    if (typeof updateNowPlaying === "function") {
+      updateNowPlaying();
     }
   },
 };
@@ -458,16 +627,41 @@ function initPlaylistDragAndDrop() {
 }
 
 // ============================================
-// 🎵 전체 재생 버튼 추가
+// 🎵 전체 재생 버튼 추가 (재생/일시정지 토글)
+// ============================================
+// ============================================
+// 🎵 전체 재생 버튼 추가 (재생/일시정지 토글)
+// ✅ Rhapsody 섹션 지원 추가
 // ============================================
 function addPlayAllButton() {
+  // 🎯 Works, Crescendo 섹션 헤더
   const movementHeaders = document.querySelectorAll(".movement-header");
+  // 🎯 Rhapsody 섹션 헤더
+  const rhapsodyHeaders = document.querySelectorAll(".rhapsody-header");
 
-  movementHeaders.forEach((header) => {
+  // 모든 헤더를 배열로 합침
+  const allHeaders = [...movementHeaders, ...rhapsodyHeaders];
+
+  allHeaders.forEach((header) => {
     if (header.querySelector(".play-all-btn")) return;
+
+    // 🎯 섹션 타입 감지
+    const isCrescendoSection = header.closest(".movement-crescendo") !== null;
+    const isRhapsodySection = header.closest(".movement-rhapsody") !== null;
+
+    let sectionType;
+    if (isCrescendoSection) {
+      sectionType = "crescendo";
+    } else if (isRhapsodySection) {
+      sectionType = "rhapsody";
+    } else {
+      sectionType = "works";
+    }
 
     const playAllBtn = document.createElement("button");
     playAllBtn.className = "play-all-btn";
+    playAllBtn.setAttribute("data-section", sectionType);
+    playAllBtn.setAttribute("data-loaded", "false"); // 플레이리스트 로드 여부 추적
     playAllBtn.innerHTML = `
       <svg viewBox="0 0 24 24" width="20" height="20">
         <path d="M8 5v14l11-7z" fill="currentColor"/>
@@ -476,24 +670,121 @@ function addPlayAllButton() {
     `;
 
     playAllBtn.addEventListener("click", function () {
-      WorksMusicManager.addAllWorksToPlaylist();
+      const sectionType = this.getAttribute("data-section");
+      const isLoaded = this.getAttribute("data-loaded") === "true";
 
-      const firstCard = header.parentElement.querySelector(".work-card");
-      if (firstCard) {
-        const imageUrl = firstCard.getAttribute("href");
-        WorksMusicManager.playWorkMusic(imageUrl);
+      if (!isLoaded) {
+        // 🎵 첫 클릭: 섹션에 따라 다른 플레이리스트 추가 및 재생
+        if (sectionType === "crescendo") {
+          WorksMusicManager.addAllCrescendoToPlaylist();
+
+          // 크레센도 섹션 첫 번째 곡 재생
+          const firstMusicKey = "crescendo-1.mp3";
+          WorksMusicManager.playCrescendoMusic(firstMusicKey);
+        } else if (sectionType === "rhapsody") {
+          // 🎼 랩소디 섹션: 단일 곡 추가 및 재생
+          WorksMusicManager.addRhapsodyToPlaylist();
+          WorksMusicManager.playRhapsodyMusic();
+        } else {
+          // Works 섹션
+          WorksMusicManager.addAllWorksToPlaylist();
+
+          // 워크 섹션 첫 번째 카드 재생
+          const firstCard = header.parentElement.querySelector(".work-card");
+          if (firstCard) {
+            const imageUrl = firstCard.getAttribute("href");
+            WorksMusicManager.playWorkMusic(imageUrl);
+          }
+        }
+
+        // 플레이리스트 로드 완료 표시
+        this.setAttribute("data-loaded", "true");
+        this.classList.add("playing");
+        this.innerHTML = `
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
+          </svg>
+          <span>일시정지</span>
+        `;
+      } else {
+        // 🔄 두 번째 클릭 이후: 재생/일시정지 토글
+        if (typeof AudioManager !== "undefined") {
+          if (AudioManager.isPlaying) {
+            // 현재 재생 중 → 일시정지
+            AudioManager.pause();
+            this.classList.remove("playing");
+            this.innerHTML = `
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <path d="M8 5v14l11-7z" fill="currentColor"/>
+              </svg>
+              <span>재생</span>
+            `;
+          } else {
+            // 현재 일시정지 → 재생
+            AudioManager.play();
+            this.classList.add("playing");
+            this.innerHTML = `
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
+              </svg>
+              <span>일시정지</span>
+            `;
+          }
+        }
       }
-
-      this.classList.add("playing");
-      this.innerHTML = `
-        <svg viewBox="0 0 24 24" width="20" height="20">
-          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
-        </svg>
-        <span>재생 중</span>
-      `;
     });
 
     header.appendChild(playAllBtn);
+  });
+
+  // 🔄 AudioManager의 재생 상태 변경 시 버튼 업데이트
+  updatePlayAllButtonsOnStateChange();
+}
+
+// ============================================
+// 🔄 AudioManager 상태 변경 시 모든 전체 재생 버튼 동기화
+// ============================================
+function updatePlayAllButtonsOnStateChange() {
+  // AudioManager 상태 변경 감지를 위한 리스너
+  if (typeof AudioManager !== "undefined") {
+    const originalPlay = AudioManager.play;
+    const originalPause = AudioManager.pause;
+
+    AudioManager.play = function () {
+      originalPlay.call(this);
+      updateAllPlayAllButtons(true);
+    };
+
+    AudioManager.pause = function () {
+      originalPause.call(this);
+      updateAllPlayAllButtons(false);
+    };
+  }
+}
+
+function updateAllPlayAllButtons(isPlaying) {
+  const playAllButtons = document.querySelectorAll(
+    ".play-all-btn[data-loaded='true']"
+  );
+
+  playAllButtons.forEach((btn) => {
+    if (isPlaying) {
+      btn.classList.add("playing");
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
+        </svg>
+        <span>일시정지</span>
+      `;
+    } else {
+      btn.classList.remove("playing");
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path d="M8 5v14l11-7z" fill="currentColor"/>
+        </svg>
+        <span>재생</span>
+      `;
+    }
   });
 }
 
@@ -630,3 +921,4 @@ if (document.readyState === "loading") {
 // ============================================
 window.WorksMusicManager = WorksMusicManager;
 window.worksMusicData = worksMusicData;
+window.rhapsodyMusicData = rhapsodyMusicData;

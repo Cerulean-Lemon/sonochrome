@@ -15,18 +15,17 @@ const AudioManager = {
 
   init() {
     this.audio = document.getElementById("bgMusic");
-    
+
     if (this.audio) {
       // ⚠️ CRITICAL: loop 속성 강제 제거!
       this.audio.loop = false;
-      this.audio.removeAttribute('loop');
-      
+      this.audio.removeAttribute("loop");
+
       this.audio.volume = this.currentVolume;
-      
+
       // ✅ 강제로 초기 상태 설정
       this.isShuffleOn = false;
       this.repeatMode = 0;
-      
 
       // ⚠️ CRITICAL: 기존 ended 이벤트 리스너 모두 제거
       const oldAudio = this.audio.cloneNode(false);
@@ -34,10 +33,9 @@ const AudioManager = {
       this.audio = oldAudio;
       this.audio.volume = this.currentVolume;
       this.audio.loop = false;
-      
+
       // 곡 종료 시 재생 모드에 따라 처리
       const endedHandler = () => {
-        
         if (this.repeatMode === 2) {
           // 한 곡 반복
           this.audio.currentTime = 0;
@@ -55,7 +53,7 @@ const AudioManager = {
           }
         }
       };
-      
+
       this.audio.addEventListener("ended", endedHandler, { once: false });
 
       // 시간 업데이트
@@ -85,7 +83,7 @@ const AudioManager = {
     if (this.audio && progressBar) {
       const progress = (this.audio.currentTime / this.audio.duration) * 100;
       progressBar.style.width = progress + "%";
-      
+
       // 곡이 거의 끝나가면 로그 (95% 이상)
       if (progress > 95 && !this._nearEndLogged) {
         this._nearEndLogged = true;
@@ -119,14 +117,14 @@ const AudioManager = {
     if (this.audio) {
       // loop 속성 다시 한 번 확인
       if (this.audio.loop) {
-        console.warn('⚠️ WARNING: audio.loop is TRUE! Forcing to FALSE!');
+        console.warn("⚠️ WARNING: audio.loop is TRUE! Forcing to FALSE!");
         this.audio.loop = false;
       }
-      
+
       this.audio.play().catch((err) => console.error("재생 실패:", err));
       this.isPlaying = true;
       this.updateAllPlayButtons();
-      
+
       // 🔧 디버깅 도움말
       if (!this._playHelpShown) {
         this._playHelpShown = true;
@@ -151,7 +149,6 @@ const AudioManager = {
   },
 
   next() {
-    
     if (this.isShuffleOn) {
       // 셔플: 랜덤 인덱스 (현재 곡 제외)
       let newIndex;
@@ -162,7 +159,7 @@ const AudioManager = {
     } else {
       // 일반: 다음 곡 (재생목록 반복 모드면 처음으로)
       this.currentTrackIndex++;
-      
+
       if (this.currentTrackIndex >= this.playlist.length) {
         if (this.repeatMode === 1) {
           // 재생목록 반복: 처음부터
@@ -175,8 +172,7 @@ const AudioManager = {
         }
       }
     }
-    
-    
+
     this.loadTrack(this.currentTrackIndex, this.playlist);
     this.play();
     if (typeof updateNowPlaying === "function") updateNowPlaying();
@@ -201,20 +197,18 @@ const AudioManager = {
   toggleShuffle() {
     const oldState = this.isShuffleOn;
     this.isShuffleOn = !this.isShuffleOn;
-    
-    
+
     // 셔플을 켰을 때 한 곡 반복 모드면 재생목록 반복으로 변경
     if (this.isShuffleOn && this.repeatMode === 2) {
       this.repeatMode = 1; // 재생목록 반복으로 변경
-      
+
       // 반복 버튼 UI 업데이트
-      const repeatBtn = document.getElementById('repeat-btn');
-      if (repeatBtn && typeof updateRepeatButtonUI === 'function') {
+      const repeatBtn = document.getElementById("repeat-btn");
+      if (repeatBtn && typeof updateRepeatButtonUI === "function") {
         updateRepeatButtonUI(repeatBtn, this.repeatMode);
       }
     }
-    
-    
+
     return this.isShuffleOn;
   },
 
@@ -222,20 +216,18 @@ const AudioManager = {
     const oldMode = this.repeatMode;
     // 3단계 순환: 0 (해제) → 1 (재생목록 반복) → 2 (한 곡 반복) → 0
     this.repeatMode = (this.repeatMode + 1) % 3;
-    
-    
+
     // 한 곡 반복으로 전환 시 셔플 자동 해제
     if (this.repeatMode === 2 && this.isShuffleOn) {
       this.isShuffleOn = false;
       // 셔플 버튼 UI 업데이트
-      const shuffleBtn = document.getElementById('shuffle-btn');
+      const shuffleBtn = document.getElementById("shuffle-btn");
       if (shuffleBtn) {
-        shuffleBtn.classList.remove('active');
-        shuffleBtn.setAttribute('data-tooltip', '셔플');
+        shuffleBtn.classList.remove("active");
+        shuffleBtn.setAttribute("data-tooltip", "셔플");
       }
     }
-    
-    
+
     return this.repeatMode;
   },
 
@@ -263,8 +255,8 @@ const AudioManager = {
     if (this.audio && track) {
       // ⚠️ CRITICAL: loop 속성 다시 한 번 확인 및 제거
       this.audio.loop = false;
-      this.audio.removeAttribute('loop');
-      
+      this.audio.removeAttribute("loop");
+
       this.audio.src = track.file;
     }
   },
@@ -517,103 +509,6 @@ const playlist = [
     file: "music/APT.mp3",
     thumbnail: "images/APT.jpg",
   },
-  {
-    id: 7,
-    title: "Spring Day",
-    artist: "방탄소년단",
-    duration: "4:35",
-    file: "music/springday.mp3",
-    thumbnail: "images/thumbnail-bts.jpg",
-  },
-  {
-    id: 8,
-    title: "하루하루",
-    artist: "BIGBANG",
-    duration: "4:20",
-    file: "music/haruharu.mp3",
-    thumbnail: "images/thumbnail-bigbang2.jpg",
-  },
-  // ✨ 새로 추가된 10곡
-  {
-    id: 9,
-    title: "Dynamite",
-    artist: "방탄소년단",
-    duration: "3:19",
-    file: "music/dynamite.mp3",
-    thumbnail: "images/thumbnail-dynamite.jpg",
-  },
-  {
-    id: 10,
-    title: "Love Dive",
-    artist: "IVE",
-    duration: "2:57",
-    file: "music/love-dive.mp3",
-    thumbnail: "images/thumbnail-ive.jpg",
-  },
-  {
-    id: 11,
-    title: "환상동화 (Secret Story of the Swan)",
-    artist: "IZ*ONE",
-    duration: "3:37",
-    file: "music/secret-story.mp3",
-    thumbnail: "images/thumbnail-izone.jpg",
-  },
-  {
-    id: 12,
-    title: "ELEVEN",
-    artist: "IVE",
-    duration: "2:58",
-    file: "music/eleven.mp3",
-    thumbnail: "images/thumbnail-eleven.jpg",
-  },
-  {
-    id: 13,
-    title: "Next Level",
-    artist: "aespa",
-    duration: "3:43",
-    file: "music/next-level.mp3",
-    thumbnail: "images/thumbnail-aespa.jpg",
-  },
-  {
-    id: 14,
-    title: "Shut Down",
-    artist: "BLACKPINK",
-    duration: "2:55",
-    file: "music/shut-down.mp3",
-    thumbnail: "images/thumbnail-blackpink.jpg",
-  },
-  {
-    id: 15,
-    title: "FEVER",
-    artist: "ENHYPEN",
-    duration: "3:18",
-    file: "music/fever.mp3",
-    thumbnail: "images/thumbnail-enhypen.jpg",
-  },
-  {
-    id: 16,
-    title: "좋아좋아",
-    artist: "혁오 (HYUKOH)",
-    duration: "3:55",
-    file: "music/joajoa.mp3",
-    thumbnail: "images/thumbnail-hyukoh.jpg",
-  },
-  {
-    id: 17,
-    title: "밤이 깊었네 (The Night)",
-    artist: "10CM",
-    duration: "3:28",
-    file: "music/the-night.mp3",
-    thumbnail: "images/thumbnail-10cm.jpg",
-  },
-  {
-    id: 18,
-    title: "Candy",
-    artist: "NCT DREAM",
-    duration: "3:30",
-    file: "music/candy.mp3",
-    thumbnail: "images/thumbnail-nct.jpg",
-  },
 ];
 
 let isPlaylistPanelOpen = false;
@@ -790,13 +685,11 @@ function initHomeDraggablePlayer() {
 
 // 플레이어 컨트롤 버튼 초기화
 function initPlayerControls() {
-  
   const playPauseBtn = document.getElementById("play-pause-btn");
   const prevBtn = document.getElementById("prev-btn");
   const nextBtn = document.getElementById("next-btn");
   const shuffleBtn = document.getElementById("shuffle-btn");
   const repeatBtn = document.getElementById("repeat-btn");
-  
 
   // 재생/일시정지
   if (playPauseBtn) {
@@ -805,7 +698,7 @@ function initPlayerControls() {
       updatePlayPauseButton();
     });
   } else {
-    console.warn('⚠️ Play/Pause button not found!');
+    console.warn("⚠️ Play/Pause button not found!");
   }
 
   // 이전 곡
@@ -814,7 +707,7 @@ function initPlayerControls() {
       AudioManager.prev();
     });
   } else {
-    console.warn('⚠️ Previous button not found!');
+    console.warn("⚠️ Previous button not found!");
   }
 
   // 다음 곡
@@ -823,7 +716,7 @@ function initPlayerControls() {
       AudioManager.next();
     });
   } else {
-    console.warn('⚠️ Next button not found!');
+    console.warn("⚠️ Next button not found!");
   }
 
   // 셔플
@@ -832,14 +725,14 @@ function initPlayerControls() {
       const isOn = AudioManager.toggleShuffle();
       shuffleBtn.classList.toggle("active", isOn);
       shuffleBtn.setAttribute("data-tooltip", isOn ? "셔플 해제" : "셔플");
-      
+
       // 셔플 켰을 때 한 곡 반복이 자동으로 해제되면 반복 버튼 UI도 업데이트
       if (repeatBtn && isOn) {
         updateRepeatButtonUI(repeatBtn, AudioManager.repeatMode);
       }
     });
   } else {
-    console.warn('⚠️ Shuffle button not found!');
+    console.warn("⚠️ Shuffle button not found!");
   }
 
   // 반복
@@ -849,12 +742,12 @@ function initPlayerControls() {
       updateRepeatButtonUI(repeatBtn, repeatMode);
     });
   } else {
-    console.warn('⚠️ Repeat button not found!');
+    console.warn("⚠️ Repeat button not found!");
   }
 
   // 초기 버튼 상태 업데이트
   updatePlayPauseButton();
-  
+
   // 셔플과 반복 버튼 초기 상태 설정
   if (shuffleBtn) {
     shuffleBtn.classList.remove("active");
@@ -863,7 +756,7 @@ function initPlayerControls() {
   if (repeatBtn) {
     updateRepeatButtonUI(repeatBtn, AudioManager.repeatMode);
   }
-  
+
   if (repeatBtn) {
     updateRepeatButtonUI(repeatBtn, AudioManager.repeatMode);
   }
@@ -1142,13 +1035,13 @@ function updatePlaylistUI() {
 function renderPlaylist() {
   const container = document.querySelector(".playlist-tracks");
   if (!container) {
-    console.warn('⚠️ playlist-tracks container not found');
+    console.warn("⚠️ playlist-tracks container not found");
     return;
   }
 
   // ✨ AudioManager.playlist 사용 (동적으로 추가된 곡들 포함)
-  const playlistToRender = AudioManager.playlist.length > 0 ? AudioManager.playlist : playlist;
-  
+  const playlistToRender =
+    AudioManager.playlist.length > 0 ? AudioManager.playlist : playlist;
 
   container.innerHTML = playlistToRender
     .map(
@@ -1179,7 +1072,6 @@ function renderPlaylist() {
       playTrack(index);
     });
   });
-  
 }
 
 function playTrack(index) {
@@ -1222,7 +1114,7 @@ window.showWhoIAmMusicControl = function () {
       ease: "power2.out",
       delay: 0.5,
     });
-    
+
     // 🎯 패널을 다시 열 때 현재 재생 상태에 맞춰 아이콘 업데이트
     const playIcon = document.getElementById("playIcon");
     const pauseIcon = document.getElementById("pauseIcon");
@@ -1236,7 +1128,7 @@ window.showWhoIAmMusicControl = function () {
       }
     }
   }
-  
+
   // 🔧 초기화는 한 번만 수행
   if (!isWhoIAmMusicControlInitialized) {
     initWhoIAmMusicControl();
@@ -1258,7 +1150,7 @@ window.hideWhoIAmMusicControl = function () {
 };
 
 // 🎯 페이지 로드 시 WHO I AM Music Control 초기화
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // WHO I AM 패널이 열려있지 않아도 미리 초기화
   // 이렇게 하면 패널을 처음 열 때도 바로 작동합니다
   setTimeout(() => {

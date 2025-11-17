@@ -1,16 +1,16 @@
 /**
- * 🎵 Movement II - Crescendo Section (v5 - 슬라이더 완벽 수정)
+ * 🎵 Movement II - Crescendo Section
  * ✅ 썸네일 클릭 → 음악 재생 연동
  * ✅ Comparison Slider 가운데(50%)에서 시작
  * ✅ 슬라이더 전체 범위 자유롭게 이동 가능
  * ✅ 썸네일 변경 시 50%로 리셋
  * ✅ 왼쪽 흑백, 오른쪽 컬러
+ * ✅ 카테고리 기능 제거 (15개 이미지 모두 표시)
  */
 
 class CrescendoSection {
   constructor() {
     this.initialized = false;
-    this.currentCategory = "all";
     this.currentImageIndex = 0;
     this.isDragging = false;
     this.sliderPosition = 50;
@@ -62,7 +62,6 @@ class CrescendoSection {
   cacheElements() {
     this.elements = {
       section: document.querySelector(".movement-crescendo"),
-      categoryBtns: document.querySelectorAll(".category-btn"),
       thumbnails: document.querySelectorAll(".thumbnail-item"),
       thumbnailContainer: document.getElementById("thumbnails-container"),
       mainImages: document.querySelectorAll(".main-image"),
@@ -166,15 +165,6 @@ class CrescendoSection {
         sensitivity: 1,
         releaseOnEdges: true,
       },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-        dynamicBullets: true,
-      },
       breakpoints: {
         320: {
           spaceBetween: 15,
@@ -193,13 +183,6 @@ class CrescendoSection {
    * 이벤트 리스너 설정
    */
   setupEventListeners() {
-    // 카테고리 버튼 이벤트
-    this.elements.categoryBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        this.filterByCategory(btn.dataset.category);
-      });
-    });
-
     // ⭐ 썸네일 클릭 → 음악 재생 연동
     this.elements.thumbnails.forEach((thumb, index) => {
       thumb.addEventListener("click", (e) => {
@@ -301,7 +284,7 @@ class CrescendoSection {
   }
 
   /**
-   * ✅ Before/After 슬라이더 이벤트 설정 (개선된 버전)
+   * ✅ Before/After 슬라이더 이벤트 설정
    */
   setupSliderEvents() {
     const slider = this.elements.slider;
@@ -320,29 +303,29 @@ class CrescendoSection {
       this.updateSliderPosition(clientX);
     };
 
-    const endDrag = () => {
-      if (this.isDragging) {
-        this.isDragging = false;
-        container.style.cursor = "crosshair";
-        document.body.style.userSelect = "";
-      }
+    const onDrag = (clientX) => {
+      if (!this.isDragging) return;
+      this.updateSliderPosition(clientX);
     };
 
-    const onDrag = (clientX) => {
-      if (this.isDragging) {
-        this.updateSliderPosition(clientX);
-      }
+    const endDrag = () => {
+      if (!this.isDragging) return;
+      this.isDragging = false;
+      container.style.cursor = "crosshair";
+      document.body.style.userSelect = "";
     };
 
     // 마우스 이벤트
     slider.addEventListener("mousedown", (e) => {
       e.preventDefault();
-      e.stopPropagation();
       startDrag(e.clientX);
     });
 
     document.addEventListener("mousemove", (e) => {
-      onDrag(e.clientX);
+      if (this.isDragging) {
+        e.preventDefault();
+        onDrag(e.clientX);
+      }
     });
 
     document.addEventListener("mouseup", endDrag);
@@ -351,9 +334,8 @@ class CrescendoSection {
     slider.addEventListener(
       "touchstart",
       (e) => {
-        e.preventDefault();
-        e.stopPropagation();
         if (e.touches.length > 0) {
+          e.preventDefault();
           startDrag(e.touches[0].clientX);
         }
       },
@@ -385,7 +367,7 @@ class CrescendoSection {
   }
 
   /**
-   * ✅ 슬라이더 위치 업데이트 (개선된 계산)
+   * ✅ 슬라이더 위치 업데이트
    * 왼쪽 = 흑백, 오른쪽 = 컬러
    */
   updateSliderPosition(clientX) {
@@ -401,55 +383,6 @@ class CrescendoSection {
 
     // 시각적 업데이트
     this.updateSliderVisual(position);
-  }
-
-  /**
-   * 카테고리 필터링
-   */
-  filterByCategory(category) {
-    this.currentCategory = category;
-
-    this.elements.categoryBtns.forEach((btn) => {
-      if (btn.dataset.category === category) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-
-    let visibleCount = 0;
-    if (this.swiperInstance) {
-      this.swiperInstance.slides.forEach((slide) => {
-        const thumb = slide.querySelector(".thumbnail-item");
-        if (!thumb) return;
-
-        const thumbCategory = thumb.dataset.category;
-        const shouldShow = category === "all" || thumbCategory === category;
-
-        if (shouldShow) {
-          slide.style.display = "";
-          thumb.classList.remove("hidden");
-          visibleCount++;
-        } else {
-          slide.style.display = "none";
-          thumb.classList.add("hidden");
-        }
-      });
-
-      this.swiperInstance.update();
-    } else {
-      this.elements.thumbnails.forEach((thumb) => {
-        const thumbCategory = thumb.dataset.category;
-        const shouldShow = category === "all" || thumbCategory === category;
-
-        if (shouldShow) {
-          thumb.classList.remove("hidden");
-          visibleCount++;
-        } else {
-          thumb.classList.add("hidden");
-        }
-      });
-    }
   }
 
   /**
@@ -542,19 +475,6 @@ class CrescendoSection {
       ease: "power3.out",
     });
 
-    gsap.from(".category-btn", {
-      scrollTrigger: {
-        trigger: ".crescendo-categories",
-        start: "top 80%",
-        toggleActions: "play none none reverse",
-      },
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: "power2.out",
-    });
-
     gsap.from(".crescendo-main-viewer", {
       scrollTrigger: {
         trigger: ".crescendo-main-viewer",
@@ -617,10 +537,7 @@ class CrescendoSection {
    * 이미지 네비게이션
    */
   navigateImages(direction) {
-    const visibleThumbs = Array.from(this.elements.thumbnails).filter(
-      (t) => !t.classList.contains("hidden")
-    );
-
+    const visibleThumbs = Array.from(this.elements.thumbnails);
     const currentIndex = visibleThumbs.findIndex((t) =>
       t.classList.contains("active")
     );

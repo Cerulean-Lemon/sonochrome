@@ -13,7 +13,7 @@ const totalCards = cards.length;
 // 모든 카드와 stage에도 커서 숨기기 적용
 const stage = document.querySelector("#stage");
 if (stage) stage.style.cursor = "none";
-cards.forEach(card => {
+cards.forEach((card) => {
   card.style.cursor = "none";
   const img = card.querySelector("img");
   if (img) img.style.cursor = "none";
@@ -189,12 +189,12 @@ cards.forEach((card, index) => {
                 if (typeof initWaterEffect === "function") {
                   initWaterEffect();
                 }
-                
+
                 // ✨ 커서 효과 초기화 (인트로 완료 후)
                 if (typeof initArrowCursor === "function") {
                   initArrowCursor();
                 }
-                
+
                 if (typeof initCursorTrail === "function") {
                   initCursorTrail();
                 }

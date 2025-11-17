@@ -1,98 +1,187 @@
 /**
  * 🎵 Crescendo Section - Music Data
- * 크레센도 섹션 썸네일과 음악 매칭 데이터
+ * 크레센도 섹션 썸네일과 음악 매칭 데이터 (15곡)
  */
 
 const crescendoMusicData = {
-  // Portrait 카테고리
-  "crescendo-portrait-1.mp3": {
+  // Track 1
+  "crescendo-1.mp3": {
     id: "crescendo_1",
-    title: "도시의 초상",
-    artist: "SONOCHROME",
+    title: "Golden Time",
+    artist: "25.05.28",
     album: "Movement II: 크레센도",
-    duration: "3:24",
-    file: "music/Rose-Blossom.mp3",
+    duration: "3:29",
+    file: "music/golden-hour.mp3",
     thumbnail: "images/crescendo-section1.jpg",
-    description: "도시의 빛과 그림자가 만들어내는 초상",
+    description: "",
   },
 
-  "crescendo-portrait-2.mp3": {
-    id: "crescendo_4",
-    title: "내면의 풍경",
-    artist: "SONOCHROME",
-    album: "Movement II: 크레센도",
-    duration: "4:12",
-    file: "music/crescendo-portrait-2.mp3",
-    thumbnail: "images/work2-4.jpg",
-    description: "내면 깊은 곳의 풍경을 그린 음악",
-  },
-
-  // Landscape 카테고리
-  "crescendo-landscape-1.mp3": {
+  // Track 2
+  "crescendo-2.mp3": {
     id: "crescendo_2",
-    title: "지평선 너머",
-    artist: "SONOCHROME",
+    title: "Golden Hour",
+    artist: "24.05.04",
     album: "Movement II: 크레센도",
-    duration: "5:18",
-    file: "music/crescendo-landscape-1.mp3",
-    thumbnail: "images/work2-2.jpg",
-    description: "무한한 공간을 향한 여정",
+    duration: "2:47",
+    file: "music/eight.mp3",
+    thumbnail: "images/crescendo-section2.jpg",
+    description: "",
   },
 
-  "crescendo-landscape-2.mp3": {
-    id: "crescendo_5",
-    title: "새벽의 서곡",
-    artist: "SONOCHROME",
-    album: "Movement II: 크레센도",
-    duration: "4:45",
-    file: "music/crescendo-landscape-2.mp3",
-    thumbnail: "images/work2-5.jpg",
-    description: "새벽의 첫 빛이 가져오는 희망",
-  },
-
-  // Snapshot 카테고리
-  "crescendo-snapshot-1.mp3": {
+  // Track 3
+  "crescendo-3.mp3": {
     id: "crescendo_3",
-    title: "순간의 포착",
-    artist: "SONOCHROME",
+    title: "어느 60대 노부부 이야기",
+    artist: "25.08.12",
     album: "Movement II: 크레센도",
-    duration: "2:58",
-    file: "music/crescendo-snapshot-1.mp3",
-    thumbnail: "images/work2-3.jpg",
-    description: "찰나의 순간을 기록하다",
+    duration: "4:30",
+    file: "music/oldcouple.mp3",
+    thumbnail: "images/crescendo-section3.jpg",
+    description: "",
   },
 
-  "crescendo-snapshot-2.mp3": {
+  // Track 4
+  "crescendo-4.mp3": {
+    id: "crescendo_4",
+    title: "흰수염고래",
+    artist: "24.06.08",
+    album: "Movement II: 크레센도",
+    duration: "4:39",
+    file: "music/whale.mp3",
+    thumbnail: "images/crescendo-section4.jpg",
+    description: "",
+  },
+
+  // Track 5
+  "crescendo-5.mp3": {
+    id: "crescendo_5",
+    title: "봄날, 벚꽃 그리고 너",
+    artist: "25.04.11",
+    album: "Movement II: 크레센도",
+    duration: "3:49",
+    file: "music/cherry.mp3",
+    thumbnail: "images/crescendo-section5.jpg",
+    description: "",
+  },
+
+  // Track 6
+  "crescendo-6.mp3": {
     id: "crescendo_6",
-    title: "시간의 조각",
-    artist: "SONOCHROME",
+    title: "카놀라",
+    artist: "25.03.14",
     album: "Movement II: 크레센도",
-    duration: "3:36",
-    file: "music/crescendo-snapshot-2.mp3",
-    thumbnail: "images/work2-6.jpg",
-    description: "시간 속에 남겨진 감정의 조각",
+    duration: "3:18",
+    file: "music/may.mp3",
+    thumbnail: "images/crescendo-section6.jpg",
+    description: "",
   },
 
-  "crescendo-snapshot-3.mp3": {
+  // Track 7
+  "crescendo-7.mp3": {
     id: "crescendo_7",
-    title: "색의 폭발",
-    artist: "SONOCHROME",
+    title: "나무처럼",
+    artist: "24.09.04",
     album: "Movement II: 크레센도",
-    duration: "4:02",
-    file: "music/crescendo-snapshot-3.mp3",
-    thumbnail: "images/work2-7.jpg",
-    description: "흑백에서 컬러로의 극적인 전환",
+    duration: "4:10",
+    file: "music/hilltree.mp3",
+    thumbnail: "images/crescendo-section7.jpg",
+    description: "",
   },
 
-  "crescendo-snapshot-4.mp3": {
+  // Track 8
+  "crescendo-8.mp3": {
     id: "crescendo_8",
-    title: "에너지의 흐름",
-    artist: "SONOCHROME",
+    title: "물에 가라앉으려나",
+    artist: "24.09.04",
     album: "Movement II: 크레센도",
     duration: "3:48",
-    file: "music/crescendo-snapshot-4.mp3",
-    thumbnail: "images/work2-8.jpg",
-    description: "점점 강해지는 감정의 파도",
+    file: "music/forest.mp3",
+    thumbnail: "images/crescendo-section8.jpg",
+    description: "",
+  },
+
+  // Track 9
+  "crescendo-9.mp3": {
+    id: "crescendo_9",
+    title: "썬탠 중",
+    artist: "24.01.27",
+    album: "Movement II: 크레센도",
+    duration: "4:07",
+    file: "music/Fallen-Leaves.mp3",
+    thumbnail: "images/crescendo-section9.jpg",
+    description: "",
+  },
+
+  // Track 10
+  "crescendo-10.mp3": {
+    id: "crescendo_10",
+    title: "단풍이야기",
+    artist: "25.11.06",
+    album: "Movement II: 크레센도",
+    duration: "6:17",
+    file: "music/maple.mp3",
+    thumbnail: "images/crescendo-section10.jpg",
+    description: "",
+  },
+
+  // Track 11
+  "crescendo-11.mp3": {
+    id: "crescendo_11",
+    title: "호라이즌",
+    artist: "24.01.12",
+    album: "Movement II: 크레센도",
+    duration: "2:35",
+    file: "music/crescendo-portrait-2.mp3",
+    thumbnail: "images/crescendo-section11.jpg",
+    description: "",
+  },
+
+  // Track 12
+  "crescendo-12.mp3": {
+    id: "crescendo_12",
+    title: "꽃눈",
+    artist: "23.12.30",
+    album: "Movement II: 크레센도",
+    duration: "3:17",
+    file: "music/A Winter Story.mp3",
+    thumbnail: "images/crescendo-section12.jpg",
+    description: "",
+  },
+
+  // Track 13
+  "crescendo-13.mp3": {
+    id: "crescendo_13",
+    title: "Nostalgia",
+    artist: "25.06.19",
+    album: "Movement II: 크레센도",
+    duration: "4:24",
+    file: "music/hyehwa.mp3",
+    thumbnail: "images/crescendo-section13.jpg",
+    description: "",
+  },
+
+  // Track 14
+  "crescendo-14.mp3": {
+    id: "crescendo_14",
+    title: "골목길",
+    artist: "25.09.26",
+    album: "Movement II: 크레센도",
+    duration: "4:00",
+    file: "music/alley.mp3",
+    thumbnail: "images/crescendo-section14.jpg",
+    description: "",
+  },
+
+  // Track 15
+  "crescendo-15.mp3": {
+    id: "crescendo_15",
+    title: "Print",
+    artist: "25.08.12",
+    album: "Movement II: 크레센도",
+    duration: "3:25",
+    file: "music/poeta.mp3",
+    thumbnail: "images/crescendo-section15.jpg",
+    description: "",
   },
 };
 

@@ -32,7 +32,37 @@
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
     />
-    <link rel="stylesheet" href="intro-cursor-hide.css" />
+    <!-- 인트로 중 커서 숨기기 스타일 -->
+    <style>
+      /* 인트로 진행 중 커서 효과 숨기기 */
+      body.intro-active .curzr {
+        display: none !important;
+      }
+
+      body.intro-active #trail-canvas {
+        display: none !important;
+      }
+
+      /* 커서 초기 상태를 숨김으로 설정 */
+      .curzr {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      #trail-canvas {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      /* 인트로가 끝나면 표시 */
+      body:not(.intro-active) .curzr {
+        opacity: 1;
+      }
+
+      body:not(.intro-active) #trail-canvas {
+        opacity: 1;
+      }
+    </style>
     <link rel="stylesheet" href="css/root.css" />
     <!-- Swiper CSS -->
     <link
@@ -71,7 +101,7 @@
           <img src="images/snapshot4.jpg" alt="Image 2" />
         </div>
         <div class="card">
-          <img src="images/landscape1.jpg" alt="Image 3" />
+          <img src="images/crescendo-section2.jpg" alt="Image 3" />
         </div>
         <div class="card">
           <img src="images/snapshot17.jpg" alt="Image 4" />
@@ -250,20 +280,14 @@
          🎵 WORKS SECTION - 15개 카드로 확장
          ============================================ -->
     <section id="works">
-      <!-- Section Header -->
-      <div class="works-header">
-        <h1 class="works-title">WORKS</h1>
-        <p class="works-subtitle">사진과 음악이 만나 완성된 시청각 여정</p>
-      </div>
-
       <!-- Movement I: 정적 (Static) - Blur 효과 적용 -->
-      <div class="movement-section movement-static">
+      <div class="movement-section movement-works">
         <div class="movement-header">
-          <span class="movement-label">Movement I</span>
-          <h2 class="movement-title">정적 靜寂</h2>
+          <span class="movement-label">Movement I 정적</span>
+          <h2 class="movement-title">Stillness</h2>
           <p class="movement-description">
-            고요함 속에서 시작되는 이야기.<br />
-            침묵의 순간들이 만들어내는 깊은 울림.
+            소리 없는 순간들이 남긴 울림<br />
+            고요 속에 담아낸 빛의 언어
           </p>
         </div>
 
@@ -482,27 +506,15 @@
       </div>
     </section>
 
-    <!-- ============================================
-         🎵 MOVEMENT II: CRESCENDO - 2악장 크레센도
-         ============================================ -->
+    <!-- 🎵 Movement II - Crescendo Section (카테고리 제거, 15개 이미지) -->
     <div class="movement-section movement-crescendo" id="movement-crescendo">
       <div class="movement-header">
-        <span class="movement-label">Movement II</span>
-        <h2 class="movement-title">크레센도 漸强</h2>
+        <span class="movement-label">Movement II 크레센도</span>
+        <h2 class="movement-title">Crescendo</h2>
         <p class="movement-description">
-          흑백에서 컬러로, 고요에서 폭발로.<br />
-          점점 강해지는 감정의 파도를 느껴보세요.
+          흑백에서 컬러로, 정적에서 동적으로<br />
+          점진적으로 강해지는 감정의 고조
         </p>
-      </div>
-
-      <!-- 카테고리 필터 버튼들 -->
-      <div class="crescendo-categories">
-        <button class="category-btn active" data-category="all">ALL</button>
-        <button class="category-btn" data-category="portrait">Portrait</button>
-        <button class="category-btn" data-category="landscape">
-          Landscape
-        </button>
-        <button class="category-btn" data-category="snapshot">Snapshot</button>
       </div>
 
       <!-- 메인 이미지 뷰어 (Before/After 효과) -->
@@ -535,184 +547,456 @@
               </svg>
             </div>
           </div>
+
+          <!-- 현재 트랙 정보 -->
+          <div class="current-track-info">
+            <div class="track-title">Golden Time</div>
+            <div class="track-artist">SONOCHROME</div>
+          </div>
         </div>
       </div>
 
-      <!-- 썸네일 갤러리 (Swiper 슬라이더) -->
+      <!-- 썸네일 갤러리 (Swiper 슬라이더) - 15개 이미지 -->
       <div class="crescendo-thumbnails">
         <div class="thumbnails-container swiper" id="thumbnails-container">
           <div class="swiper-wrapper">
-            <!-- Portrait 1 -->
+            <!-- 썸네일 1 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="portrait"
                 data-image="images/crescendo-section1.jpg"
-                data-title="Golden-Time"
+                data-title="Golden Time"
                 data-subtitle="SONOCHROME"
-                data-music="crescendo-portrait-1.mp3"
+                data-music="crescendo-1.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/crescendo-section1.jpg" alt="" />
+                  <img src="images/crescendo-section1.jpg" alt="Golden Time" />
                 </div>
                 <div class="thumbnail-info">
                   <h4>Golden Time</h4>
-                  <span>3:24</span>
+                  <span>25.05.28</span>
                 </div>
               </div>
             </div>
 
-            <!-- Landscape 1 -->
+            <!-- 썸네일 2 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="landscape"
-                data-image="images/work2-2.jpg"
-                data-title="지평선 너머"
+                data-image="images/crescendo-section2.jpg"
+                data-title="Golden Hour"
                 data-subtitle="SONOCHROME"
-                data-music="crescendo-landscape-1.mp3"
+                data-music="crescendo-2.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/work2-2.jpg" alt="지평선 너머" />
+                  <img src="images/crescendo-section2.jpg" alt="Golden Hour" />
                 </div>
                 <div class="thumbnail-info">
-                  <h4>지평선 너머</h4>
-                  <span>5:18</span>
+                  <h4>Golden Hour</h4>
+                  <span>24.05.04</span>
                 </div>
               </div>
             </div>
 
-            <!-- Snapshot 1 -->
+            <!-- 썸네일 3 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="snapshot"
-                data-image="images/work2-3.jpg"
-                data-title="순간의 포착"
-                data-subtitle="SONOCHROME"
-                data-music="crescendo-snapshot-1.mp3"
+                data-image="images/crescendo-section3.jpg"
+                data-title="어느 60대 노부부 이야기"
+                data-subtitle="25.08.12 김광석 거리"
+                data-music="crescendo-3.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/work2-3.jpg" alt="순간의 포착" />
+                  <img
+                    src="images/crescendo-section3.jpg"
+                    alt="어느 60대 노부부 이야기"
+                  />
                 </div>
                 <div class="thumbnail-info">
-                  <h4>순간의 포착</h4>
-                  <span>2:58</span>
+                  <h4>어느 60대 노부부 이야기</h4>
+                  <span>25.08.12</span>
                 </div>
               </div>
             </div>
 
-            <!-- Portrait 2 -->
+            <!-- 썸네일 4 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="portrait"
-                data-image="images/work2-4.jpg"
-                data-title="내면의 풍경"
-                data-subtitle="SONOCHROME"
-                data-music="crescendo-portrait-2.mp3"
+                data-image="images/crescendo-section4.jpg"
+                data-title="흰수염고래"
+                data-subtitle="24.06.08"
+                data-music="crescendo-4.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/work2-4.jpg" alt="내면의 풍경" />
+                  <img src="images/crescendo-section4.jpg" alt="흰수염고래" />
                 </div>
                 <div class="thumbnail-info">
-                  <h4>내면의 풍경</h4>
-                  <span>4:12</span>
+                  <h4>흰수염고래</h4>
+                  <span>24.06.08</span>
                 </div>
               </div>
             </div>
 
-            <!-- Landscape 2 -->
+            <!-- 썸네일 5 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="landscape"
-                data-image="images/work2-5.jpg"
-                data-title="새벽의 서곡"
-                data-subtitle="SONOCHROME"
-                data-music="crescendo-landscape-2.mp3"
+                data-image="images/crescendo-section5.jpg"
+                data-title="봄날, 벚꽃 그리고 너"
+                data-subtitle="25.04.11"
+                data-music="crescendo-5.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/work2-5.jpg" alt="새벽의 서곡" />
+                  <img
+                    src="images/crescendo-section5.jpg"
+                    alt="봄날, 벚꽃 그리고 너"
+                  />
                 </div>
                 <div class="thumbnail-info">
-                  <h4>새벽의 서곡</h4>
-                  <span>4:45</span>
+                  <h4>봄날, 벚꽃 그리고 너</h4>
+                  <span>25.04.11</span>
                 </div>
               </div>
             </div>
 
-            <!-- Snapshot 2 -->
+            <!-- 썸네일 6 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="snapshot"
-                data-image="images/work2-6.jpg"
-                data-title="시간의 조각"
-                data-subtitle="SONOCHROME"
-                data-music="crescendo-snapshot-2.mp3"
+                data-image="images/crescendo-section6.jpg"
+                data-title="카놀라"
+                data-subtitle="25.03.14"
+                data-music="crescendo-6.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/work2-6.jpg" alt="시간의 조각" />
+                  <img src="images/crescendo-section6.jpg" alt="카놀라" />
                 </div>
                 <div class="thumbnail-info">
-                  <h4>시간의 조각</h4>
-                  <span>3:36</span>
+                  <h4>카놀라</h4>
+                  <span>25.03.14</span>
                 </div>
               </div>
             </div>
 
-            <!-- Snapshot 3 -->
+            <!-- 썸네일 7 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="snapshot"
-                data-image="images/work2-7.jpg"
-                data-title="색의 폭발"
-                data-subtitle="SONOCHROME"
-                data-music="crescendo-snapshot-3.mp3"
+                data-image="images/crescendo-section7.jpg"
+                data-title="나무처럼"
+                data-subtitle="24.09.04"
+                data-music="crescendo-7.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/work2-7.jpg" alt="색의 폭발" />
+                  <img src="images/crescendo-section7.jpg" alt="나무처럼" />
                 </div>
                 <div class="thumbnail-info">
-                  <h4>색의 폭발</h4>
-                  <span>4:02</span>
+                  <h4>나무처럼</h4>
+                  <span>24.09.04</span>
                 </div>
               </div>
             </div>
 
-            <!-- Snapshot 4 -->
+            <!-- 썸네일 8 -->
             <div class="swiper-slide">
               <div
                 class="thumbnail-item"
-                data-category="snapshot"
-                data-image="images/work2-8.jpg"
-                data-title="에너지의 흐름"
-                data-subtitle="SONOCHROME"
-                data-music="crescendo-snapshot-4.mp3"
+                data-image="images/crescendo-section8.jpg"
+                data-title="물에 가라앉으려나"
+                data-subtitle="24.09.04"
+                data-music="crescendo-8.mp3"
               >
                 <div class="thumbnail-image">
-                  <img src="images/work2-8.jpg" alt="에너지의 흐름" />
+                  <img
+                    src="images/crescendo-section8.jpg"
+                    alt="물에 가라앉으려나"
+                  />
                 </div>
                 <div class="thumbnail-info">
-                  <h4>에너지의 흐름</h4>
-                  <span>3:48</span>
+                  <h4>물에 가라앉으려나</h4>
+                  <span>24.09.04</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 썸네일 9 -->
+            <div class="swiper-slide">
+              <div
+                class="thumbnail-item"
+                data-image="images/crescendo-section9.jpg"
+                data-title="썬탠 중"
+                data-subtitle="24.01.06"
+                data-music="crescendo-9.mp3"
+              >
+                <div class="thumbnail-image">
+                  <img src="images/crescendo-section9.jpg" alt="썬탠 중" />
+                </div>
+                <div class="thumbnail-info">
+                  <h4>썬탠 중</h4>
+                  <span>24.01.06</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 썸네일 10 -->
+            <div class="swiper-slide">
+              <div
+                class="thumbnail-item"
+                data-image="images/crescendo-section10.jpg"
+                data-title="단풍이야기"
+                data-subtitle="25.11.06"
+                data-music="crescendo-10.mp3"
+              >
+                <div class="thumbnail-image">
+                  <img src="images/crescendo-section10.jpg" alt="단풍이야기" />
+                </div>
+                <div class="thumbnail-info">
+                  <h4>단풍이야기</h4>
+                  <span>25.11.06</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 썸네일 11 -->
+            <div class="swiper-slide">
+              <div
+                class="thumbnail-item"
+                data-image="images/crescendo-section11.jpg"
+                data-title="호라이즌"
+                data-subtitle="24.01.12"
+                data-music="crescendo-11.mp3"
+              >
+                <div class="thumbnail-image">
+                  <img src="images/crescendo-section11.jpg" alt="호라이즌" />
+                </div>
+                <div class="thumbnail-info">
+                  <h4>호라이즌</h4>
+                  <span>24.01.12</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 썸네일 12 -->
+            <div class="swiper-slide">
+              <div
+                class="thumbnail-item"
+                data-image="images/crescendo-section12.jpg"
+                data-title="꽃눈"
+                data-subtitle="23.12.30"
+                data-music="crescendo-12.mp3"
+              >
+                <div class="thumbnail-image">
+                  <img
+                    src="images/crescendo-section12.jpg"
+                    alt="감정의 스펙트럼"
+                  />
+                </div>
+                <div class="thumbnail-info">
+                  <h4>꽃눈</h4>
+                  <span>23.12.30</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 썸네일 13 -->
+            <div class="swiper-slide">
+              <div
+                class="thumbnail-item"
+                data-image="images/crescendo-section13.jpg"
+                data-title="Nostalgia"
+                data-subtitle="25.06.19"
+                data-music="crescendo-13.mp3"
+              >
+                <div class="thumbnail-image">
+                  <img src="images/crescendo-section13.jpg" alt="Nostalgia" />
+                </div>
+                <div class="thumbnail-info">
+                  <h4>Nostalgia</h4>
+                  <span>25.06.19</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 썸네일 14 -->
+            <div class="swiper-slide">
+              <div
+                class="thumbnail-item"
+                data-image="images/crescendo-section14.jpg"
+                data-title="골목길"
+                data-subtitle="25.09.26"
+                data-music="crescendo-14.mp3"
+              >
+                <div class="thumbnail-image">
+                  <img src="images/crescendo-section14.jpg" alt="골목길" />
+                </div>
+                <div class="thumbnail-info">
+                  <h4>골목길</h4>
+                  <span>25.09.26</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 썸네일 15 -->
+            <div class="swiper-slide">
+              <div
+                class="thumbnail-item"
+                data-image="images/crescendo-section15.jpg"
+                data-title="Print"
+                data-subtitle="25.08.12"
+                data-music="crescendo-15.mp3"
+              >
+                <div class="thumbnail-image">
+                  <img src="images/crescendo-section15.jpg" alt="Print" />
+                </div>
+                <div class="thumbnail-info">
+                  <h4>Print</h4>
+                  <span>25.08.12</span>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Swiper 네비게이션 버튼 -->
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-
-          <!-- Swiper 페이지네이션 -->
-          <div class="swiper-pagination"></div>
         </div>
       </div>
     </div>
 
+    <!-- 🎼 MOVEMENT III - RHAPSODY SECTION (v3.0) -->
+    <!-- 세로로 긴 스크롤 갤러리 버전 -->
+    <section id="rhapsody" class="movement-rhapsody">
+      <!-- 섹션 헤더 -->
+      <div class="rhapsody-header">
+        <span class="rhapsody-label">Movement III</span>
+        <h2 class="rhapsody-title">Rhapsody</h2>
+        <p class="rhapsody-description">
+          형식에 얽매이지 않는 자유로운 표현의 향연<br />
+          각각의 순간이 독립적이면서도 하나의 흐름으로 연결되는 시각적 즉흥곡
+        </p>
+      </div>
+
+      <!-- 스크롤 인디케이터 -->
+      <div class="rhapsody-scroll-indicator">
+        <span class="scroll-text">Scroll to Explore</span>
+        <div class="scroll-line"></div>
+      </div>
+
+      <!-- 세로로 긴 갤러리 (JS로 동적 생성 또는 직접 작성) -->
+      <div class="rhapsody-gallery-flow">
+        </div>
+      </div>
+    </section>
+    <!-- 끝 -->
+
+        <!-- Movement IV: ECHO Section -->
+    <section id="movement-echo" class="movement-echo">
+        <!-- Movement Header -->
+        <div class="movement-header">
+            <span class="movement-label">Movement IV</span>
+            <h2 class="movement-title">
+                ECHO
+                <span class="subtitle">메아리 · 反響</span>
+            </h2>
+            <p class="movement-description">
+                우리의 청춘은 메아리처럼 돌아온다<br>
+                실패해도, 도전해도, 다시 울려 퍼지는 우리들의 이야기
+            </p>
+        </div>
+
+        <!-- Echo Gallery Container -->
+        <div class="echo-gallery">
+            <!-- Infinite Scroll Track 1 -->
+            <div class="scroll-track track-1">
+                <div class="scroll-content">
+                    <!-- 사진 쉽게 추가하는 방법: img 태그를 복사해서 추가하세요 -->
+                    <!-- 가로 사진 예시 -->
+                    <div class="echo-item landscape">
+                        <img src="images/rhapsody-section18.jpg" alt="청춘의 기록">
+                    </div>
+                    <!-- 세로 사진 예시 -->
+                    <div class="echo-item portrait">
+                        <img src="images/rhapsody-section16.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-03.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-04.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-05.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-06.jpg" alt="청춘의 기록">
+                    </div>
+                    <!-- 더 많은 사진 추가 가능 -->
+                </div>
+                <!-- 무한 반복을 위한 복제본 (자동 생성됨) -->
+                <div class="scroll-content-clone"></div>
+            </div>
+
+            <!-- Infinite Scroll Track 2 (역방향) -->
+            <div class="scroll-track track-2">
+                <div class="scroll-content">
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-07.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-08.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-09.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-10.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-11.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-12.jpg" alt="청춘의 기록">
+                    </div>
+                </div>
+                <!-- 무한 반복을 위한 복제본 (자동 생성됨) -->
+                <div class="scroll-content-clone"></div>
+            </div>
+
+            <!-- Infinite Scroll Track 3 -->
+            <div class="scroll-track track-3">
+                <div class="scroll-content">
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-13.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-14.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-15.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-16.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item landscape">
+                        <img src="images/echo/friend-17.jpg" alt="청춘의 기록">
+                    </div>
+                    <div class="echo-item portrait">
+                        <img src="images/echo/friend-18.jpg" alt="청춘의 기록">
+                    </div>
+                </div>
+                <!-- 무한 반복을 위한 복제본 (자동 생성됨) -->
+                <div class="scroll-content-clone"></div>
+            </div>
+        </div>
+
+        <!-- Echo Message -->
+        <div class="echo-message">
+            <p class="echo-quote">
+                "우리의 순간들이 메아리가 되어<br>
+                시간을 넘어 계속 울려 퍼지길"
+            </p>
+        </div>
+    </section>
+
+    <!-- 컨택트섹션 -->
     <section
       id="contact"
       class="content-section"
@@ -896,7 +1180,6 @@
         <div class="playlist-content">
           <div class="playlist-panel-header">
             <h2>PLAYLIST</h2>
-            <p>다음 곡 재생목록 - 8곡</p>
           </div>
           <!-- 지금 재생 중 헤더 -->
           <div class="now-playing-header">
@@ -1074,6 +1357,10 @@
     <script src="js/lenis-scroll.js"></script>
     <script src="js/about-section.js"></script>
     <script src="js/works-section.js"></script>
+    <!-- 랩소디 섹션 -->
+    <script src="js/rhapsody-section.js"></script>
+    <script src="js/echo-section.js"></script>
+    
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

@@ -1,0 +1,331 @@
+/* ============================================
+   🎼 MOVEMENT III - RHAPSODY SECTION (v3.0)
+   세로로 긴 스크롤 기반 갤러리
+   ⭐ 헤더 스타일은 movement-headers-unified.css에서 관리
+   ============================================ */
+
+.movement-rhapsody {
+  position: relative;
+  width: 100%;
+  background: #000000;
+  overflow: hidden;
+  padding: 150px 0 100px 0;
+}
+
+/* ============================================
+   🖼️ 세로 스크롤 갤러리
+   ============================================ */
+.rhapsody-gallery-flow {
+  position: relative;
+  width: 100%;
+  padding: 0 5vw;
+}
+
+/* 각 이미지 섹션 - 충분한 높이 확보 */
+.rhapsody-item-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20vh;
+}
+
+/* 이미지 컨테이너 */
+.rhapsody-image-container {
+  position: relative;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* 홀수 이미지 - 왼쪽 배치 */
+.rhapsody-item-section:nth-child(odd) .rhapsody-image-container {
+  margin-right: auto;
+  margin-left: 10%;
+}
+
+/* 짝수 이미지 - 오른쪽 배치 */
+.rhapsody-item-section:nth-child(even) .rhapsody-image-container {
+  margin-left: auto;
+  margin-right: 10%;
+}
+
+/* 3번째마다 중앙 배치 */
+.rhapsody-item-section:nth-child(3n) .rhapsody-image-container {
+  margin: 0 auto;
+}
+
+/* ============================================
+   🎨 이미지 크기 - 원본 비율 유지 (rem, vw, vh)
+   ============================================ */
+
+/* Small - 50vw 기준 */
+.rhapsody-image-container.size-small {
+  max-width: clamp(25rem, 50vw, 40.625rem);
+  max-height: 80vh;
+}
+
+.rhapsody-image-container.size-small .rhapsody-image-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+/* Medium - 60vw 기준 (정사각형으로 변경!) */
+.rhapsody-image-container.size-medium {
+  width: clamp(31.25rem, 60vw, 50rem);
+  height: clamp(31.25rem, 60vw, 50rem);
+  max-height: 85vh;
+}
+
+.rhapsody-image-container.size-medium .rhapsody-image-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+/* Large - 70vw 기준 */
+.rhapsody-image-container.size-large {
+  max-width: clamp(37.5rem, 70vw, 82.5rem);
+  max-height: 90vh;
+}
+
+.rhapsody-image-container.size-large .rhapsody-image-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+/* Wide - 85vw 기준 */
+.rhapsody-image-container.size-wide {
+  max-width: clamp(43.75rem, 85vw, 80rem);
+  max-height: 75vh;
+}
+
+.rhapsody-image-container.size-wide .rhapsody-image-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+/* Tall - 55vw 기준 */
+.rhapsody-image-container.size-tall {
+  max-width: clamp(28.125rem, 55vw, 43.75rem);
+  max-height: 95vh;
+}
+
+.rhapsody-image-container.size-tall .rhapsody-image-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   🌊 이미지 스타일
+   ============================================ */
+.rhapsody-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.rhapsody-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 호버 효과 - 부드러운 확대만 */
+.rhapsody-image-container:hover .rhapsody-image-wrap img {
+  transform: scale(1.03);
+}
+
+/* ============================================
+   🎭 이미지 정보 오버레이
+   ============================================ */
+.rhapsody-image-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(1.25rem, 3vw, 1.875rem);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.6) 60%,
+    transparent 100%
+  );
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rhapsody-image-container:hover .rhapsody-image-info {
+  transform: translateY(0);
+}
+
+.rhapsody-image-info h4 {
+  font-family: "Pretendard Variable", sans-serif;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease 0.1s;
+}
+
+.rhapsody-image-info span {
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease 0.2s;
+}
+
+.rhapsody-image-container:hover .rhapsody-image-info h4,
+.rhapsody-image-container:hover .rhapsody-image-info span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   🚀 스크롤 애니메이션 - 초기 상태
+   ============================================ */
+
+/* 기본 숨김 상태 - GSAP이 제어함 */
+.rhapsody-image-container {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* ============================================
+   🌟 추가 효과들
+   ============================================ */
+
+/* 부가 텍스트 요소 */
+.rhapsody-item-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.1);
+  font-size: clamp(3rem, 8vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
+
+.rhapsody-item-section:nth-child(odd) .rhapsody-item-text {
+  right: 10%;
+}
+
+.rhapsody-item-section:nth-child(even) .rhapsody-item-text {
+  left: 10%;
+}
+
+.rhapsody-item-text.is-visible {
+  opacity: 1;
+}
+
+/* ============================================
+   📱 반응형
+   ============================================ */
+@media (max-width: 1024px) {
+  .rhapsody-item-section {
+    min-height: 80vh;
+    margin-bottom: 15vh;
+  }
+
+  .rhapsody-image-container.size-small,
+  .rhapsody-image-container.size-medium,
+  .rhapsody-image-container.size-large,
+  .rhapsody-image-container.size-wide,
+  .rhapsody-image-container.size-tall {
+    max-width: clamp(18.75rem, 65vw, 43.75rem);
+    max-height: 70vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .rhapsody-gallery-flow {
+    padding: 0 3vw;
+  }
+
+  .rhapsody-item-section {
+    min-height: 70vh;
+    margin-bottom: 12vh;
+  }
+
+  /* 모바일에서는 중앙 정렬 */
+  .rhapsody-item-section:nth-child(odd) .rhapsody-image-container,
+  .rhapsody-item-section:nth-child(even) .rhapsody-image-container,
+  .rhapsody-item-section:nth-child(3n) .rhapsody-image-container {
+    margin: 0 auto;
+  }
+
+  .rhapsody-image-container.size-small,
+  .rhapsody-image-container.size-medium,
+  .rhapsody-image-container.size-large,
+  .rhapsody-image-container.size-wide,
+  .rhapsody-image-container.size-tall {
+    max-width: clamp(17.5rem, 85vw, 37.5rem);
+    max-height: 65vh;
+  }
+
+  .rhapsody-item-text {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .rhapsody-item-section {
+    min-height: 60vh;
+    margin-bottom: 8vh;
+  }
+
+  .rhapsody-image-container.size-small,
+  .rhapsody-image-container.size-medium,
+  .rhapsody-image-container.size-large,
+  .rhapsody-image-container.size-wide,
+  .rhapsody-image-container.size-tall {
+    max-width: clamp(16.25rem, 90vw, 31.25rem);
+    max-height: 60vh;
+  }
+
+  .rhapsody-image-info {
+    padding: clamp(0.9375rem, 2.5vw, 1.25rem);
+  }
+
+  .rhapsody-image-info h4 {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+  }
+}
+
+/* ============================================
+   ⚡ 성능 최적화
+   ============================================ */
+.rhapsody-image-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.rhapsody-image-wrap img {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rhapsody-image-container,
+  .rhapsody-image-wrap img {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
