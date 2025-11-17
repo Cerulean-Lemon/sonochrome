@@ -179,7 +179,7 @@ const crescendoMusicData = {
     artist: "25.08.12",
     album: "Movement II: 크레센도",
     duration: "3:25",
-    file: "music/poeta.mp3",
+    file: "music/Poeta.mp3",
     thumbnail: "images/crescendo-section15.jpg",
     description: "",
   },
